@@ -6,13 +6,9 @@ import EditPage from './components/EditPage';
 import PreviewPage from './components/Preview';
 import LoginPage from './components/LoginPage';
 
-
-
-function App() {
-  const startEdit = () => {
-    console.log("edit 시작");
-  };
+const App = () => {
   return (
+
     <div className="App">
       {/* 기타 앱의 구성 요소 */}
       <Routes>
@@ -22,7 +18,8 @@ function App() {
         <Route path="/edit/preview" element={<PreviewPage />} />
       </Routes>
     </div>
+
   );
-}
+};
 
 export default App;

@@ -13,6 +13,7 @@ const HomePage = () => {
 
   };
 
+
   return (
     <main className="App-body">
       <h1>How was your day?</h1>

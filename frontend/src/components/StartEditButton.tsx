@@ -1,16 +1,14 @@
 import React from 'react';
 
-
 type StartEditButtonProps = {
-    label : string;
+    label: string;
+    onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export const StartEditButton : React.FC<StartEditButtonProps> = ({label}) => {
+export const StartEditButton: React.FC<StartEditButtonProps> = ({ label, onClick }) => {
   return (
     <div>
-      <button>{label}</button>
+      <button onClick={onClick}>{label}</button>
     </div>
   );
 };
-
-
