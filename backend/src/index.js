@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRoutes = require('./api/routes/userRoutes'); // 사용자 정의 라우트
 const errorHandler = require('./api/middlewares/errorMiddleware'); // 에러 핸들링 미들웨어
+const config = require('./config'); // 설정 파일 로드
 
 const app = express();
 
@@ -20,7 +21,7 @@ app.use(errorHandler);
 // db.connect();
 
 // 서버 시작
-const PORT = process.env.PORT || 5000;
+const PORT = config.server.port;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
