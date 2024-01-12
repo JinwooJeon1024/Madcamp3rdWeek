@@ -28,4 +28,6 @@ export const ClickCountProvider: React.FC<ClickCountProviderProps> = ({ children
       {children}
     </ClickCountContext.Provider>
   );
+
 };
+
