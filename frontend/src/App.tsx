@@ -13,7 +13,7 @@ function App() {
       </header>
       <body className="App-body">
         <h1>How was your day?</h1>
-        <StartEditButton label="myname" />
+        <StartEditButton label="edit" />
       </body>
     </div>
   );
