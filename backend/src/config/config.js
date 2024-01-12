@@ -6,7 +6,7 @@ module.exports = {
     port: process.env.SERVER_PORT || 5000,
   },
   database: {
-    url: process.env.DB_URL || 'mongodb+srv://richie4:10244854s@cluster0.32z58i2.mongodb.net/Week3',
+    url: process.env.DB_URL 
   },
   jwt: {
     secret: process.env.JWT_SECRET || 'your-secret-key',
