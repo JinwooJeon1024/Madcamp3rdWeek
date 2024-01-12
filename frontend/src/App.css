@@ -13,16 +13,9 @@
   }
 }
 
-.App-body{
-  color : black;
-  background-color: aqua;
-  min-height: 70vh;
-  display:flex;
-  font-size: calc(10px + 2vmin)
-}
 .App-header {
-  background-color: black;
-  min-height: 30vh;
+  background-color: #282c34;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
