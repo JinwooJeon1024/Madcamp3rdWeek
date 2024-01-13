@@ -12,7 +12,6 @@ const App = () => {
   return (
     <DndProvider backend={HTML5Backend}>
         <div className="App">
-          {/* 기타 앱의 구성 요소 */}
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />}/>
