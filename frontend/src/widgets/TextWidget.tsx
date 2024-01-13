@@ -20,6 +20,7 @@ const TextWidget: React.FC = () => {
         try {
             const response = await axios.get('http://143.248.196.71:5000/api/position/get');
             setPosition(response.data);
+            console.log('위치 정보를 불러오는 데 성공했습니다.');
         } catch (error) {
             console.error('위치 정보를 불러오는 데 실패했습니다.', error);
         }
