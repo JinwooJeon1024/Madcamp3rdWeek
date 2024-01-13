@@ -19,8 +19,12 @@ const LoginPage: React.FC = () => {
 
     const handleKeyDown = (e : React.KeyboardEvent<HTMLInputElement>) => {
         if(e.key === 'Enter'){
+            e.preventDefault();
             switch(currentStep){
                 case 'email':
+                    handleToPassword();
+                    break;
+                case 'password':
                     handleToPassword();
                     break;
                 default:
@@ -48,7 +52,7 @@ const LoginPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try{
-            const response = await axios.post('http://143.248.196.62:5000/api/users/login', userData);
+            const response = await axios.post('http://143.248.196.71:5000/api/users/login', userData);
             console.log(response.data);
             navigate('/');
         } catch(error){
