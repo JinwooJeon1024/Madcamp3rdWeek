@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginPage.css';
+import './LoginSignUp.css';
 import axios, {AxiosError} from 'axios';
 
 
@@ -17,15 +17,15 @@ const SignUpPage: React.FC = () => {
     });
     const [currentStep, setCurrentStep] = useState<'name' | 'email' | 'password'>('name');
 
-
+    const inputRef = useRef(null);
     const handleKeyDown = (e : React.KeyboardEvent<HTMLInputElement>) => {
         if(e.key === 'Enter'){
             switch(currentStep){
                 case 'name':
-                    handleNameSubmit();
+                    handleToEmail();
                     break;
                 case 'email':
-                    handleEmailSubmit();
+                    handleToPassword();
                     break;
                 default:
                     break;
@@ -37,17 +37,15 @@ const SignUpPage: React.FC = () => {
         const {name, value} = e.target;
         setUserData((prevData) => ({...prevData, [name]: value}));
     };
-    const handleNameSubmit = () =>{
-        setCurrentStep('email');
-    };
-    const handleEmailSubmit = ()=>{
-        setCurrentStep('password');
-    };
+
     const handleToName =() =>{
         setCurrentStep('name');
     };
     const handleToEmail = ()=>{
         setCurrentStep('email');
+    };
+    const handleToPassword = () =>{
+        setCurrentStep('password');
     };
     const handleToHome =() =>{
         navigate('/');
@@ -78,49 +76,51 @@ const SignUpPage: React.FC = () => {
     return (
         <form onSubmit={handleSubmit}>
             {currentStep === 'name' && (
-                <div>
-                    <label>
-                        What is your NAME?
-                        <input 
-                            type="name"
-                            name="name"
-                            value={userData.name}
-                            onChange={handleInputChange}
-                            onKeyDown={handleKeyDown}/>
-                    </label>
-                    <br />
-                    <button onClick={handleToHome}>홈으로 돌아가기</button>
+                <div className="Input_container">
+                    <h1 className="Question">What is your NAME?</h1>
+                    <input 
+                        className="Input"
+                        type="name"
+                        name="name"
+                        value={userData.name}
+                        onChange={handleInputChange}
+                        onKeyDown={handleKeyDown}/>
+                    <div className="Button_container">
+                        <button className="Twoside_button"onClick={handleToHome}>홈으로 돌아가기</button>
+                        <button className="Twoside_button" onClick={handleToEmail}>다음으로 이동</button>   
+                    </div>
                 </div>
             )}
             {currentStep === 'email' && (
-                <div>
-                    <label>
-                        Enter Your Email
-                        <input 
-                            type="email"
-                            name="email"
-                            value={userData.email}
-                            onChange={handleInputChange}
-                            onKeyDown={handleKeyDown}/>
-                    </label>
-                    <br />
-                    <button onClick={handleToName}>이름으로 돌아가기</button>
+                <div className="Input_container">
+                    <h1 className="Question">Enter Your Email</h1>
+                    <input 
+                        className="Input"
+                        type="email"
+                        name="email"
+                        value={userData.email}
+                        onChange={handleInputChange}
+                        onKeyDown={handleKeyDown}/>
+                    <div className="Button_container">
+                        <button className="Twoside_button" onClick={handleToName}>이전으로 돌아가기</button>
+                        <button className="Twoside_button" onClick={handleToPassword}>다음으로 이동</button>
+                    </div>
                 </div>
             )}
             {currentStep === 'password' && (
-                <div>
-                    <label>
-                        Enter Your Password
-                        <input 
-                            type="password"
-                            name="password"
-                            value={userData.password}
-                            onChange={handleInputChange}
-                            onKeyDown={handleKeyDown}/>
-                    </label>
-                    <button type="submit">회원가입 완료</button>
-                    <br />
-                    <button onClick={handleToEmail}>이메일로 돌아가기</button>
+                <div className="Input_container">
+                    <h1 className="Question">Enter Your Password</h1>
+                    <input 
+                        className="Input"
+                        type="password"
+                        name="password"
+                        value={userData.password}
+                        onChange={handleInputChange}
+                        onKeyDown={handleKeyDown}/>
+                    <div className="Button_container">
+                        <button className="Twoside_button" onClick={handleToEmail}>이전으로 돌아가기</button>  
+                        <button className ="Twoside_button" type="submit">회원가입 완료</button>  
+                    </div>
                 </div>
             )}
         </form>
