@@ -1,10 +1,7 @@
-// 다른 임포트들
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import TextWidget from '../widgets/TextWidget'; // TextWidget 임포트
+import TextWidget from '../widgets/TextWidget';
 
 const HomePage = () => {
-  console.log("Homepage is rendering");
   const navigate = useNavigate();
 
   const startEdit = () => {
@@ -13,8 +10,8 @@ const HomePage = () => {
   const startLogin = () => {
     navigate('/login');
   };
-  const startSignUp =()=>{
-    navigate('signup');
+  const startSignUp = () => {
+    navigate('/signup');
   };
 
   return (
@@ -22,9 +19,9 @@ const HomePage = () => {
       <h1>How was your day?</h1>
       <TextWidget />
       <button onClick={startEdit}>Edit</button>
-      <br/>
+      <br />
       <button onClick={startLogin}>Login</button>
-      <br/>
+      <br />
       <button onClick={startSignUp}>SignUp</button>
     </main>
   );
