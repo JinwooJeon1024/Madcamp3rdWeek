@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Draggable, { DraggableEventHandler } from 'react-draggable';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 interface Position {
   x: number;
   y: number;
@@ -18,7 +20,7 @@ const TextWidget: React.FC = () => {
 
     const fetchPosition = async () => {
         try {
-            const response = await axios.get('http://143.248.196.71:5000/api/position/get');
+            const response = await axios.get(`${apiUrl}/position/get`);
             setPosition(response.data);
             console.log('위치 정보를 불러오는 데 성공했습니다.');
         } catch (error) {
@@ -39,7 +41,7 @@ const TextWidget: React.FC = () => {
     const handleSave = async () => {
         // 서버에 위치 정보 저장
         try {
-            await axios.post('http://143.248.196.71:5000/api/position/save', position);
+            await axios.post(`${apiUrl}/position/save`, position);
             console.log('위치 정보가 저장되었습니다.');
         } catch (error) {
             console.error('위치 정보 저장에 실패했습니다.', error);
