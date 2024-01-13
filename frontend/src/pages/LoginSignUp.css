@@ -1,0 +1,74 @@
+.Input_container{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.Question{
+    font-size: calc(25px + 2vmin);
+}
+.Input{
+    width : 70%;
+    text-align: center;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid black;
+    color: black;
+    font-size: calc(25px + 2vmin);
+    padding-bottom: 1%;
+    &:focus{
+        outline: none;
+    }
+}
+.Input::-webkit-input-placeholder{
+    color: #AAA;
+}
+.Input:focus::-webkit-input-placeholder{
+    color: dodgerblue;
+}
+.Center_button{
+    display: block;
+    color: black;
+    padding: 5%;
+    font-size: calc(15px + 0.1vmin);
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+    transition : all 0.2s;
+    border: none;
+    border-radius: 10px;
+}
+.Center_button:hover{
+    background-color: black;
+    color: white;
+}
+.Button_container{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items:end;
+    width: 70%;
+    height: 20%;
+    box-shadow: none;
+}
+.Twoside_button{
+    display: block;
+    color: black;
+    padding: 5%;
+    font-size: calc(15px + 0.1vmin);
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+    transition : all 0.2s;
+    border: none;
+    border-radius: 10px;
+}
+.Twoside_button:hover{
+    background-color: black;
+    color: white;
+}
