@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRoutes = require('./src/api/routes/authRoutes'); // 사용자 정의 라우트
+const userInfoRoutes = require('./src/api/routes/userRoutes');
 const positionRoutes = require('./src/api/routes/positionRoutes');
 const errorHandler = require('./src/api/middlewares/errorMiddleware'); // 에러 핸들링 미들웨어
 const db = require('./src/config/db')
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 // 라우트 설정
 app.use('/api/users', userRoutes);
 app.use('/api/position', positionRoutes);
+app.use('/api/token', userInfoRoutes);
 
 // 에러 핸들링 미들웨어
 app.use(errorHandler);
