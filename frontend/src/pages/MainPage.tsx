@@ -1,9 +1,9 @@
-import { useWidgetList } from "../widgets/WidgetHooks";
+import { useWidgetList } from "../widgets/Widget";
 import "./EditPage.css";
 
 function MainPage() {
   const { widgets, addWidget, deleteWidget } = useWidgetList();
-  const userToken = localStorage.getItem('userToken');
+  const userToken = localStorage.getItem("userToken");
 
   return (
     <div>
