@@ -1,3 +1,5 @@
+export type WidgetType = "TextWidget";
+
 export type MainPageProps = {
     widgets: React.ReactElement[];
     onDragDrop: (event: React.DragEvent) => void;
@@ -11,7 +13,6 @@ export type WidgetData = {
 
 export type WidgetProps<T extends WidgetData> = {
   children: React.ReactNode;
-
   widgetData: T;
   setWidgetData: (data: T) => void;
 };
@@ -21,6 +22,6 @@ export type TextWidgetData = WidgetData & {
   text: string;
 };
 
-export type TextWidgetProps = {
+export type IDprops = {
   id: number;
 };

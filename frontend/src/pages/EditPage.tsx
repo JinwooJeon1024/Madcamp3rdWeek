@@ -1,39 +1,24 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./EditPage.css";
-import { DndProvider, useDrag, useDrop, XYCoord } from "react-dnd";
+import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import TextWidget, { useWidgetList } from "../widgets/TextWidget";
 import MainPage from "./MainPage";
-
-type WidgetType = "TextWidget" | "WeatherWidget";
-
-const WIDGET_TO_COMPONENT: Record<WidgetType, React.FC<{ id: number }>> = {
-  TextWidget: TextWidget,
-  WeatherWidget: TextWidget,
-};
-
-const WIDGET_LIST: { type: WidgetType; image: string }[] = [
-  {
-    type: "TextWidget",
-    image: process.env.PUBLIC_URL + "/view1.png",
-  },
-  {
-    type: "WeatherWidget",
-    image: process.env.PUBLIC_URL + "/view2.png",
-  },
-];
+import WIDGET_LIST from "../widgets/WidgetList";
+import WIDGET_TO_COMPONENT from "../widgets/WidgetMapping";
+import { useWidgetList } from "../widgets/WidgetHooks";
+import { WidgetType } from "../types/Type";
+import "./EditPage.css";
 
 const EditPage = () => {
   const { widgets, addWidget, deleteWidget } = useWidgetList();
 
   const navigate = useNavigate();
-  function handleDone(){
+  function handleDone() {
     navigate("/main");
-  };
+  }
 
-  function handleCancel(){
-    //TODO : EditPage 들어오기 전 상태로 revert
+  function handleCancel() {
+    // TODO : EditPage 들어오기 전 상태로 revert
   }
 
   // const [widgets, setWidgets] = useState<ReactElement[]>([]);
@@ -88,7 +73,10 @@ const EditPage = () => {
           <div className="Menu">
             <div className="Scroll">
               {WIDGET_LIST.map(({ type, image }) => (
-                <div draggable onDragStart={(event) => handleOnDrag(event, type)}>
+                <div
+                  draggable
+                  onDragStart={(event) => handleOnDrag(event, type)}
+                >
                   <img src={image} alt={type} />
                 </div>
               ))}
