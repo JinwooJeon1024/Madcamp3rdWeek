@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
 import MainPage from "./pages/MainPage";
-import EditPage from "./pages/EditPage.1";
+import EditPage from "./pages/EditPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 

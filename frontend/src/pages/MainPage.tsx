@@ -1,11 +1,11 @@
-import { MainPageProps } from "../types/Type";
+import { useWidgetList } from "../widgets/WidgetHooks";
 import "./EditPage.css";
 
-function MainPage(props: MainPageProps) {
-  const { widgets, onDragDrop } = props;
+function MainPage() {
+  const { widgets, addWidget, deleteWidget } = useWidgetList();
 
   return (
-    <div className="Whiteboard" onDrop={onDragDrop}>
+    <div>
       {widgets.map((widget, index) => (
         <div key={index}>{widget}</div>
       ))}

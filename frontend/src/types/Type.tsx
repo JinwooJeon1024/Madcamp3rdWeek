@@ -1,6 +1,6 @@
 export type WidgetType = "TextWidget";
 
-export type MainPageProps = {
+export type EditMainPageProps = {
     widgets: React.ReactElement[];
     onDragDrop: (event: React.DragEvent) => void;
 }

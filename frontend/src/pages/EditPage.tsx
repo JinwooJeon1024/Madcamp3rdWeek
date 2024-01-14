@@ -8,6 +8,7 @@ import WIDGET_TO_COMPONENT from "../widgets/WidgetMapping";
 import { useWidgetList } from "../widgets/WidgetHooks";
 import { WidgetType } from "../types/Type";
 import "./EditPage.css";
+import EditMainPage from "./EditMainPage";
 
 const EditPage = () => {
   const { widgets, addWidget, deleteWidget } = useWidgetList();
@@ -68,7 +69,7 @@ const EditPage = () => {
             </div>
           </div>
           <div className="Show_display">
-            <MainPage widgets={widgets} onDragDrop={handleOnDrop} />
+            <EditMainPage widgets={widgets} onDragDrop={handleOnDrop} />
           </div>
           <div className="Menu">
             <div className="Scroll">
