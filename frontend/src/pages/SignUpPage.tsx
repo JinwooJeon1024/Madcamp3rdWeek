@@ -58,7 +58,7 @@ const SignUpPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try{
-            const response = await axios.post('http://143.248.196.71:5000/api/users/register', userData);
+            const response = await axios.post(`${process.env.PUBLIC_URL}/users/register`, userData);
             console.log(response.data);
             navigate('/main');
         } catch(error){
