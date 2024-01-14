@@ -3,16 +3,7 @@ import axios from "axios";
 import Draggable, { DraggableEventHandler } from "react-draggable";
 import { Widget, WidgetData, useWidgetData } from "./Widget";
 
-type TextWidgetData = WidgetData & {
-  type: "TextWidget";
-  text: string;
-};
-
-type TextWidgetProps = {
-  id: number;
-};
-
-function useWidgetList() {
+export function useWidgetList() {
   const [widgets, setWidgets] = useState<ReactElement[]>([]);
 
   function fetchWidget() {
@@ -33,9 +24,12 @@ function useWidgetList() {
         console.error("위젯 데이터 불러오기에 실패했습니다", error);
       }
     }
+    getWidgetData();
   }
 
-  // const [widgetList, setWidgetList] = useState([]);
+  useEffect(() =>{
+    fetchWidget();
+  }, []);
 
   function addWidget(widgetData) {
     // DB에 widgetData 추가
@@ -47,20 +41,8 @@ function useWidgetList() {
     // 다시 fetch 하도록 실행
   }
 
-  // return {widgetList, addWidget, deleteWidget};
+  return {widgets, addWidget, deleteWidget};
 }
-
-// function EditPage() {
-//   const { widgeList, addWidget, deleteWidget } = useWidgetList();
-
-//   //
-//   addWidget();
-
-//   //
-//   deleteWidget();
-
-//   return <MainPage widgetList={widgetList} />;
-// }
 
 const TextWidget = ({ id }: TextWidgetProps) => {
   const { widgetData, setWidgetData } = useWidgetData<TextWidgetData>(id, {

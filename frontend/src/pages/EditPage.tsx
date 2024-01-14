@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./EditPage.css";
 import { DndProvider, useDrag, useDrop, XYCoord } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import TextWidget from "../widgets/TextWidget";
+import TextWidget, { useWidgetList } from "../widgets/TextWidget";
 import MainPage from "./MainPage";
 
 type WidgetType = "TextWidget" | "WeatherWidget";
@@ -25,6 +25,8 @@ const WIDGET_LIST: { type: WidgetType; image: string }[] = [
 ];
 
 const EditPage = () => {
+  const { widgets, addWidget, deleteWidget } = useWidgetList();
+
   const navigate = useNavigate();
   function handleDone(){
     navigate("/main");
@@ -34,7 +36,7 @@ const EditPage = () => {
     //TODO : EditPage 들어오기 전 상태로 revert
   }
 
-  const [widgets, setWidgets] = useState<ReactElement[]>([]);
+  // const [widgets, setWidgets] = useState<ReactElement[]>([]);
 
   // const { widgetList, addWidget } = useWidgetList();
 
@@ -60,7 +62,8 @@ const EditPage = () => {
     const widgetComponent = WIDGET_TO_COMPONENT[widgetType];
 
     const widgetElement = React.createElement(widgetComponent);
-    setWidgets([...widgets, widgetElement]);
+    // setWidgets([...widgets, widgetElement]);
+    // addWidget(widgetElement);
   }
 
   return (

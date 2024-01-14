@@ -2,17 +2,6 @@ import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import Draggable, { DraggableEventHandler } from "react-draggable";
 
-export type WidgetData = {
-  position: { x: number; y: number };
-};
-
-type WidgetProps<T extends WidgetData> = {
-  children: React.ReactNode;
-
-  widgetData: T;
-  setWidgetData: (data: T) => void;
-};
-
 // id: 가져오려는 위젯의 id
 // initialValue: 서버로부터 가져오기 전에 임의로 설정할 초기 데이터
 //
