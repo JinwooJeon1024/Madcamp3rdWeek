@@ -1,32 +1,18 @@
-import { useNavigate } from 'react-router-dom';
-import React, { ReactElement } from 'react';
+import { useNavigate } from "react-router-dom";
+import React, { ReactElement } from "react";
 
-interface HomePageProps {
-  widgets: ReactElement[];
-}
-
-const HomePage: React.FC<HomePageProps> = ({ widgets }) => {
+const HomePage = () => {
   const navigate = useNavigate();
 
-  const startEdit = () => {
-    navigate('/edit');
-  };
   const startLogin = () => {
-    navigate('/login');
+    navigate("/login");
   };
   const startSignUp = () => {
-    navigate('/signup');
+    navigate("/signup");
   };
 
   return (
     <main className="App-body">
-      <h1>How was your day?</h1>
-      {widgets.map((Widget, index) => (
-        <React.Fragment key={index}>
-          {Widget}
-        </React.Fragment>
-      ))}
-      <button onClick={startEdit}>Edit</button>
       <br />
       <button onClick={startLogin}>Login</button>
       <br />
