@@ -4,7 +4,7 @@ import "./EditPage.css";
 import { DndProvider, useDrag, useDrop, XYCoord } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import TextWidget from "../widgets/TextWidget";
-import HomePage from "./HomePage";
+import MainPage from "./MainPage";
 
 type WidgetType = "TextWidget" | "WeatherWidget";
 
@@ -20,24 +20,23 @@ const WIDGET_LIST: { type: WidgetType; image: string }[] = [
   },
   {
     type: "WeatherWidget",
-    image: process.env.PUBLIC_URL + "/view1.png",
+    image: process.env.PUBLIC_URL + "/view2.png",
   },
 ];
 
 const EditPage = () => {
   const navigate = useNavigate();
-  const handlePreview = () => {
-    navigate("/edit/preview");
+  function handleDone(){
+    navigate("/main");
   };
 
-  //save nothing
-  const handleCancel = () => {
-    navigate("/");
-  };
+  function handleCancel(){
+    //TODO : EditPage 들어오기 전 상태로 revert
+  }
 
-  // const [widgets, setWidgets] = useState<ReactElement[]>([]);
+  const [widgets, setWidgets] = useState<ReactElement[]>([]);
 
-  const { widgetList, addWidget } = useWidgetList();
+  // const { widgetList, addWidget } = useWidgetList();
 
   // setWidgets로 변경 해야함
 
@@ -72,11 +71,11 @@ const EditPage = () => {
             <div>a</div>
             <div>Edit User Information</div>
             <div className="Button_container">
-              <button className="Right_button" onClick={handlePreview}>
-                Preview
+              <button className="Right_button" onClick={handleDone}>
+                완료
               </button>
               <button className="Left_button" onClick={handleCancel}>
-                Don't save
+                변경 사항 취소
               </button>
             </div>
           </div>
@@ -86,7 +85,7 @@ const EditPage = () => {
           <div className="Menu">
             <div className="Scroll">
               {WIDGET_LIST.map(({ type, image }) => (
-                <div draggable onDragStart={(e) => handleOnDrag(e, type)}>
+                <div draggable onDragStart={(event) => handleOnDrag(event, type)}>
                   <img src={image} alt={type} />
                 </div>
               ))}
