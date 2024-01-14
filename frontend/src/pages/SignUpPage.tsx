@@ -17,7 +17,6 @@ const SignUpPage: React.FC = () => {
     });
     const [currentStep, setCurrentStep] = useState<'name' | 'email' | 'password'>('name');
 
-    const inputRef = useRef(null);
     const handleKeyDown = (e : React.KeyboardEvent<HTMLInputElement>) => {
         if(e.key === 'Enter'){
             e.preventDefault();
@@ -61,7 +60,7 @@ const SignUpPage: React.FC = () => {
         try{
             const response = await axios.post('http://143.248.196.71:5000/api/users/register', userData);
             console.log(response.data);
-            navigate('/');
+            navigate('/main');
         } catch(error){
             if(axios.isAxiosError(error)){
                 const axiosError = error as AxiosError;
