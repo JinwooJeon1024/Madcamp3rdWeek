@@ -19,6 +19,7 @@ type WidgetProps<T extends WidgetData> = {
 // 리턴하는 것들
 // widgetData: 서버로부터 가져온 위젯 데이터 (서버로부터 가져오기 전인 경우 initialValue와 같음)
 // setWidgetData: 위젯 데이터를 변경하고 서버에 변경된 데이터를 업로드 함
+
 export function useWidgetData<T extends WidgetData>(
   id: number,
   initialValue: T

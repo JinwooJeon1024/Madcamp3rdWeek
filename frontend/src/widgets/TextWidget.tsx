@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactElement } from "react";
 import axios from "axios";
 import Draggable, { DraggableEventHandler } from "react-draggable";
 import { Widget, WidgetData, useWidgetData } from "./Widget";
-
-interface Position {
-  x: number;
-  y: number;
-}
 
 type TextWidgetData = WidgetData & {
   type: "TextWidget";
@@ -20,32 +15,25 @@ type TextWidgetProps = {
 function useWidgetList() {
   const [widgets, setWidgets] = useState<ReactElement[]>([]);
 
-  function fetchWidget(){
-    useEffect(() => {
-      async function getWidgetData() {
-        try {
-          const response = await axios.post("http://143.248.196.71:5000/api/position/save");
-          console.log("위젯 데이터 불러오기에 성공했습니다.");
-        } catch (error) {
-          console.error("위젯 데이터 불러오기에 실패했습니다", error);
+  function fetchWidget() {
+    async function getWidgetData() {
+      try {
+        const response = await axios.post(
+          "http://143.248.196.71:5000/api/position/save"
+        );
+        console.log("위젯 데이터 불러오기에 성공했습니다.");
+        const newWidgets = [];
+        for (const res of response.data) {
+          if (res.type === "TextWidget") {
+            newWidgets.push(React.createElement(TextWidget, { id: res.id }));
+          }
         }
+        setWidgets(newWidgets);
+      } catch (error) {
+        console.error("위젯 데이터 불러오기에 실패했습니다", error);
       }
+    }
   }
-
-    
-    )
-  //
-  // [{id: 1, x: 10, y: 20, type: "TextWidget", text: "asdf"},
-  // [{id: 2, x: 20, y: 100, type: "WeatherWidget"}]
-  //
-  // 하나씩 순회를 돌면서
-  // widgetData.type === "TextWidget"
-  // React.createElement(TextWidget, {id: widgetData.id})
-  // widgetData.type === "WeatherWidget"
-  // React.createElement(WeatherWidget, {id: widgetData.id})
-  //
-  // 결과적으로 react element의 리스트가 나오겠쬬?
-  // 그걸 반환해주면 됨
 
   // const [widgetList, setWidgetList] = useState([]);
 
