@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginSignUp.css';
 import axios, {AxiosError} from 'axios';
-
-
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
@@ -52,7 +51,7 @@ const LoginPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try{
-            const response = await axios.post('http://143.248.196.71:5000/api/users/login', userData);
+            const response = await axios.post(`${apiUrl}/users/login`, userData);
             console.log(response.data);
             navigate('/');
         } catch(error){

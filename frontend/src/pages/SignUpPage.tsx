@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginSignUp.css';
 import axios, {AxiosError} from 'axios';
-
+const apiUrl = process.env.REACT_APP_API_URL;
 
 
 const SignUpPage: React.FC = () => {
@@ -17,7 +17,6 @@ const SignUpPage: React.FC = () => {
     });
     const [currentStep, setCurrentStep] = useState<'name' | 'email' | 'password'>('name');
 
-    const inputRef = useRef(null);
     const handleKeyDown = (e : React.KeyboardEvent<HTMLInputElement>) => {
         if(e.key === 'Enter'){
             e.preventDefault();
@@ -59,7 +58,7 @@ const SignUpPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try{
-            const response = await axios.post('http://143.248.196.71:5000/api/users/register', userData);
+            const response = await axios.post(`${apiUrl}/users/register`, userData);
             console.log(response.data);
             navigate('/');
         } catch(error){
