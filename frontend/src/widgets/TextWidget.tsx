@@ -24,13 +24,15 @@ function useWidgetList() {
     useEffect(() => {
       async function getWidgetData() {
         try {
-          await axios.post("http://143.248.196.71:5000/api/position/save");
+          const response = await axios.post("http://143.248.196.71:5000/api/position/save");
           console.log("위젯 데이터 불러오기에 성공했습니다.");
         } catch (error) {
           console.error("위젯 데이터 불러오기에 실패했습니다", error);
         }
       }
   }
+
+    
     )
   //
   // [{id: 1, x: 10, y: 20, type: "TextWidget", text: "asdf"},
