@@ -1,59 +1,100 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Draggable, { DraggableEventHandler } from 'react-draggable';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Draggable, { DraggableEventHandler } from "react-draggable";
+import { Widget, WidgetData, useWidgetData } from "./Widget";
 
 interface Position {
   x: number;
   y: number;
 }
 
-const TextWidget: React.FC = () => {
-    const [text, setText] = useState<string>('여기에 입력하세요');
-    const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+type TextWidgetData = WidgetData & {
+  type: "TextWidget";
+  text: string;
+};
 
+type TextWidgetProps = {
+  id: number;
+};
+
+function useWidgetList() {
+  const [widgets, setWidgets] = useState<ReactElement[]>([]);
+
+  function fetchWidget(){
     useEffect(() => {
-        // 웹 시작 시 서버에서 위치 정보 불러오기
-        fetchPosition();
-    }, []);
-
-    const fetchPosition = async () => {
+      async function getWidgetData() {
         try {
-            const response = await axios.get('http://143.248.196.71:5000/api/position/get');
-            setPosition(response.data);
-            console.log('위치 정보를 불러오는 데 성공했습니다.');
+          await axios.post("http://143.248.196.71:5000/api/position/save");
+          console.log("위젯 데이터 불러오기에 성공했습니다.");
         } catch (error) {
-            console.error('위치 정보를 불러오는 데 실패했습니다.', error);
+          console.error("위젯 데이터 불러오기에 실패했습니다", error);
         }
-    };
+      }
+  }
+    )
+  //
+  // [{id: 1, x: 10, y: 20, type: "TextWidget", text: "asdf"},
+  // [{id: 2, x: 20, y: 100, type: "WeatherWidget"}]
+  //
+  // 하나씩 순회를 돌면서
+  // widgetData.type === "TextWidget"
+  // React.createElement(TextWidget, {id: widgetData.id})
+  // widgetData.type === "WeatherWidget"
+  // React.createElement(WeatherWidget, {id: widgetData.id})
+  //
+  // 결과적으로 react element의 리스트가 나오겠쬬?
+  // 그걸 반환해주면 됨
 
-    const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-        setText(event.target.value);
-    };
+  // const [widgetList, setWidgetList] = useState([]);
 
-    const handleStop: DraggableEventHandler = (e, data) => {
-        // 드래그 종료 시 위치 저장
-        const newPosition: Position = { x: data.x, y: data.y };
-        setPosition(newPosition);
-    };
+  function addWidget(widgetData) {
+    // DB에 widgetData 추가
+    // 다시 fetch 하도록 실행
+  }
 
-    const handleSave = async () => {
-        // 서버에 위치 정보 저장
-        try {
-            await axios.post('http://143.248.196.71:5000/api/position/save', position);
-            console.log('위치 정보가 저장되었습니다.');
-        } catch (error) {
-            console.error('위치 정보 저장에 실패했습니다.', error);
-        }
-    };
+  function deleteWidget(widgetData) {
+    // DB에 widgetId에 해당하는 위젯 삭제 하도록 조치
+    // 다시 fetch 하도록 실행
+  }
 
-    return (
-        <Draggable position={position} onStop={handleStop}>
-            <div className="text-widget">
-                <input type="text" value={text} onChange={handleTextChange} />
-                <button onClick={handleSave}>저장</button>
-            </div>
-        </Draggable>
-    );
+  // return {widgetList, addWidget, deleteWidget};
+}
+
+// function EditPage() {
+//   const { widgeList, addWidget, deleteWidget } = useWidgetList();
+
+//   //
+//   addWidget();
+
+//   //
+//   deleteWidget();
+
+//   return <MainPage widgetList={widgetList} />;
+// }
+
+const TextWidget = ({ id }: TextWidgetProps) => {
+  const { widgetData, setWidgetData } = useWidgetData<TextWidgetData>(id, {
+    type: "TextWidget",
+    position: { x: 0, y: 0 },
+    text: "",
+  });
+
+  return (
+    <Widget widgetData={widgetData} setWidgetData={setWidgetData}>
+      <div className="text-widget">
+        <input
+          type="text"
+          value={widgetData.text}
+          onChange={(event) => {
+            setWidgetData({
+              ...widgetData,
+              text: event.target.value,
+            });
+          }}
+        />
+      </div>
+    </Widget>
+  );
 };
 
 export default TextWidget;

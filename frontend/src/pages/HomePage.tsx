@@ -1,7 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import TextWidget from '../widgets/TextWidget';
+import React, { ReactElement } from 'react';
 
-const HomePage = () => {
+interface HomePageProps {
+  widgets: ReactElement[];
+}
+
+const HomePage: React.FC<HomePageProps> = ({ widgets }) => {
   const navigate = useNavigate();
 
   const startEdit = () => {
@@ -17,7 +21,11 @@ const HomePage = () => {
   return (
     <main className="App-body">
       <h1>How was your day?</h1>
-      <TextWidget />
+      {widgets.map((Widget, index) => (
+        <React.Fragment key={index}>
+          {Widget}
+        </React.Fragment>
+      ))}
       <button onClick={startEdit}>Edit</button>
       <br />
       <button onClick={startLogin}>Login</button>
