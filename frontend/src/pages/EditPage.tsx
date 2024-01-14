@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import MainPage from "./MainPage";
 import WIDGET_LIST from "../widgets/WidgetList";
 import WIDGET_TO_COMPONENT from "../widgets/WidgetMapping";
 import { useWidgetList } from "../widgets/WidgetHooks";
