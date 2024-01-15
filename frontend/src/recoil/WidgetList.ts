@@ -7,9 +7,14 @@ export const WidgetListAtom = atom<ReactElement[]>({
     key: 'WidgetList',
     default : []
 })
+export const prevWidgetList = atom<ReactElement[]>({
+    key: 'prevWidgetList',
+    default : []
+})
 
 export const useWidgets = () => {
     const [widgets, setWidgets] = useRecoilState(WidgetListAtom)
+    const [prevWidgets, setPrevWidgets] = useRecoilState(prevWidgetList)
 
     const addWidget = (newWidget : ReactElement) => {
         setWidgets((prevWidgest) => [...prevWidgest, newWidget]) 
@@ -25,6 +30,16 @@ export const useWidgets = () => {
     const updateBoomark = (widgetId : string, newUrl : string, newIcon : string) => {
         // setWidgets((prevWidgets) => 
         // )
+    }
+
+    const updateSize = (widgetId: string, width: number, height: number)=>{
+        setWidgets((prevWidgets) => 
+            prevWidgets.map((widget) => 
+            widget.props.widgetId === widgetId ? React.cloneElement(
+                                                            widget, 
+                                                            {width: width,
+                                                            height: height})
+            : widget))
     }
 
     const removeWidget = (widgetId : string) => {
@@ -53,7 +68,7 @@ export const useWidgets = () => {
         console.log(positionData.y)
     }
 
-    return {widgets, setWidgets, addWidget, removeWidget, updatePosition, updateText }
+    return {widgets,prevWidgets, setPrevWidgets, setWidgets, addWidget, removeWidget, updatePosition, updateSize, updateText }
 }
 
 
