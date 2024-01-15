@@ -1,7 +1,5 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { WidgetType } from "../types/Type";
 import "./EditPage.css";
 import { useWidgets } from "../recoil/WidgetList";
@@ -137,9 +135,8 @@ const EditPage = () => {
             {WIDGET_MENU.map(({ type, image }) => (
               <div
                 draggable
-                className="Widget_pick"
                 onDragStart={(event) => handleOnDragStart(event, type)}>
-                <img src={image} alt={type} />
+                <img className="Widget_pick" src={image} alt={type}/>
               </div>
             ))}
           </div>

@@ -1,4 +1,4 @@
-export type WidgetType = "TextWidget" | "BookmarkWidget";
+export type WidgetType = "TextWidget" | "BookmarkWidget" | "ClockWidget";
 
 export type WigetCommon = {
   widgetId : string;

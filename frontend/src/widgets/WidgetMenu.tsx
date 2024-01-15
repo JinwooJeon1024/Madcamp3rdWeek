@@ -3,11 +3,15 @@ import { WidgetType } from "../types/Type";
 const WIDGET_MENU: { type: WidgetType; image: string }[] = [
   {
     type: "TextWidget",
-    image: process.env.PUBLIC_URL + "/view1.png",
+    image: process.env.PUBLIC_URL + "/textwidget.png",
   },
   {
     type: "BookmarkWidget",
-    image: process.env.PUBLIC_URL + "/view1.png",
+    image: process.env.PUBLIC_URL + "/bookmark.png",
+  },
+  {
+    type: "ClockWidget",
+    image: process.env.PUBLIC_URL + "/clock.png",
   },
 ];
 
