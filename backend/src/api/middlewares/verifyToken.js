@@ -5,7 +5,7 @@ const verifyToken = (req, res, next) => {
   if (token && token.startsWith('Bearer ')) {
     req.token = token.slice(7, token.length).trim();
   } else {
-    return res.status(403).send({ message: `${req.token}토큰 형식이 올바르지 않습니다.` });
+    return res.status(403).send({ message: '토큰 형식이 올바르지 않습니다.' });
   }
 
 
@@ -13,13 +13,13 @@ const verifyToken = (req, res, next) => {
     return res.status(403).send({ message: '토큰이 필요합니다.' });
   }
 
-  try {
+try {
     const decoded = jwt.verify(req.token, process.env.JWT_SECRET);
     req.userId = decoded.userId;
     next();
-  } catch (error) {
-    return res.status(401).send({ message: '유효하지 않은 토큰입니다.' });
-  }
+} catch (error) {
+    return res.status(401).send({ message: `${req.token}유효하지 않은 토큰입니다.` });
+}
 
 };
 
