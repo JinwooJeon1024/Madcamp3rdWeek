@@ -1,5 +1,6 @@
 import { IDprops, TextWidgetData } from "../../types/Type";
-import { Widget, useWidgetData } from "../WidgetHooks";
+import Widget from "../Widget";
+import useWidgetData from "../widgetHooks/UseWidgetData";
 
 const TextWidget = ({ id }: IDprops) => {
   const { widgetData, setWidgetData } = useWidgetData<TextWidgetData>(id, {
