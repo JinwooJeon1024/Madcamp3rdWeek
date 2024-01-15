@@ -1,8 +1,9 @@
+import { useEffect, useRef } from "react";
 import { useWidgets } from "../../recoil/WidgetList";
 import { TextWidgetData } from "../../types/Type";
 
 function TextWidget(textWidgetData : TextWidgetData){
-  const {updateText, removeWidget} = useWidgets()
+  const {updateText, removeWidget, updateSize} = useWidgets()
   function onDeleteButtonClick(event: React.MouseEvent<HTMLButtonElement>){
     console.log(`text delete clicked, delete ${textWidgetData.widgetId}`)
     removeWidget(textWidgetData.widgetId)
@@ -13,8 +14,22 @@ function TextWidget(textWidgetData : TextWidgetData){
     console.log(`${textWidgetData.widgetId}`)
     updateText(textWidgetData.widgetId, event.target.value)
   }
+  const textRef = useRef<HTMLDivElement>(null)
+
+  useEffect(()=>{
+    const handleResize=()=>{
+      if(textRef){
+        const rect = textRef.current?.getBoundingClientRect()
+        updateSize(textWidgetData.widgetId, rect!!.width, rect!!.height)
+      }
+    
+    }
+    handleResize()
+  },[])
+
+
   return (
-      <div>
+      <div ref={textRef}>
         <input
           type="text"
           value={textWidgetData.text}

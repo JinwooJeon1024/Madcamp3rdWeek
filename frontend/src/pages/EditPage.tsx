@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { WidgetType } from "../types/Type";
 import "./EditPage.css";
@@ -7,28 +7,42 @@ import WIDGET_MENU from "../widgets/WidgetMenu";
 import Draggable, { DraggableData } from "react-draggable";
 import axios, { AxiosError } from "axios";
 import TextWidget from "../widgets/customWidgets/TextWidget";
+import registerMouseDownDrag from "../services/registerMouseDownDrag";
 
 const EditPage = () => {
-  const { widgets, addWidget, updatePosition } = useWidgets();
+  const {widgets, addWidget, updatePosition, updateSize} = useWidgets()
+  console.log(widgets.map((widget)=>widget.props));
+  const userToken = localStorage.getItem('userToken');
 
-  console.log(widgets.map((widget) => widget.props));
 
   const navigate = useNavigate();
-  const userToken = localStorage.getItem("userToken");
-
-  async function handleDone() {
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/widget/update`,
-        widgets,
-        { headers: { authorization: `Bearer ${userToken}` } }
-      );
-      navigate("/main");
-    } catch (error) {
-      // 에러 처리 로직
-      console.error("Error during widget update:", error);
-      // 필요한 경우 사용자에게 에러 메시지 표시
+  function handleDone() {
+    async function sendWidgets(){
+      try {
+        console.log({widgets: widgets})
+        const request = {
+          properties:{
+            widgets: widgets
+          }
+        }
+        console.log(request)
+        const response = await axios.put(`${process.env.REACT_APP_API_URL}/widget/update`, request, {headers: {authorization: `Bearer ${userToken}`}});
+        console.log(response.data)
+        navigate("/main");
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          const axiosError = error as AxiosError;
+          if (axiosError.response) {
+            console.error("Error submitting form : ", error.response?.data);
+          } else {
+            console.error("Unexpected error : ", error);
+          }
+        } else {
+          console.error("Non-Axios error : ", error);
+        }
+      }
     }
+    sendWidgets()
   }
     async function handleCancel() {
       try {
@@ -81,17 +95,14 @@ const EditPage = () => {
           console.log("Add new TextWidget");
           //TODO : 위젯 아이디 부여하는 거 바꿔야함
           //지우지 말 것, width와 height는 css 파일과 일치시켜야하고 px단위를 쓰도록 해야함
-          const newTextWidget = (
-            <TextWidget
-              widgetId={response.data.data._id}
-              widgetTopLeftX={response.data.data.x}
-              widgetTopLeftY={response.data.data.y}
-              width={500}
-              height={500}
-              text={""}
-            />
-          );
-          addWidget(newTextWidget);
+          const newTextWidget =(<TextWidget
+                                widgetId={response.data.data._id} 
+                                widgetTopLeftX={mouseX} 
+                                widgetTopLeftY={mouseY} 
+                                width={100} 
+                                height={100} 
+                                text={""}/>)
+          addWidget(newTextWidget)
           break;
         default:
           break;
@@ -118,37 +129,40 @@ const EditPage = () => {
         onDragOver={handleOnDragOver}
       >
         {widgets.map((widget) => (
-          <Draggable
-            key={widget.props.widgetId}
-            onStop={(event, data) =>
-              handlePosition(data, widget.props.widgetId)
-            }
-            defaultPosition={{
-              x: widget.props.widgetTopLeftX,
-              y: widget.props.widgetTopLeftY,
-            }}
-            bounds="parent"
-            cancel=".Resize_box"
-          >
-            <div style={{ position: "absolute" }}>
-              {widget}
-              <div className="Resize_box" draggable></div>
-            </div>
-          </Draggable>
+            <Draggable
+              key={widget.props.widgetId}
+              onStop={(event, data) => handlePosition(data, widget.props.widgetId)}
+              defaultPosition={{x: widget.props.widgetTopLeftX, y: widget.props.widgetTopLeftY}}
+              bounds="parent"
+              cancel=".Resize_box">
+              <div
+                style={{position:'absolute'}}
+                >
+                {widget}
+                <div
+                  className="Resize_box"
+                  draggable
+                  {...registerMouseDownDrag((deltaX, deltaY)=>{
+                    updateSize(widget.props.widgetId,deltaX+widget.props.width, deltaY+widget.props.height)
+                    console.log(deltaX)
+                    console.log(deltaY)
+                  })}>
+                </div>
+              </div>
+            </Draggable>
         ))}
       </div>
-      <Draggable cancel=".Widget_pick">
-        <div className="Menu">
-          {WIDGET_MENU.map(({ type, image }) => (
-            <div
-              draggable
-              className="Widget_pick"
-              onDragStart={(event) => handleOnDragStart(event, type)}
-            >
-              <img src={image} alt={type} />
-            </div>
-          ))}
-        </div>
+      <Draggable cancel=".Widget_pick" bounds="parent">
+          <div className="Menu">
+            {WIDGET_MENU.map(({ type, image }) => (
+              <div
+                draggable
+                className="Widget_pick"
+                onDragStart={(event) => handleOnDragStart(event, type)}>
+                <img src={image} alt={type} />
+              </div>
+            ))}
+          </div>
       </Draggable>
       <button className="Right_button" onClick={handleDone}>
         완료
