@@ -78,6 +78,7 @@ const LoginPage: React.FC = () => {
             value={userData.email}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
+            autoFocus
           />
           <div className="Button_container">
             <button className="Twoside_button" onClick={handleToHome}>
@@ -99,6 +100,7 @@ const LoginPage: React.FC = () => {
             value={userData.password}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
+            autoFocus
           />
           <div className="Button_container">
             <button className="Twoside_button" onClick={handleToEmail}>
