@@ -1,24 +1,23 @@
-import { useNavigate } from 'react-router-dom';
-import TextWidget from '../widgets/TextWidget';
+import { useNavigate } from "react-router-dom";
+import React, { ReactElement, useEffect } from "react";
 
 const HomePage = () => {
   const navigate = useNavigate();
-
-  const startEdit = () => {
-    navigate('/edit');
-  };
+  useEffect(() => {
+    const storedToken = localStorage.getItem('userToken');
+    if(storedToken){
+      navigate("/main");
+    }
+  }, []);
   const startLogin = () => {
-    navigate('/login');
+    navigate("/login");
   };
   const startSignUp = () => {
-    navigate('/signup');
+    navigate("/signup");
   };
 
   return (
-    <main className="App-body">
-      <h1>How was your day?</h1>
-      <TextWidget />
-      <button onClick={startEdit}>Edit</button>
+    <main className="todo">
       <br />
       <button onClick={startLogin}>Login</button>
       <br />

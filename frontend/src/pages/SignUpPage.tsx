@@ -58,9 +58,9 @@ const SignUpPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try{
-            const response = await axios.post(`${apiUrl}/users/register`, userData);
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, userData);
             console.log(response.data);
-            navigate('/');
+            navigate('/main');
         } catch(error){
             if(axios.isAxiosError(error)){
                 const axiosError = error as AxiosError;
@@ -87,7 +87,8 @@ const SignUpPage: React.FC = () => {
                         name="name"
                         value={userData.name}
                         onChange={handleInputChange}
-                        onKeyDown={handleKeyDown}/>
+                        onKeyDown={handleKeyDown}
+                        autoFocus/>
                     <div className="Button_container">
                         <button className="Twoside_button"onClick={handleToHome}>홈으로 돌아가기</button>
                         <button className="Twoside_button" onClick={handleToEmail}>다음으로 이동</button>   
@@ -103,7 +104,8 @@ const SignUpPage: React.FC = () => {
                         name="email"
                         value={userData.email}
                         onChange={handleInputChange}
-                        onKeyDown={handleKeyDown}/>
+                        onKeyDown={handleKeyDown}
+                        autoFocus/>
                     <div className="Button_container">
                         <button className="Twoside_button" onClick={handleToName}>이전으로 돌아가기</button>
                         <button className="Twoside_button" onClick={handleToPassword}>다음으로 이동</button>
@@ -119,7 +121,8 @@ const SignUpPage: React.FC = () => {
                         name="password"
                         value={userData.password}
                         onChange={handleInputChange}
-                        onKeyDown={handleKeyDown}/>
+                        onKeyDown={handleKeyDown}
+                        autoFocus/>
                     <div className="Button_container">
                         <button className="Twoside_button" onClick={handleToEmail}>이전으로 돌아가기</button>  
                         <button className ="Twoside_button" type="submit">회원가입 완료</button>  
