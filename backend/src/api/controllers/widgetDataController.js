@@ -20,18 +20,22 @@ const replaceAllWidgetData = async (req, res) => {
 
     try {
         // 기존 데이터 삭제
-        await WidgetData.deleteMany({});
-
-        widgets = widgets.map(widget => ({ userId, ...widget }));
+        await WidgetData.deleteMany({ userId });
 
         // 새 데이터 추가
-        const newWidgets = await WidgetData.insertMany(widgets);
+        const newWidgets = await WidgetData.insertMany(
+            widgets.map(widget => ({
+                userId,
+                properties: widget.properties // 이미 properties 객체로 된 데이터 사용
+            }))
+        );
 
         res.status(200).json({ message: '모든 위젯 데이터가 교체되었습니다.', data: newWidgets });
     } catch (error) {
         res.status(500).json({ message: '위젯 데이터 교체 실패', error });
     }
 };
+
 
 const getAllWidgetData = async (req, res) => {
     try {
