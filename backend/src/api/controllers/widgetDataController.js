@@ -4,7 +4,7 @@ const WidgetData = require('../../models/Widget'); // 모델 경로 확인 필�
 const createWidgetData = async (req, res) => {
     try {
         const { type, x, y, width, height} = req.body;
-        const userId = req.user.id;
+        const userId = req.userId;
 
         const newWidget = new WidgetData({ userId, type, x, y, width, height});
         await newWidget.save();
@@ -17,7 +17,7 @@ const createWidgetData = async (req, res) => {
 // 위젯 데이터 가져오기 (Read)
 const getWidgetData = async (req, res) => {
     try {
-        const userId = req.user.id;
+        const userId = req.userId;
 
         const data = await WidgetData.find({ userId }).sort({ _id: -1})
         if (data.length > 0) {
