@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const widgetDataControllers = require('../controllers/widgetDataControllers');
 
-router.get('/get', widgetDataControllers.getWidgetData);
-router.post('/save', widgetDataControllers.saveWidgetData);
-router.post('/add', widgetDataControllers.addWidgetData);
+router.post('/create', widgetDataControllers.createWidgetData);
+router.get('/', widgetDataControllers.getWidgetData);
+router.put('/update/:id', widgetDataControllers.updateWidgetData);
+router.delete('/delete/:id', widgetDataControllers.deleteWidgetData);
 
 module.exports = router;

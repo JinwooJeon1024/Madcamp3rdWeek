@@ -3,10 +3,10 @@ const WidgetData = require('../../models/Widget'); // 모델 경로 확인 필�
 // 위젯 데이터 생성하기 (Create)
 const createWidgetData = async (req, res) => {
     try {
-        const { x, y, type } = req.body;
+        const { type, x, y, width, height} = req.body;
         const userId = req.user.id;
 
-        const newWidget = new WidgetData({ userId, x, y, type });
+        const newWidget = new WidgetData({ userId, type, x, y, width, height});
         await newWidget.save();
         res.status(201).json({ message: '데이터가 저장되었습니다.', data: newWidget });
     } catch (error) {
