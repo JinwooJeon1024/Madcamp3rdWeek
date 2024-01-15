@@ -61,7 +61,7 @@ const LoginPage: React.FC = () => {
         width: 5,
         height: 19,
       };
-      const authToken = localStorage.getItem("authToken");
+      const authToken = localStorage.getItem("userToken");
       axios
         .post(`${process.env.REACT_APP_API_URL}/widget/create`, tempData, {
           headers: {
@@ -76,11 +76,16 @@ const LoginPage: React.FC = () => {
           );
         })
         .catch((error) => {
-          console.error(
-            "서버 오류 또는 데이터 생성 실패",
-            error.message,
-            error.stack
-          );
+          if (axios.isAxiosError(error)) {
+            const axiosError = error as AxiosError;
+            if (axiosError.response) {
+              console.error("Error submitting form : ", error.response?.data);
+            } else {
+              console.error("Unexpected error : ", error);
+            }
+          } else {
+            console.error("Non-Axios error : ", error);
+          }
         });
     } catch (error) {
       if (axios.isAxiosError(error)) {
