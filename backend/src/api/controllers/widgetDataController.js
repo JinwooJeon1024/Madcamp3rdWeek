@@ -1,9 +1,26 @@
-const widgetData = require('../../models/Widget');
+const WidgetData = require('../../models/Widget'); // 모델 경로 확인 필요
 
+// 위젯 데이터 생성하기 (Create)
+const createWidgetData = async (req, res) => {
+    try {
+        const { x, y, type } = req.body;
+        const userId = req.user.id;
+
+        const newWidget = new WidgetData({ userId, x, y, type });
+        await newWidget.save();
+        res.status(201).json({ message: '데이터가 저장되었습니다.', data: newWidget });
+    } catch (error) {
+        res.status(500).json({ message: '데이터를 저장하는 데 실패했습니다.', error });
+    }
+};
+
+// 위젯 데이터 가져오기 (Read)
 const getWidgetData = async (req, res) => {
     try {
-        const data = await data.findOne().sort({ _id: -1 });
-        if (data) {
+        const userId = req.user.id;
+
+        const data = await WidgetData.find({ userId }).sort({ _id: -1})
+        if (data.length > 0) {
             res.json(data);
         } else {
             res.status(404).json({ message: '데이터가 없습니다.' });
@@ -13,44 +30,40 @@ const getWidgetData = async (req, res) => {
     }
 };
 
-const saveWidgetData = async (req, res) => {
-    try {
-        const { x, y } = req.body;
-        
-        const newData = new widgetData({ x, y });
-        await newData.save();
+// 위젯 데이터 업데이트하기 (Update)
+const updateWidgetData = async (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
 
-        res.status(201).json({ message: '데이터가 저장되었습니다.', data: newData });
+    try {
+        const updatedWidget = await WidgetData.findByIdAndUpdate(id, updateData, { new: true });
+        if (!updatedWidget) {
+            return res.status(404).json({ message: '위젯을 찾을 수 없습니다.' });
+        }
+        res.json({ message: '위젯이 업데이트 되었습니다.', data: updatedWidget });
     } catch (error) {
-        res.status(500).json({ message: '데이터를 저장하는 데 실패했습니다.', error });
+        res.status(500).json({ message: '위젯 업데이트 실패', error });
     }
 };
 
-const addWidgetData = async (req, res) => {
+// 위젯 데이터 삭제하기 (Delete)
+const deleteWidgetData = async (req, res) => {
+    const { id } = req.params;
+
     try {
-        // 요청에서 widgetData와 type을 추출합니다.
-        const { widgetData, type } = req.body;
-
-        // 새로운 Widget 인스턴스 생성
-        const newWidget = new Widget({
-            type: type,
-            position: widgetData.position
-            // 필요한 경우 여기에 size, color 등의 추가 데이터를 포함할 수 있습니다.
-        });
-
-        // MongoDB에 저장
-        await newWidget.save();
-
-        // 생성된 _id를 응답으로 반환
-        res.status(201).json({ message: "Widget successfully added", id: newWidget._id });
+        const deletedWidget = await WidgetData.findByIdAndDelete(id);
+        if (!deletedWidget) {
+            return res.status(404).json({ message: '위젯을 찾을 수 없습니다.' });
+        }
+        res.json({ message: '위젯이 삭제되었습니다.' });
     } catch (error) {
-        // 오류 처리
-        res.status(500).json({ message: "Error adding widget", error: error.message });
+        res.status(500).json({ message: '위젯 삭제 실패', error });
     }
-}
+};
 
 module.exports = {
+    createWidgetData,
     getWidgetData,
-    saveWidgetData,
-    addWidgetData
+    updateWidgetData,
+    deleteWidgetData
 };
