@@ -1,30 +1,27 @@
-import { ID_Delete_props, TextWidgetData } from "../../types/Type";
-import { Widget, useWidgetData } from "../WidgetHooks";
-const TextWidget = ({ id }: ID_Delete_props) => {
-  const { widgetData, setWidgetData } = useWidgetData<TextWidgetData>(id, {
-    type: "TextWidget",
-    position: { x: 0, y: 0 },
-    text: "",
-  });
+import { useWidgets } from "../../recoil/WidgetList";
+import { TextWidgetData } from "../../types/Type";
+
+function TextWidget(textWidgetData : TextWidgetData){
+  const {updateText, removeWidget} = useWidgets()
   function onDeleteButtonClick(){
-    onWidgetDeleteButtonClick(id);
+    console.log(`text delete clicked, delete ${textWidgetData.widgetId}`)
+    removeWidget(textWidgetData.widgetId)
+  }
+  function handleTextChange(event:React.ChangeEvent<HTMLInputElement>){
+    //recoil 접근해서 text 변경
+    console.log(event.target.value)
+    console.log(`${textWidgetData.widgetId}`)
+    updateText(textWidgetData.widgetId, event.target.value)
   }
   return (
-    <Widget widgetData={widgetData} setWidgetData={setWidgetData}>
-      <div className="text-widget">
-        <input
-          type="text"
-          value={widgetData.text}
-          onChange={(event) => {
-            setWidgetData({
-              ...widgetData,
-              text: event.target.value,
-            });
-          }}
-        />
-        <button onClick={onDeleteButtonClick}>삭제</button>
-      </div>
-    </Widget>
+    <div className="text-widget">
+      <input
+        type="text"
+        value={textWidgetData.text}
+        onChange={handleTextChange}
+      />
+      <button onClick={onDeleteButtonClick}>삭제</button>
+    </div>
   );
 };
 

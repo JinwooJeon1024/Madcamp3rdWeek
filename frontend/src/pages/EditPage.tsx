@@ -2,15 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import WIDGET_LIST from "../widgets/WidgetList";
-import WIDGET_TO_COMPONENT from "../widgets/WidgetMapping";
 import { WidgetType } from "../types/Type";
 import "./EditPage.css";
 import EditMainPage from "./EditMainPage";
-import useWidgetList from "../widgets/widgetHooks/UseWidgetList";
+import { useWidgets } from "../recoil/WidgetList";
+import WIDGET_MENU from "../widgets/WidgetMenu";
 
 const EditPage = () => {
-  const { widgets, addWidget, deleteWidget } = useWidgetList();
+  // const { widgets, addWidget, deleteWidget } = useWidgetList();
+  const {widgets} = useWidgets()
   console.log(widgets);
 
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const EditPage = () => {
   }
 
   function handleCancel() {
-    // TODO : EditPage 들어오기 전 상태로 revert
+    // TODO : 디비로 변경사항 전송 X
   }
 
   // const [widgets, setWidgets] = useState<ReactElement[]>([]);
@@ -42,21 +42,7 @@ const EditPage = () => {
   function handleOnDragStart(event: React.DragEvent, widgetType: WidgetType) {
     event.dataTransfer.setData("widgetType", widgetType);
   };
-  function handleOnDrop(event: React.DragEvent) {
-    console.log("drop called")
-    event.preventDefault();
-    const widgetType = event.dataTransfer.getData("widgetType") as WidgetType;
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
-    const widgetData: WidgetData = {position:{x:mouseX, y: mouseY}}
-    addWidget(widgetData, widgetType);
-  };
-  function handleOnDragOver(event: React.DragEvent){
-    event.preventDefault();
-  };
-  function handleDelete(event: React.MouseEvent<HTMLButtonElement>, widgetId : number){
-    deleteWidget(widgetId);
-  };
+
 
   return (
     <div>
@@ -75,18 +61,14 @@ const EditPage = () => {
             </div>
           </div>
           <div className="Show_display">
-              <EditMainPage 
-              widgets={widgets} 
-              onDragDrop={handleOnDrop}
-              onDelete={handleDelete} />
+              <EditMainPage />
           </div>
           <div className="Menu">
             <div className="Scroll">
-              {WIDGET_LIST.map(({ type, image }) => (
+              {WIDGET_MENU.map(({ type, image }) => (
                 <div
                   draggable
-                  onDragStart={(event) => handleOnDragStart(event, type)}
-                  onDragOver={handleOnDragOver}>
+                  onDragStart={(event) => handleOnDragStart(event, type)}>
                   <img src={image} alt={type} />
                 </div>
               ))}
