@@ -112,9 +112,9 @@ function EditMainPage() {
       onDrop={handleOnNewWidgetDrop}
       onDragOver={handleOnDragOver}
     >
-      {widgets.map((widget, index) => (
+      {widgets.map((widget) => (
         <Draggable
-          key={index}
+          key={widget.props.widgetId}
           onStop={(event, data) => handlePosition(data, widget.props.widgetId)}
           defaultPosition={{x: widget.props.widgetTopLeftX, y: widget.props.widgetTopLeftY}}
           bounds="parent">
