@@ -1,0 +1,6 @@
+import {atom} from 'recoil';
+
+export const WidgetList = atom({
+    key: 'WidgetList',
+    default : []
+})

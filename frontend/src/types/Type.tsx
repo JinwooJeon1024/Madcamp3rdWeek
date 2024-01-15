@@ -3,6 +3,7 @@ export type WidgetType = "TextWidget";
 export type EditMainPageProps = {
     widgets: React.ReactElement[];
     onDragDrop: (event: React.DragEvent) => void;
+    onDelete: (event : React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export type WidgetData = {
@@ -22,6 +23,8 @@ export type TextWidgetData = WidgetData & {
   text: string;
 };
 
-export type IDprops = {
+export type ID_Delete_props = {
+  //id와 widgetId의 type은 같아야함
   id: number;
+  deleteButton : (widgetId : number) => void;
 };
