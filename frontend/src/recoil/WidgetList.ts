@@ -2,8 +2,6 @@ import {atom, useRecoilState} from 'recoil';
 import { ReactElement } from 'react';
 import React from 'react';
 
-
-
 export const WidgetListAtom = atom<ReactElement[]>({
     key: 'WidgetList',
     default : []
@@ -21,6 +19,11 @@ export const useWidgets = () => {
             prevWidgets.map((widget) => 
             widget.props.widgetId === widgetId ? React.cloneElement(widget, {text : newText})
                 : widget))
+    }
+
+    const updateBoomark = (widgetId : string, newUrl : string, newIcon : string) => {
+        // setWidgets((prevWidgets) => 
+        // )
     }
 
     const removeWidget = (widgetId : string) => {
