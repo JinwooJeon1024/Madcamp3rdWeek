@@ -2,6 +2,7 @@ const WidgetData = require('../../models/Widget'); // 모델 경로 확인 필�
 
 // 위젯 데이터 생성하기 (Create)
 const createWidgetData = async (req, res) => {
+    console.log(req.body);
     const { properties } = req.body;
     const userId = req.userId;
     try {

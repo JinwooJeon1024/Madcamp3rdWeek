@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const widgetDataSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user_auth', required: true },
-    type: { type: String, required: true },
     properties: { type: Object, required: true } 
 }, { collection: 'widgetData' });
 
