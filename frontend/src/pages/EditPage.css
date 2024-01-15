@@ -58,6 +58,8 @@
     width: 60%;
     height: 60%;
     background-color: white;
+    /* do not change position */
+    position : relative;
 }
 .Menu{
     display:flex;

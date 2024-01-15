@@ -49,10 +49,14 @@ function EditMainPage() {
 
       {widgets.map((widget, index) => (
           <Draggable 
-            onMouseDown={handleMouseDown}
-            >
+            onMouseDown={handleMouseDown}>
             <div
               draggable
+              style={{position:'absolute', 
+                    top:`${widget.props.widgetTopLeftX}`, 
+                    left:`${widget.props.widgetTopLeftY}`,
+                    width : `${widget.props.width}`,
+                    height : `${widget.props.height}`}}
               key={index}>
               {widget}
             </div>
