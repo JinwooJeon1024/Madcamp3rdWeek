@@ -29,11 +29,14 @@ function TextWidget(textWidgetData : TextWidgetData){
 
 
   return (
-      <div ref={textRef}>
+      <div 
+        ref={textRef}>
         <input
           type="text"
           value={textWidgetData.text}
-          onChange={handleTextChange}/>
+          onChange={handleTextChange}
+          style={{width : textWidgetData.width,
+                  height : textWidgetData.height}}/>
         <button type= "button" onClick={onDeleteButtonClick}>삭제</button>
       </div>
   );

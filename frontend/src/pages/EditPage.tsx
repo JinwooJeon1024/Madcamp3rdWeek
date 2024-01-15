@@ -81,7 +81,7 @@ const EditPage = () => {
                                 widgetId={response.data.data._id} 
                                 widgetTopLeftX={mouseX} 
                                 widgetTopLeftY={mouseY} 
-                                width={100} 
+                                width={200} 
                                 height={100} 
                                 text={""}/>)
           addWidget(newTextWidget)
@@ -121,11 +121,11 @@ const EditPage = () => {
                 {widget}
                 <div
                   className="Resize_box"
-                  draggable
                   {...registerMouseDownDrag((deltaX, deltaY)=>{
                     updateSize(widget.props.widgetId,deltaX+widget.props.width, deltaY+widget.props.height)
-                    console.log(deltaX)
-                    console.log(deltaY)
+                    console.log('deltaX', deltaX)
+                    console.log('deltaY',deltaY)
+                    console.log('widgetId', widget.props.widgetId)
                   })}>
                 </div>
               </div>
