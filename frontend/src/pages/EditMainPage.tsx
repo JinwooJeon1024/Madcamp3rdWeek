@@ -120,7 +120,6 @@ function EditMainPage() {
         console.error("Non-Axios error : ", error);
       }
     }
-
   }
   function handlePosition(data: DraggableData, widgetId : string){
     updatePosition(widgetId, data)
@@ -130,8 +129,7 @@ function EditMainPage() {
   return (
     <div className="Whiteboard" ref = {editRef}
       onDrop={handleOnNewWidgetDrop}
-      onDragOver={handleOnDragOver}
-    >
+      onDragOver={handleOnDragOver}>
       {widgets.map((widget) => (
         <Draggable
           key={widget.props.widgetId}
