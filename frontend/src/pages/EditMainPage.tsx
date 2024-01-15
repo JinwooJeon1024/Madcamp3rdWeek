@@ -1,17 +1,38 @@
-import { useRecoilState } from "recoil";
+
 import "./EditPage.css";
-import { WidgetListAtom, useWidgets } from "../recoil/WidgetList";
+import { useWidgets } from "../recoil/WidgetList";
 import { WidgetType } from "../types/Type";
 import React, { useEffect, useRef } from "react";
 import TextWidget from "../widgets/customWidgets/TextWidget";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import axios, { AxiosError } from "axios";
+import { useEditSize } from "../recoil/EditSize";
 
 function EditMainPage() {
   const {widgets, addWidget, updatePosition} = useWidgets()
-  const editRef = useRef(null)
+  const {left, top, setLeft, setTop} = useEditSize()
+  const editRef = useRef<HTMLDivElement>(null)
 
-  function handleOnDragOver(event: React.DragEvent) {
+  useEffect(()=>{
+    const handleEditResize=()=>{
+      if(editRef.current){
+        const rect = editRef.current.getBoundingClientRect();
+        setLeft(rect.left)
+        setTop(rect.top)
+        console.log(rect.left)
+        console.log(rect.top)
+      }
+    }
+    handleEditResize();
+    console.log(editRef.current)
+    window.addEventListener('resize', handleEditResize)
+    return () =>{
+      window.removeEventListener('resize', handleEditResize)
+    }
+  },[]);
+
+
+  function handleOnDragOver(event: React.DragEvent){
     event.preventDefault();
   }
   // function handleOnNewWidgetDrop(event: React.DragEvent) {
@@ -77,8 +98,8 @@ function EditMainPage() {
           //지우지 말 것, width와 height는 css 파일과 일치시켜야하고 px단위를 쓰도록 해야함
           const newTextWidget =(<TextWidget
                                 widgetId={response.data.data._id} 
-                                widgetTopLeftX={response.data.data.x} 
-                                widgetTopLeftY={response.data.data.y} 
+                                widgetTopLeftX={response.data.data.x-left} 
+                                widgetTopLeftY={response.data.data.y-top} 
                                 width={response.data.data.width} 
                                 height={response.data.data.height} 
                                 text={""}/>)
@@ -107,8 +128,7 @@ function EditMainPage() {
 
 
   return (
-    <div
-      className="Whiteboard"
+    <div className="Whiteboard" ref = {editRef}
       onDrop={handleOnNewWidgetDrop}
       onDragOver={handleOnDragOver}
     >

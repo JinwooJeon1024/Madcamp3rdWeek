@@ -7,11 +7,10 @@ import "./EditPage.css";
 import EditMainPage from "./EditMainPage";
 import { useWidgets } from "../recoil/WidgetList";
 import WIDGET_MENU from "../widgets/WidgetMenu";
-import { useEditSize } from "../recoil/EditSize";
 
 const EditPage = () => {
   const {widgets} = useWidgets()
-  const {X, Y , setX, setY} = useEditSize()
+
 
   console.log(widgets.map((widget)=>widget.props));
 
