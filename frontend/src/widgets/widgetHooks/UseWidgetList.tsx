@@ -11,7 +11,7 @@ function useWidgetList() {
     async function getWidgetData() {
       try {
         const response = await axios.post(
-          `${process.env.REACT_API_APP_URL}/api/widget/save`
+          `${process.env.REACT_API_APP_URL}/widget/`
         );
         console.log("위젯 데이터 불러오기에 성공했습니다.");
         const newWidgets = [];

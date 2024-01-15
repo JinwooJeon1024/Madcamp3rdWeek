@@ -63,9 +63,9 @@ const LoginPage: React.FC = () => {
       };
       const authToken = localStorage.getItem("authToken");
       axios
-        .post(`${process.env.REACT_APP_API_URL}/widgets/create`, tempData, {
+        .post(`${process.env.REACT_APP_API_URL}/widget/create`, tempData, {
           headers: {
-            Authorization: `Bearer ${authToken}`,
+            authorization: `Bearer ${authToken}`,
           },
         })
         .then((response2) => {
@@ -76,8 +76,11 @@ const LoginPage: React.FC = () => {
           );
         })
         .catch((error) => {
-          // 서버 오류 또는 실패 시의 처리
-          console.error("서버 오류 또는 데이터 생성 실패", error);
+          console.error(
+            "서버 오류 또는 데이터 생성 실패",
+            error.message,
+            error.stack
+          );
         });
     } catch (error) {
       if (axios.isAxiosError(error)) {
