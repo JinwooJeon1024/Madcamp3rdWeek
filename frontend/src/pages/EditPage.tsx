@@ -31,6 +31,7 @@ const EditPage = () => {
         const request = {
           widgets: formattedWidgets,
         };
+
         console.log(request);
         const response = await axios.put(
           `${process.env.REACT_APP_API_URL}/widget/update`,
@@ -107,6 +108,7 @@ const EditPage = () => {
           const newTextWidget = (
             <TextWidget
               widgetId={response.data.data._id}
+              widgetType="TextWidget"
               widgetTopLeftX={mouseX}
               widgetTopLeftY={mouseY}
               width={100}

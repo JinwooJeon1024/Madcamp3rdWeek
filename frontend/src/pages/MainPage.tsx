@@ -4,16 +4,22 @@ import "./EditPage.css";
 import TextWidget from "../widgets/customWidgets/TextWidget";
 import { JSX } from "react/jsx-runtime";
 import { useEffect } from "react";
+import { WidgetData } from "../types/Type";
 
 function MainPage() {
-  const {prevWidgets, setPrevWidgets} = useWidgets()
+   const { prevWidgets, setPrevWidgets } = useWidgets();
+   const { widgets, setWidgets } = useWidgets();
 
-  async function fetchWidgets(){
+  async function fetchWidgets() {
     try {
       const userToken = localStorage.getItem("userToken");
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/widget`, {headers: {authorization: `Bearer ${userToken}`}});
-      setPrevWidgets(response.data)
-      console.log(response.data)
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/widget`,
+        { headers: { authorization: `Bearer ${userToken}` } }
+      );
+      setPrevWidgets(response.data);
+      setWidgets(response.data);
+      console.log(response.data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
@@ -27,22 +33,30 @@ function MainPage() {
       }
     }
   }
-  useEffect(()=>{
-    fetchWidgets()
-  }, [])
+  useEffect(() => {
+    fetchWidgets();
+  }, []);
 
-  return (
-    <div>
-      {prevWidgets.map((widget) => (
-        <div
-          key={widget.props.widgetId}>
-          <div style={{position:'absolute'}}>
-            {widget}
-          </div>
-        </div>))}
-    </div>
-  )
+  function renderWidget(widget : WidgetData) {
+    switch (widget.widgetType) {
+      case "TextWidget":
+        return (
+          <TextWidget
+            widgetId={widget.widgetId}
+            widgetType={widget.widgetType}
+            widgetTopLeftX={widget.widgetTopLeftX}
+            widgetTopLeftY={widget.widgetTopLeftY}
+            width={widget.width}
+            height={widget.height}
+            text={widget.text}
+          />
+        );
+      default:
+        return null;
+    }
+  }
+
+  return <div>{prevWidgets.map((widget) => renderWidget(widget))}</div>;
 }
 
 export default MainPage;
-

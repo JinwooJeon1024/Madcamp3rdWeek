@@ -29,6 +29,7 @@ const replaceAllWidgetData = async (req, res) => {
                 properties: widget.properties // 이미 properties 객체로 된 데이터 사용
             }))
         );
+        console.log(newWidgets);
 
         res.status(200).json({ message: '모든 위젯 데이터가 교체되었습니다.', data: newWidgets });
     } catch (error) {
