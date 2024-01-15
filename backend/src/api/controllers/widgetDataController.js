@@ -21,7 +21,7 @@ const replaceAllWidgetData = async (req, res) => {
         // 기존 데이터 삭제
         await WidgetData.deleteMany({});
 
-        widgets = widgets.map(widget => ({ ...widget, userId }));
+        widgets = widgets.map(widget => ({ userId, ...widget }));
 
         // 새 데이터 추가
         const newWidgets = await WidgetData.insertMany(widgets);
