@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const widgetDataControllers = require('../controllers/widgetDataControllers');
+const widgetDataControllers = require('../controllers/widgetDataController');
+const verifyToken = require('../middlewares/verifyToken');
 
-router.get('/get', widgetDataControllers.getWidgetData);
-router.post('/save', widgetDataControllers.saveWidgetData);
-router.post('/add', widgetDataControllers.addWidgetData);
+router.post('/create', verifyToken, widgetDataControllers.createWidgetData);
+router.get('/', verifyToken, widgetDataControllers.getWidgetData);
+router.put('/update/:id', verifyToken, widgetDataControllers.updateWidgetData);
+router.delete('/delete/:id', verifyToken, widgetDataControllers.deleteWidgetData);
 
 module.exports = router;
