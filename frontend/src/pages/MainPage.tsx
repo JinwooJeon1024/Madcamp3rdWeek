@@ -1,7 +1,6 @@
 import "./EditPage.css";
 
 function MainPage() {
-  const userToken = localStorage.getItem("userToken");
 
   return (
     <div>

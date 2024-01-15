@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginSignUp.css';
 import axios, {AxiosError} from 'axios';
-const apiUrl = process.env.REACT_APP_API_URL;
-
 
 const SignUpPage: React.FC = () => {
     const navigate = useNavigate();

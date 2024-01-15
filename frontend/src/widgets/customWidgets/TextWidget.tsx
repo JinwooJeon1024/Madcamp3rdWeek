@@ -3,7 +3,7 @@ import { TextWidgetData } from "../../types/Type";
 
 function TextWidget(textWidgetData : TextWidgetData){
   const {updateText, removeWidget} = useWidgets()
-  function onDeleteButtonClick(){
+  function onDeleteButtonClick(event: React.MouseEvent<HTMLButtonElement>){
     console.log(`text delete clicked, delete ${textWidgetData.widgetId}`)
     removeWidget(textWidgetData.widgetId)
   }
@@ -14,14 +14,13 @@ function TextWidget(textWidgetData : TextWidgetData){
     updateText(textWidgetData.widgetId, event.target.value)
   }
   return (
-    <div className="text-widget">
-      <input
-        type="text"
-        value={textWidgetData.text}
-        onChange={handleTextChange}
-      />
-      <button onClick={onDeleteButtonClick}>삭제</button>
-    </div>
+      <div>
+        <input
+          type="text"
+          value={textWidgetData.text}
+          onChange={handleTextChange}/>
+        <button type= "button" onClick={onDeleteButtonClick}>삭제</button>
+      </div>
   );
 };
 
