@@ -51,42 +51,8 @@ const LoginPage: React.FC = () => {
         `${process.env.REACT_APP_API_URL}/users/login`,
         userData
       );
-      console.log(response.data);
-      localStorage.setItem("userToken", JSON.stringify(response.data));
+      localStorage.setItem("userToken", response.data.token);
       navigate("/main");
-      const tempData = {
-        type: "exampleType",
-        x: 100,
-        y: 200,
-        width: 5,
-        height: 19,
-      };
-      const authToken = localStorage.getItem("userToken");
-      axios
-        .post(`${process.env.REACT_APP_API_URL}/widget/create`, tempData, {
-          headers: {
-            authorization: `Bearer ${authToken}`,
-          },
-        })
-        .then((response2) => {
-          // 성공적으로 생성됐을 때의 처리
-          console.log(
-            "위젯 데이터가 성공적으로 생성되었습니다.",
-            response2.data
-          );
-        })
-        .catch((error) => {
-          if (axios.isAxiosError(error)) {
-            const axiosError = error as AxiosError;
-            if (axiosError.response) {
-              console.error("Error submitting form : ", error.response?.data);
-            } else {
-              console.error("Unexpected error : ", error);
-            }
-          } else {
-            console.error("Non-Axios error : ", error);
-          }
-        });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
