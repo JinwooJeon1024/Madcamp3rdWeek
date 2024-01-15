@@ -4,12 +4,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import WIDGET_LIST from "../widgets/WidgetList";
 import WIDGET_TO_COMPONENT from "../widgets/WidgetMapping";
-<<<<<<< HEAD
 import { WidgetType } from "../types/Type";
-=======
-import { useWidgetList } from "../widgets/WidgetHooks";
-import { WidgetData, WidgetType } from "../types/Type";
->>>>>>> dc0d683d33d516b4949a9b5973f110d3b5b67477
 import "./EditPage.css";
 import EditMainPage from "./EditMainPage";
 import useWidgetList from "../widgets/widgetHooks/UseWidgetList";
