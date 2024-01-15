@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const widgetDataControllers = require('../controllers/widgetDataControllers');
-const verifyToken = require('../middlewares/verifyToekn');
+const widgetDataControllers = require('../controllers/widgetDataController');
+const verifyToken = require('../middlewares/verifyToken');
 
 router.post('/create', verifyToken, widgetDataControllers.createWidgetData);
 router.get('/', verifyToken, widgetDataControllers.getWidgetData);
