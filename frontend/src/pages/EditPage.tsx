@@ -7,11 +7,13 @@ import "./EditPage.css";
 import EditMainPage from "./EditMainPage";
 import { useWidgets } from "../recoil/WidgetList";
 import WIDGET_MENU from "../widgets/WidgetMenu";
+import { useEditSize } from "../recoil/EditSize";
 
 const EditPage = () => {
-  // const { widgets, addWidget, deleteWidget } = useWidgetList();
   const {widgets} = useWidgets()
-  console.log(widgets);
+  const {X, Y , setX, setY} = useEditSize()
+
+  console.log(widgets.map((widget)=>widget.props));
 
   const navigate = useNavigate();
   function handleDone() {
@@ -22,27 +24,9 @@ const EditPage = () => {
     // TODO : 디비로 변경사항 전송 X
   }
 
-  // const [widgets, setWidgets] = useState<ReactElement[]>([]);
-
-  // const { widgetList, addWidget } = useWidgetList();
-
-  // setWidgets로 변경 해야함
-
-  // function handleOnDrag(e: React.DragEvent, widgetType: string){
-  //   e.dataTransfer.setData("widgetType", widgetType);
-  // }
-  // function handleOnDrop(e: React.DragEvent){
-  //   const widgetType = e.dataTransfer.getData("widgetType") as string;
-  //   setDroppedWidgets([...droppedWidgets, widgetType]);
-  // }
-  // function handleDragOver(e: React.DragEvent){
-  //   e.preventDefault();
-  // }
-
   function handleOnDragStart(event: React.DragEvent, widgetType: WidgetType) {
     event.dataTransfer.setData("widgetType", widgetType);
   };
-
 
   return (
     <div>
