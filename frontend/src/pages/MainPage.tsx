@@ -171,28 +171,52 @@ function MainPage() {
     setShowDropdown(false);
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
+const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const file = event.target.files && event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
 
-      reader.onloadend = () => {
-        // reader.result가 string인 경우에만 setBackgroundImage에 할당
-        if (typeof reader.result === 'string') {
-          setBackgroundImage(reader.result);
-          localStorage.setItem('backgroundImage', reader.result);
+    reader.onloadend = async () => {
+      if (typeof reader.result === 'string') {
+        setBackgroundImage(reader.result);
+
+        try {
+          await axios.post('YOUR_SERVER_ENDPOINT', {
+            image: reader.result
+          }, {
+            headers: {
+              'authorization': `Bearer ${userToken}`,
+            }
+          });
+        } catch (error) {
+          console.error('Error uploading the image: ', error);
         }
-      };
-      reader.readAsDataURL(file);
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
+useEffect(() => {
+  const fetchBackgroundImage = async () => {
+    try {
+      const response = await axios.get('YOUR_SERVER_ENDPOINT_FOR_GETTING_IMAGE', {
+        headers: {
+          'authorization': `Bearer ${userToken}`,
+        }
+      });
+
+      if (response.data && response.data.image) {
+        setBackgroundImage(response.data.image);
+      }
+    } catch (error) {
+      console.error('Error fetching the background image: ', error);
     }
   };
 
-  useEffect(() => {
-    const savedBackgroundImage = localStorage.getItem('backgroundImage');
-    if (savedBackgroundImage) {
-      setBackgroundImage(savedBackgroundImage);
-    }
-  }, []);
+  fetchBackgroundImage();
+}, []);
+
 
   return (
     <div className="Whiteboard" style={{ backgroundImage: `url(${backgroundImage})` }} >
