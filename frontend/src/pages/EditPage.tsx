@@ -10,7 +10,7 @@ import TextWidget from "../widgets/customWidgets/TextWidget";
 import registerMouseDownDrag from "../services/registerMouseDownDrag";
 import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
 import ClockWidget from "../widgets/customWidgets/ClockWidget";
-import SearchWidget from "../widgets/customWidgets/SearchWidget"
+import SearchWidget from "../widgets/customWidgets/SearchWidget";
 
 
 const EditPage = () => {
@@ -148,7 +148,6 @@ const EditPage = () => {
           );
           addWidget(newBookmarkWidget);
           break;
-
         case "ClockWidget":
           console.log("Add new ClockWidget");
           const newClockWidget = (
@@ -163,6 +162,7 @@ const EditPage = () => {
             />
           );
           addWidget(newClockWidget);
+          break;
         case "SearchWidget":
           console.log("Add new SEarchWidget");
           const newSearchWidget = (

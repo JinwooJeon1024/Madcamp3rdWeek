@@ -23,7 +23,7 @@ export type ImageWidgetData = WidgetCommon & {
 }
 
 
-export type ClockWidgetData = WigetCommon & {
+export type ClockWidgetData = WidgetCommon & {
   time : string;
 }
 
