@@ -1,4 +1,4 @@
-.Home_container{
+.Container{
     width : 100vw;
     height : 100vh;
     background : linear-gradient(-40deg,#9708cc, #43cbff);
@@ -9,13 +9,13 @@
     flex-direction: column;
 }
 .Left{
-    width : 35%;
+    width : 40%;
     height : 100%;
     position : absolute;
     left:0;
 }
 .Right{
-    width : 65%;
+    width : 60%;
     height : 100%;
     position : absolute;
     background-color: #FCFCFC;
@@ -25,10 +25,10 @@
     height : 25%;
     position : absolute;
     top : 25%;
-    right: 10%;
+    right: 20%;
 }
 .Line{
-    border-top : 2px solid black;
+    border-top : 1px solid #141414;
     border-radius : 20px;
     position : absolute;
     width : 50%;

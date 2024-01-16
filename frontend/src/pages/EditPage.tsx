@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { WidgetType } from "../types/Type";
-import "./EditPage.css";
+import './Edit_Main.css';
 import { useWidgets } from "../recoil/WidgetList";
 import WIDGET_MENU from "../widgets/WidgetMenu";
 import Draggable, { DraggableData } from "react-draggable";
@@ -258,14 +258,14 @@ const EditPage = () => {
       </Draggable>
       <button className="Right_Top_Component" onClick={handleSave}>
         {!rightImgError ? (
-          <img src="" alt="SAVE" onError={handleRightImgError} />
+          <img src={process.env.PUBLIC_URL + "/save.png"} alt="SAVE" onError={handleRightImgError} />
         ) : (
           <p>SAVE</p>
         )}
       </button>
       <button className="Left_Top_Component" onClick={handleDiscard}>
         {!leftImgError ? (
-          <img src="" alt="DISCARD" onError={handleLeftImgError} />
+          <img src={process.env.PUBLIC_URL + "/discard.png"} alt="DISCARD" onError={handleLeftImgError} />
         ) : (
           <p>DISCARD</p>
         )}

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import './HomePage.css'
+import './HomePage.css';
 
 
 const HomePage = () => {
@@ -19,7 +19,7 @@ const HomePage = () => {
   };
 
   return (
-    <main className="Home_container">
+    <main className="Container">
       <div className="Left">
         <img className="Home_logo" src={process.env.PUBLIC_URL + "/name.png"} alt="CANVAS"/>
       </div>

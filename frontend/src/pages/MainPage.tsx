@@ -1,12 +1,12 @@
 import axios, { AxiosError } from "axios";
 import { useWidgets } from "../recoil/WidgetList";
-import "./EditPage.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextWidget from "../widgets/customWidgets/TextWidget";
 import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
 import SearchWidget from "../widgets/customWidgets/SearchWidget";
 import ClockWidget from "../widgets/customWidgets/ClockWidget";
+import './Edit_Main.css'
 
 function MainPage() {
   const { prevWidgets, setPrevWidgets, widgets, setWidgets } = useWidgets();
@@ -139,7 +139,7 @@ function MainPage() {
   }
 
   return (
-    <div>
+    <div className="Whiteboard">
       {prevWidgets.map((widget) => (
         <div key={widget.props._id}>
           <div
@@ -155,14 +155,14 @@ function MainPage() {
       ))}
       <button className="Right_Top_Component" onClick={handleLogout}>
         {!rightImgError ? (
-          <img src="" alt="LOGOUT" onError={handleRightImgError} />
+          <img src={process.env.PUBLIC_URL + "/logout.png"} alt="LOGOUT" onError={handleRightImgError} />
         ) : (
           <p>LOGOUT</p>
         )}
       </button>
       <button className="Left_Top_Component" onClick={handleToEdit}>
         {!leftImgError ? (
-          <img src="" alt="EDIT" onError={handleLeftImgError} />
+          <img src={process.env.PUBLIC_URL + "/edit.png"} alt="EDIT" onError={handleLeftImgError} />
         ) : (
           <p>EDIT</p>
         )}

@@ -1,31 +1,32 @@
 .Input_container{
     display: flex;
-    width: 100vw;
-    height: 100vh;
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    background : linear-gradient(-40deg,#9708cc, #43cbff);
 }
 .Question{
     font-size: calc(25px + 2vmin);
-    color: #FCFCFC;
     position : absolute;
-    top : 30%;
+    top : 20%;
+    width : 100%;
+    right : 0;
+    text-align: center;
+    font-weight: 320;
 }
 .Input{
-    width : 70%;
+    width : 60%;
     text-align: center;
     background-color: transparent;
     position: absolute;
-    top: 50%;
+    top: 45.2%;
     outline: none;
     border: none;
-    border-bottom: 1px solid #FCFCFC;
-    color: #FCFCFC;
+    right : 20%;
+    border-bottom: 1px solid #141414;
     font-size: calc(25px + 2vmin);
-    padding-bottom: 1%;
+    font-weight : 320;
+    padding-bottom: 1.5%;
     &:focus{
         outline: none;
     }
@@ -47,7 +48,6 @@
     transition : all 0.2s;
     border: none;
     border-radius: 70px;
-
 }
 .Center_button:hover{
     background-color: black;
@@ -59,11 +59,12 @@
     flex-wrap: wrap;
     justify-content: space-around;
     align-items:end;
-    width: 70%;
+    width: 60%;
+    right: 20%;
     height: 20%;
     box-shadow: none;
     position : absolute;
-    bottom : 10%;
+    bottom : 20%;
 }
 .Twoside_button{
     display: block;

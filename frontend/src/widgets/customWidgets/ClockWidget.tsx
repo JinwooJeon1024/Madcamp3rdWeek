@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useWidgets } from "../../recoil/WidgetList";
 import { ClockWidgetData} from "../../types/Type";
-import './ClockWidget.css';
+import './Widget.css';
 
 function ClockWidget(clockWidgetData : ClockWidgetData){
   const {updateSize} = useWidgets()
