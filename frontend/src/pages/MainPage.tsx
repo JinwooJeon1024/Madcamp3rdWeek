@@ -147,7 +147,9 @@ function MainPage() {
   ) {
     setRightImgError(true);
   }
+
   const [showDropdown, setShowDropdown] = useState(false);
+  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
 
   // 로그아웃 버튼 클릭 핸들러
   const toggleDropdown = () => {
@@ -160,6 +162,7 @@ function MainPage() {
       case "profile":
         break;
       case "settings":
+        document.getElementById('fileInput')?.click();
         break;
       case "logout":
         handleLogout();
@@ -168,8 +171,31 @@ function MainPage() {
     setShowDropdown(false);
   };
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        // reader.result가 string인 경우에만 setBackgroundImage에 할당
+        if (typeof reader.result === 'string') {
+          setBackgroundImage(reader.result);
+          localStorage.setItem('backgroundImage', reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  useEffect(() => {
+    const savedBackgroundImage = localStorage.getItem('backgroundImage');
+    if (savedBackgroundImage) {
+      setBackgroundImage(savedBackgroundImage);
+    }
+  }, []);
+
   return (
-    <div className="Whiteboard">
+    <div className="Whiteboard" style={{ backgroundImage: `url(${backgroundImage})` }} >
       {prevWidgets.map((widget) => (
         <div key={widget.props._id}>
           <div
@@ -199,6 +225,13 @@ function MainPage() {
           </div>
         )}
       </div>
+      <input
+        type="file"
+        id="fileInput"
+        style={{ display: 'none' }}
+        onChange={handleFileChange}
+        accept="image/*"
+      />
       <button className="Left_Top_Component" onClick={handleToEdit}>
         {!leftImgError ? (
           <img src={process.env.PUBLIC_URL + "/edit.png"} alt="EDIT" onError={handleLeftImgError} />
