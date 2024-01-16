@@ -21,8 +21,6 @@ const EditPage = () => {
     removeWidget,
   } = useWidgets();
 
-  
-
   const [rightImgError, setRightImgError] = useState<boolean>(false);
   const [leftImgError, setLeftImgError] = useState<boolean>(false);
   console.log(widgets.map((widget) => widget.props));
