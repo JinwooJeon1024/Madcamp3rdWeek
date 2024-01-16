@@ -3,7 +3,7 @@ import { useWidgets } from "../../recoil/WidgetList";
 import { BookmarkWidgetData } from "../../types/Type";
 
 const BookmarkWidget = (bookmarkWidgetData : BookmarkWidgetData) => {
-  const { removeWidget } = useWidgets();
+  const { updateBookmark, removeWidget, updateSize } = useWidgets();
 
   function onDeleteButtonClick() {
     console.log(`Bookmark delete clicked, delete ${bookmarkWidgetData.widgetId}`);
@@ -17,7 +17,7 @@ const BookmarkWidget = (bookmarkWidgetData : BookmarkWidgetData) => {
 
     // 업데이트할 때 아이콘도 새 URL에 맞춰 업데이트
     const newIcon = newUrl ? `${new URL(newUrl).origin}/favicon.ico` : '';
-    // updateBookmark(bookmarkWidgetData.widgetId, newUrl, newIcon);
+    updateBookmark(bookmarkWidgetData.widgetId, newUrl, newIcon);
   }
 
   function handleIconClick() {

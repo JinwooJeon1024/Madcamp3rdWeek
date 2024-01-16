@@ -27,9 +27,12 @@ export const useWidgets = () => {
                     : widget))
     };
 
-    const updateBoomark = (widgetId: string, newUrl: string, newIcon: string) => {
-        // setWidgets((prevWidgets) => 
-        // )
+    const updateBookmark = (widgetId: string, newUrl: string, newIcon: string) => {
+        setWidgets((prevWidgets) => 
+            prevWidgets.map((widget) =>
+                widget.props.widgetId === widgetId ? React.cloneElement(widget, { url: newUrl, icon: newIcon})
+                    :widget)
+            );
     }
 
     const updateSize = (widgetId: string, width: number, height: number)=>{
@@ -70,7 +73,7 @@ export const useWidgets = () => {
         console.log(positionData.y)
     }
 
-    return {widgets,prevWidgets, setPrevWidgets, setWidgets, addWidget, removeWidget, updatePosition, updateSize, updateText }
+    return {widgets,prevWidgets, setPrevWidgets, setWidgets, addWidget, removeWidget, updateBookmark, updatePosition, updateSize, updateText }
 }
 
 

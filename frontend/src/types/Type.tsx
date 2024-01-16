@@ -1,6 +1,6 @@
 export type WidgetType = "TextWidget" | "BookmarkWidget";
 
-export interface WigetCommon = {
+export type WigetCommon = {
   widgetId : string;
   widgetType : string
   widgetTopLeftX: number;
@@ -9,7 +9,7 @@ export interface WigetCommon = {
   height: number;
 }
 
-export interface TextWidgetData = WigetCommon & {
+export type TextWidgetData = WigetCommon & {
   text : string;
 }
 
@@ -18,7 +18,7 @@ export type BookmarkWidgetData = WigetCommon & {
   icon: string;
 }
 
-export interface ImageWidgetData = WigetCommon & {
+export type ImageWidgetData = WigetCommon & {
   url : string;
 }
 

@@ -3,7 +3,7 @@ import { useWidgets } from "../recoil/WidgetList";
 import "./EditPage.css";
 import TextWidget from "../widgets/customWidgets/TextWidget";
 import { JSX } from "react/jsx-runtime";
-import { useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { WidgetData } from "../types/Type";
 
 function MainPage() {
@@ -48,7 +48,7 @@ function MainPage() {
             widgetTopLeftY={widget.widgetTopLeftY}
             width={widget.width}
             height={widget.height}
-            text={widget.text}
+            text=""
           />
         );
       default:
@@ -56,7 +56,7 @@ function MainPage() {
     }
   }
 
-  return <div>{prevWidgets.map((widget) => renderWidget(widget))}</div>;
+  return <div>{prevWidgets.map((widget) => renderWidget(widgetData : widget))}</div>;
 }
 
 export default MainPage;
