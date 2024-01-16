@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { WidgetType } from "../types/Type";
 import "./EditPage.css";
@@ -10,44 +10,45 @@ import TextWidget from "../widgets/customWidgets/TextWidget";
 import registerMouseDownDrag from "../services/registerMouseDownDrag";
 
 const EditPage = () => {
-  const {widgets, addWidget, updatePosition, updateSize} = useWidgets()
+  const {widgets, prevWidgets, addWidget, updatePosition, updateSize} = useWidgets()
+  const [rightImgError, setRightImgError] = useState<boolean>(false)
+  const [leftImgError, setLeftImgError] = useState<boolean>(false)
   console.log(widgets.map((widget)=>widget.props));
-
-
-
   const navigate = useNavigate();
-  function handleDone() {
-    async function sendWidgets(){
-      try {
-        const userToken = localStorage.getItem("userToken");
-        console.log({widgets: widgets})
-        const request = {
-          properties:{
-            widgets: widgets
-          }
-        }
-        console.log(request)
-        const response = await axios.put(`${process.env.REACT_APP_API_URL}/widget/update`, request, {headers: {authorization: `Bearer ${userToken}`}});
-        console.log(response.data)
-        navigate("/main");
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          const axiosError = error as AxiosError;
-          if (axiosError.response) {
-            console.error("Error submitting form : ", error.response?.data);
-          } else {
-            console.error("Unexpected error : ", error);
-          }
-        } else {
-          console.error("Non-Axios error : ", error);
+
+  async function sendWidgets(sendRequest : ReactElement[]){
+    try {
+      const userToken = localStorage.getItem("userToken");
+      console.log({widgets: widgets})
+      const request = {
+        properties:{
+          widgets: widgets
         }
       }
+      console.log(request)
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/widget/update`, request, {headers: {authorization: `Bearer ${userToken}`}});
+      console.log(response.data)
+      navigate("/main");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response) {
+          console.error("Error submitting form : ", error.response?.data);
+        } else {
+          console.error("Unexpected error : ", error);
+        }
+      } else {
+        console.error("Non-Axios error : ", error);
+      }
     }
-    sendWidgets()
+  }
+
+  function handleDone() {
+    sendWidgets(widgets)
   }
   function handleCancel() {
     // TODO : 디비로 처음 fetch받은 내용 보내기
-
+    sendWidgets(prevWidgets)
   }
   function handleOnDragStart(event: React.DragEvent, widgetType: WidgetType) {
     event.stopPropagation();
@@ -58,6 +59,12 @@ const EditPage = () => {
   }
   function handlePosition(data: DraggableData, widgetId : string){
     updatePosition(widgetId, data)
+  }
+  function handleLeftImgError(event: React.SyntheticEvent<HTMLImageElement, Event>){
+    setLeftImgError(true)
+  }
+  function handleRightImgError(event: React.SyntheticEvent<HTMLImageElement, Event>){
+    setRightImgError(true)
   }
   async function handleOnNewWidgetDrop(event: React.DragEvent){
     //recoil에 추가
@@ -73,14 +80,12 @@ const EditPage = () => {
       switch(widgetType){
         case "TextWidget":
           console.log("Add new TextWidget")
-          //TODO : 위젯 아이디 부여하는 거 바꿔야함
-          //지우지 말 것, width와 height는 css 파일과 일치시켜야하고 px단위를 쓰도록 해야함
           const newTextWidget =(<TextWidget
                                 widgetId={response.data.data._id} 
                                 widgetTopLeftX={mouseX} 
                                 widgetTopLeftY={mouseY} 
-                                width={200} 
-                                height={100} 
+                                width={0} 
+                                height={0} 
                                 text={""}/>)
           addWidget(newTextWidget)
           break;
@@ -133,19 +138,24 @@ const EditPage = () => {
       <Draggable cancel=".Widget_pick" bounds="parent">
           <div className="Menu">
             {WIDGET_MENU.map(({ type, image }) => (
-              <div
-                draggable
-                onDragStart={(event) => handleOnDragStart(event, type)}>
-                <img className="Widget_pick" src={image} alt={type}/>
+              <div>
+                <img className="Widget_pick" src={image} alt={type}
+                      draggable
+                      onDragStart={(event) => handleOnDragStart(event, type)}/>
               </div>
             ))}
+            
           </div>
       </Draggable>
-      <button className="Right_button" onClick={handleDone}>
-        완료
+      <button className="Right_Top_Component" onClick={handleDone}>
+        {!rightImgError? 
+         (<img src="" alt="SAVE" onError={handleRightImgError}/>)
+        : (<p>SAVE</p>)}
       </button>
-      <button className="Left_button" onClick={handleCancel}>
-        변경 사항 취소
+      <button className="Left_Top_Component" onClick={handleCancel}>
+        {!leftImgError? 
+         (<img src="" alt="DISCARD" onError={handleLeftImgError}/>)
+        : (<p>DISCARD</p>)}
       </button>
     </div>
   );

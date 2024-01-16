@@ -1,13 +1,14 @@
 import axios, { AxiosError } from "axios";
 import { useWidgets } from "../recoil/WidgetList";
 import "./EditPage.css";
-import TextWidget from "../widgets/customWidgets/TextWidget";
-import { JSX } from "react/jsx-runtime";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function MainPage() {
   const {prevWidgets, setPrevWidgets} = useWidgets()
-
+  const [imgError, setImgError] = useState<boolean>(false)
+  const [profileToggle, setProfileToggle] = useState<boolean>(false)
+  const navigate = useNavigate();
   async function fetchWidgets(){
     try {
       const userToken = localStorage.getItem("userToken");
@@ -31,6 +32,17 @@ function MainPage() {
     fetchWidgets()
   }, [])
 
+  function handleProfile(){
+    
+
+  }
+  function handleToEdit(){
+    navigate('/edit')
+  }
+  function handleImgError(event: React.SyntheticEvent<HTMLImageElement, Event>){
+    setImgError(true)
+  }
+
   return (
     <div>
       {prevWidgets.map((widget) => (
@@ -40,7 +52,16 @@ function MainPage() {
             {widget}
           </div>
         </div>))}
+      <button className="Right_button" onClick={handleProfile}>
+        
+      </button>
+      <button className="Left_Top_Component" onClick={handleToEdit}>
+        {!imgError? 
+         (<img src="" alt="EDIT" onError={handleImgError}/>)
+        : (<p>EDIT</p>)}
+      </button>
     </div>
+    
   )
 }
 
