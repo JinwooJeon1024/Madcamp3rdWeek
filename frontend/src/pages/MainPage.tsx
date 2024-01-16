@@ -8,94 +8,78 @@ import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
 import SearchWidget from "../widgets/customWidgets/SearchWidget";
 
 function MainPage() {
-  const { prevWidgets, setPrevWidgets, widgets, addWidget } = useWidgets();
+  const { prevWidgets, setPrevWidgets, widgets, addWidget, setWidgets } = useWidgets();
   const [rightImgError, setRightImgError] = useState<boolean>(false);
   const [leftImgError, setLeftImgError] = useState<boolean>(false);
   const navigate = useNavigate();
+  const userToken = localStorage.getItem("userToken");
   let fetchedElement;
 
+  async function clearWidgets() {
+    setWidgets([]);
+  }
+
   async function fetchWidgets() {
+    let fetchedWidgets = [];
     try {
-      console.log("fetch");
-      const userToken = localStorage.getItem("userToken");
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/widget`,
         { headers: { authorization: `Bearer ${userToken}` } }
       );
-      console.log(response.data);
-      response.data.map(
-        (temp: {
-          properties: {
-            widgetType: any;
-            widgetTopLeftX: number;
-            widgetTopLeftY: number;
-            width: number;
-            height: number;
-            text: string;
-            url: string;
-            icon: string;
-          };
-          _id: string;
-        }) => {
-          switch (temp.properties.widgetType) {
-            case "TextWidget":
-              fetchedElement = (
-                <TextWidget
-                  widgetId={temp._id}
-                  widgetType="TextWidget"
-                  widgetTopLeftX={temp.properties.widgetTopLeftX}
-                  widgetTopLeftY={temp.properties.widgetTopLeftY}
-                  width={temp.properties.width}
-                  height={temp.properties.height}
-                  text={temp.properties.text}
-                />
-              );
-              console.log(fetchedElement);
-              addWidget(fetchedElement);
-              console.log(widgets);
-              break;
-            case "BookmarkWidget":
-              fetchedElement = (
-                <BookmarkWidget
-                  widgetId={temp._id}
-                  widgetType="BookmarkWidget"
-                  widgetTopLeftX={temp.properties.widgetTopLeftX}
-                  widgetTopLeftY={temp.properties.widgetTopLeftY}
-                  width={temp.properties.width}
-                  height={temp.properties.height}
-                  url={temp.properties.url}
-                  icon={temp.properties.icon}
-                />
-              );
-              addWidget(fetchedElement);
-              console.log(fetchedElement);
-              console.log(widgets);
-              break;
-            case "SearchWidget":
-              fetchedElement = (
-                <SearchWidget
-                  widgetId={temp._id}
-                  widgetType="SearchWidget"
-                  widgetTopLeftX={temp.properties.widgetTopLeftX}
-                  widgetTopLeftY={temp.properties.widgetTopLeftY}
-                  width={temp.properties.width}
-                  height={temp.properties.height}
-                  search={temp.properties.icon}
-                />
-              );
-              addWidget(fetchedElement);
-              console.log(fetchedElement);
-              console.log(widgets);
-              break;
-            default:
-              console.log("default");
-              break;
-          }
+      console.log("get Response", response.data);
+      for (const temp of response.data) {
+        switch (temp.properties.widgetType) {
+          case "TextWidget":
+            fetchedElement = (
+              <TextWidget
+                widgetId={temp._id}
+                widgetType="TextWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                text={temp.properties.text}
+              />
+            );
+            console.log("get Text", fetchedWidgets);
+            fetchedWidgets.push(fetchedElement);
+            break;
+          case "BookmarkWidget":
+            fetchedElement = (
+              <BookmarkWidget
+                widgetId={temp._id}
+                widgetType="BookmarkWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                url={temp.properties.url}
+                icon={temp.properties.icon}
+              />
+            );
+            console.log("get Book", fetchedWidgets);
+            fetchedWidgets.push(fetchedElement);
+            break;
+          case "SearchWidget":
+            fetchedElement = (
+              <SearchWidget
+                widgetId={temp._id}
+                widgetType="SearchWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                search={temp.properties.icon}
+              />
+            );
+            fetchedWidgets.push(fetchedElement);
+            break;
+          default:
+            break;
         }
-      );
-
-      console.log("widgets", widgets);
-      console.log("prevWidgets", prevWidgets);
+      }
+      console.log(fetchedWidgets);
+      setWidgets(fetchedWidgets);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
@@ -109,10 +93,17 @@ function MainPage() {
       }
     }
   }
+
   useEffect(() => {
-    fetchWidgets();
-    setPrevWidgets(widgets);
+    clearWidgets().then(() => {
+      fetchWidgets()    
+    });
   }, []);
+
+  useEffect(() => {
+    setPrevWidgets(widgets);
+    console.log("Widgets updated", widgets);
+  }, [widgets]);
 
   function handleLogout() {
     localStorage.removeItem("userToken");
@@ -135,7 +126,7 @@ function MainPage() {
   return (
     <div>
       {prevWidgets.map((widget) => (
-        <div key={widget.props.widgetId}>
+        <div key={widget.props._id}>
           <div
             style={{
               position: "absolute",
