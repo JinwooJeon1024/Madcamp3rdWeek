@@ -16,7 +16,12 @@ const WIDGET_MENU: { type: WidgetType; image: string }[] = [
   {
     type: "SearchWidget",
     image: process.env.PUBLIC_URL + "/textwidget.png"
+  },
+  {
+    type: "ImageWidget",
+    image: process.env.PUBLIC_URL + "/bookmark.png"
   }
+
 ];
 
 export default WIDGET_MENU;

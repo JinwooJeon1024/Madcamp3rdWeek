@@ -3,10 +3,11 @@ import { useWidgets } from "../recoil/WidgetList";
 import "./EditPage.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TextWidget from "../widgets/customWidgets/TextWidget";
-import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
-import SearchWidget from "../widgets/customWidgets/SearchWidget";
-import ClockWidget from "../widgets/customWidgets/ClockWidget";
+import TextWidget from "../widgets/TextWidget";
+import BookmarkWidget from "../widgets/BookmarkWidget";
+import SearchWidget from "../widgets/SearchWidget";
+import ClockWidget from "../widgets/ClockWidget";
+import ImageWidget from "../widgets/ImageWidget";
 
 function MainPage() {
   const { prevWidgets, setPrevWidgets, widgets, setWidgets } = useWidgets();
@@ -27,7 +28,6 @@ function MainPage() {
         `${process.env.REACT_APP_API_URL}/widget`,
         { headers: { authorization: `Bearer ${userToken}` } }
       );
-      console.log("get Response", response.data);
       for (const temp of response.data) {
         switch (temp.properties.widgetType) {
           case "TextWidget":
@@ -42,7 +42,6 @@ function MainPage() {
                 text={temp.properties.text}
               />
             );
-            console.log("get Text", fetchedWidgets);
             fetchedWidgets.push(fetchedElement);
             break;
           case "BookmarkWidget":
@@ -58,7 +57,6 @@ function MainPage() {
                 icon={temp.properties.icon}
               />
             );
-            console.log("get Book", fetchedWidgets);
             fetchedWidgets.push(fetchedElement);
             break;
           case "SearchWidget":
@@ -75,25 +73,38 @@ function MainPage() {
             );
             fetchedWidgets.push(fetchedElement);
             break;
-            case "ClockWidget":
-              fetchedElement = (
-                <ClockWidget
-                  widgetId={temp._id}
-                  widgetType="ClockWidget"
-                  widgetTopLeftX={temp.properties.widgetTopLeftX}
-                  widgetTopLeftY={temp.properties.widgetTopLeftY}
-                  width={temp.properties.width}
-                  height={temp.properties.height}
-                  time={temp.properties.time}
-                />
-              );
-              fetchedWidgets.push(fetchedElement);
-              break;
+          case "ClockWidget":
+            fetchedElement = (
+              <ClockWidget
+                widgetId={temp._id}
+                widgetType="ClockWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                time={temp.properties.time}
+              />
+            );
+            fetchedWidgets.push(fetchedElement);
+            break;
+          case "ImageWidget":
+            fetchedElement = (
+              <ImageWidget
+                widgetId={temp._id}
+                widgetType="ImageWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                url={temp.properties.url}
+              />
+            );
+            fetchedWidgets.push(fetchedElement);
+            break;
           default:
             break;
         }
       }
-      console.log(fetchedWidgets);
       setWidgets(fetchedWidgets);
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -111,13 +122,12 @@ function MainPage() {
 
   useEffect(() => {
     clearWidgets().then(() => {
-      fetchWidgets()    
+      fetchWidgets()
     });
   }, []);
 
   useEffect(() => {
     setPrevWidgets(widgets);
-    console.log("Widgets updated", widgets);
   }, [widgets]);
 
   function handleLogout() {
