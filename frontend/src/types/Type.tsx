@@ -14,6 +14,7 @@ export type TextWidgetData = WigetCommon & {
 
 export type BookmarkWidgetData = WigetCommon & {
   url: string;
+  icon: string
 }
 
 export type ImageWidgetData = WigetCommon & {

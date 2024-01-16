@@ -9,7 +9,7 @@ export const WidgetListAtom = atom<ReactElement[]>({
 })
 export const prevWidgetList = atom<ReactElement[]>({
     key: 'prevWidgetList',
-    default : []
+    default: []
 })
 
 export const useWidgets = () => {
@@ -27,25 +27,37 @@ export const useWidgets = () => {
                     : widget))
     };
 
-    const updateBookmark = (widgetId: string, newUrl: string) => {
-        setWidgets((prevWidgets) => 
+    const setCurrentUrl = (widgetId: string, newUrl: string) => {
+        setWidgets((prevWidgets) =>
             prevWidgets.map((widget) =>
-                widget.props.widgetId === widgetId ? React.cloneElement(widget, { url: newUrl })
-                    :widget)
-            );
+                widget.props.widgetId === widgetId ? React.cloneElement(widget, { url: newUrl, icon: '' })
+                    : widget))
+    };
+
+    const updateBookmark = (widgetId: string, newUrl: string) => {
+        const newIcon = newUrl ? `${new URL(newUrl).origin}/favicon.ico` : '';
+
+        setWidgets((prevWidgets) =>
+            prevWidgets.map((widget) =>
+                widget.props.widgetId === widgetId ? React.cloneElement(widget, { url: newUrl, icon: newIcon })
+                    : widget
+            )
+        );
     }
 
-    const updateSize = (widgetId: string, width: number, height: number)=>{
-        setWidgets((prevWidgets) => 
-            prevWidgets.map((widget) => 
-            widget.props.widgetId === widgetId ? React.cloneElement(
-                                                            widget, 
-                                                            {width: width,
-                                                            height: height})
-            : widget))
+    const updateSize = (widgetId: string, width: number, height: number) => {
+        setWidgets((prevWidgets) =>
+            prevWidgets.map((widget) =>
+                widget.props.widgetId === widgetId ? React.cloneElement(
+                    widget,
+                    {
+                        width: width,
+                        height: height
+                    })
+                    : widget))
     }
 
-    const removeWidget = (widgetId : string) => {
+    const removeWidget = (widgetId: string) => {
         console.log(`remove widgetid : ${widgetId}`)
         console.log(`remove 이전 : ${widgets}`)
         // const removedList : ReactElement[] = []
@@ -73,7 +85,7 @@ export const useWidgets = () => {
         console.log(positionData.y)
     }
 
-    return {widgets,prevWidgets, setPrevWidgets, setWidgets, addWidget, removeWidget, updateBookmark, updatePosition, updateSize, updateText }
+    return { widgets, prevWidgets, setPrevWidgets, setWidgets, addWidget, removeWidget, updateBookmark, setCurrentUrl, updatePosition, updateSize, updateText }
 }
 
 
