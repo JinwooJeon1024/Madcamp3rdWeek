@@ -82,10 +82,10 @@ const LoginPage: React.FC = () => {
           />
           <div className="Button_container">
             <button className="Twoside_button" onClick={handleToHome}>
-              홈으로 돌아가기
+              BACK
             </button>
             <button className="Twoside_button" onClick={handleToPassword}>
-              다음으로 이동
+              NEXT
             </button>
           </div>
         </div>
@@ -104,7 +104,7 @@ const LoginPage: React.FC = () => {
           />
           <div className="Button_container">
             <button className="Twoside_button" onClick={handleToEmail}>
-              이메일로 돌아가기
+              BACK
             </button>
             <button className="Twoside_button" type="submit">
               LOGIN

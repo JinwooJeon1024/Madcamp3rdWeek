@@ -9,7 +9,9 @@ import axios, { AxiosError } from "axios";
 import TextWidget from "../widgets/customWidgets/TextWidget";
 import registerMouseDownDrag from "../services/registerMouseDownDrag";
 import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
+import ClockWidget from "../widgets/customWidgets/ClockWidget";
 import SearchWidget from "../widgets/customWidgets/SearchWidget"
+
 
 const EditPage = () => {
   const {
@@ -23,6 +25,7 @@ const EditPage = () => {
 
   const [rightImgError, setRightImgError] = useState<boolean>(false);
   const [leftImgError, setLeftImgError] = useState<boolean>(false);
+  const [menuDrag, setMenuDrag] = useState<boolean>(false);
   console.log(widgets.map((widget) => widget.props));
   const navigate = useNavigate();
 
@@ -90,6 +93,12 @@ const EditPage = () => {
     console.log("remove", widgetId);
     removeWidget(widgetId);
   }
+  function handleMenuDragStart(){
+    setMenuDrag(true)
+  } 
+  function handleMenuDragStop(){
+    setMenuDrag(false)
+  }
   async function handleOnNewWidgetDrop(event: React.DragEvent) {
     //recoil에 추가
     const widgetType = event.dataTransfer.getData("widgetType") as WidgetType;
@@ -139,6 +148,21 @@ const EditPage = () => {
           );
           addWidget(newBookmarkWidget);
           break;
+
+        case "ClockWidget":
+          console.log("Add new ClockWidget");
+          const newClockWidget = (
+            <ClockWidget
+              widgetType="ClockkWidget"
+              widgetId={response.data.data._id}
+              widgetTopLeftX={mouseX}
+              widgetTopLeftY={mouseY}
+              width={30}
+              height={30}
+              time={''}
+            />
+          );
+          addWidget(newClockWidget);
         case "SearchWidget":
           console.log("Add new SEarchWidget");
           const newSearchWidget = (
@@ -215,10 +239,13 @@ const EditPage = () => {
           </Draggable>
         ))}
       </div>
-      <Draggable cancel=".Widget_pick" bounds="parent">
-        <div className="Menu">
+      <Draggable 
+        cancel=".Widget_pick" 
+        bounds="parent" 
+        onStart={handleMenuDragStart} 
+        onStop={handleMenuDragStop}>
+        <div className="Menu" style={{boxShadow: menuDrag ? '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)' : 'none'}}>
           {WIDGET_MENU.map(({ type, image }) => (
-            <div>
               <img
                 className="Widget_pick"
                 src={image}
@@ -226,7 +253,6 @@ const EditPage = () => {
                 draggable
                 onDragStart={(event) => handleOnDragStart(event, type)}
               />
-            </div>
           ))}
         </div>
       </Draggable>

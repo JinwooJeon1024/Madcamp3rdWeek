@@ -22,6 +22,11 @@ export type ImageWidgetData = WidgetCommon & {
   url : string;
 }
 
+
+export type ClockWidgetData = WigetCommon & {
+  time : string;
+}
+
 export type SearchWidgetData = WidgetCommon & {
   search: string;
 }
