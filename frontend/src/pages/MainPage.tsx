@@ -8,7 +8,7 @@ import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
 import SearchWidget from "../widgets/customWidgets/SearchWidget";
 
 function MainPage() {
-  const { prevWidgets, setPrevWidgets, widgets, addWidget, setWidgets } = useWidgets();
+  const { prevWidgets, setPrevWidgets, widgets, setWidgets } = useWidgets();
   const [rightImgError, setRightImgError] = useState<boolean>(false);
   const [leftImgError, setLeftImgError] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ function MainPage() {
                 widgetTopLeftY={temp.properties.widgetTopLeftY}
                 width={temp.properties.width}
                 height={temp.properties.height}
-                search={temp.properties.icon}
+                search={temp.properties.search}
               />
             );
             fetchedWidgets.push(fetchedElement);
