@@ -39,8 +39,10 @@ const replaceAllWidgetData = async (req, res) => {
 
 
 const getAllWidgetData = async (req, res) => {
+    const userId = req.userId;
+
     try {
-        const widgets = await WidgetData.find({}); // 모든 위젯 데이터 조회
+        const widgets = await WidgetData.find({ userId }); // 모든 위젯 데이터 조회
         res.status(200).json(widgets);
     } catch (error) {
         res.status(500).json({ message: '데이터를 불러오는데 실패했습니다.', error });

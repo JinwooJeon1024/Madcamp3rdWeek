@@ -23,8 +23,6 @@ const EditPage = () => {
     removeWidget,
   } = useWidgets();
 
-  
-
   const [rightImgError, setRightImgError] = useState<boolean>(false);
   const [leftImgError, setLeftImgError] = useState<boolean>(false);
   const [menuDrag, setMenuDrag] = useState<boolean>(false);
