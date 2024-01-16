@@ -32,3 +32,6 @@
     outline : none;
     justify-content: right;
 }
+.Image_widget{
+    border-radius : 10px;
+}
