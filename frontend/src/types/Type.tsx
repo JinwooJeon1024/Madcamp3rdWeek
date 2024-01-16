@@ -22,6 +22,10 @@ export type ImageWidgetData = WigetCommon & {
   url : string;
 }
 
+export type ClockWidgetData = WigetCommon & {
+  time : string;
+}
+
 export type WidgetData = TextWidgetData | ImageWidgetData;
 
 

@@ -9,6 +9,7 @@ import axios, { AxiosError } from "axios";
 import TextWidget from "../widgets/customWidgets/TextWidget";
 import registerMouseDownDrag from "../services/registerMouseDownDrag";
 import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
+import ClockWidget from "../widgets/customWidgets/ClockWidget";
 
 const EditPage = () => {
   const {
@@ -140,6 +141,21 @@ const EditPage = () => {
             />
           );
           addWidget(newBookmarkWidget);
+          break;
+        case "ClockWidget":
+          console.log("Add new ClockWidget");
+          const newClockWidget = (
+            <ClockWidget
+              widgetType="ClockkWidget"
+              widgetId={response.data.data._id}
+              widgetTopLeftX={mouseX}
+              widgetTopLeftY={mouseY}
+              width={30}
+              height={30}
+              time={''}
+            />
+          );
+          addWidget(newClockWidget);
           break;
         default:
           break;
