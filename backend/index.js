@@ -9,7 +9,9 @@ const app = express();
 
 // 미들웨어 설정
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  limit : "200mb"
+}));
 
 // 라우트 설정
 app.use('/api/users', authRoutes);
