@@ -17,7 +17,7 @@ export const useWidgets = () => {
     const [prevWidgets, setPrevWidgets] = useRecoilState(prevWidgetList)
 
     const addWidget = (newWidget: ReactElement) => {
-        setWidgets((prevWidgest) => [...prevWidgest, newWidget])
+        setWidgets((prev) => [...prev, newWidget])
     };
 
     const updateText = (widgetId: string, newText: string) => {

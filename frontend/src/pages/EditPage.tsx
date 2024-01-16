@@ -14,11 +14,15 @@ const EditPage = () => {
   const {
     widgets,
     prevWidgets,
+    setWidgets,
     addWidget,
     updatePosition,
     updateSize,
     removeWidget,
   } = useWidgets();
+
+  
+
   const [rightImgError, setRightImgError] = useState<boolean>(false);
   const [leftImgError, setLeftImgError] = useState<boolean>(false);
   console.log(widgets.map((widget) => widget.props));
@@ -110,6 +114,7 @@ const EditPage = () => {
           console.log("Add new TextWidget");
           const newTextWidget = (
             <TextWidget
+              widgetType="TextWidget"
               widgetId={response.data.data._id}
               widgetTopLeftX={mouseX}
               widgetTopLeftY={mouseY}
@@ -124,6 +129,7 @@ const EditPage = () => {
           console.log("Add new BookmarkWidget");
           const newBookmarkWidget = (
             <BookmarkWidget
+            widgetType="BookmarkWidget"
               widgetId={response.data.data._id}
               widgetTopLeftX={mouseX}
               widgetTopLeftY={mouseY}
@@ -189,8 +195,7 @@ const EditPage = () => {
               ></div>
               <button
                 type="button"
-                onClick={() => onDeleteButtonClick(widget.props.widgetId)}
-              >
+                onClick={() => onDeleteButtonClick(widget.props.widgetId)}>
                 X
               </button>
             </div>
