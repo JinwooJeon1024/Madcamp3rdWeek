@@ -21,7 +21,6 @@ function MainPage() {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/widget`, {headers: {authorization: `Bearer ${userToken}`}});
         console.log("response data", response.data)
 
-
   async function fetchWidgets(){
     try {
       console.log("fetch")

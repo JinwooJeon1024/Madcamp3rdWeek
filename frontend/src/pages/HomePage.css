@@ -1,0 +1,76 @@
+.Home_container{
+    width : 100vw;
+    height : 100vh;
+    background : linear-gradient(-40deg,#9708cc, #43cbff);
+    display: flex;
+    position : relative;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.Left{
+    width : 35%;
+    height : 100%;
+    position : absolute;
+    left:0;
+}
+.Right{
+    width : 65%;
+    height : 100%;
+    position : absolute;
+    background-color: #FCFCFC;
+    right:0;
+}
+.Home_logo{
+    height : 25%;
+    position : absolute;
+    top : 25%;
+    right: 10%;
+}
+.Line{
+    border-top : 2px solid black;
+    border-radius : 20px;
+    position : absolute;
+    width : 50%;
+    top : 55%;
+    right : 25%;
+}
+.Vas{
+    width: 20%;
+    position: absolute;
+    top: 20%;
+    left: 25%;
+}
+.Login_container{
+    position : absolute;
+    height : 8%;
+    top : 68%;
+    width : 40%;
+    left : 30%;
+    color : #141414;
+    border : none;
+    border-radius: 30px;
+    font-size: calc(10px + 2vmin);
+    font-family: "Open Sans", sans-serif;
+    transition: all 0.2s;
+}
+.Signup_container{
+    position : absolute;
+    height : 8%;
+    top : 80%;
+    width : 40%;
+    right : 30%;
+    color : #141414;
+    border : none;
+    border-radius: 30px;
+    font-size: calc(9px + 2vmin);
+    font-family: "Open Sans", sans-serif;
+    transition: all 0.2s;
+}
+.Login_container:hover,
+.Signup_container:hover{
+    background-color: #141414;
+    color : #F0F0F0; 
+    font-weight : 500;
+}
+
