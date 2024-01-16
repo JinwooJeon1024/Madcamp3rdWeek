@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useWidgets } from '../recoil/WidgetList';
 import { ImageWidgetData } from '../types/Type';
+import './Widget.css'
 
 const ImageWidget = (imageWidgetData: ImageWidgetData) => {
   const { updateImage, updateSize } = useWidgets();
@@ -23,7 +24,7 @@ const ImageWidget = (imageWidgetData: ImageWidgetData) => {
   useEffect(() => {
     const handleResize = () => {
       if (imageRef) {
-        updateSize(imageWidgetData.widgetId, 200, 30)
+        updateSize(imageWidgetData.widgetId, 180, 30)
       }
     }
     handleResize()

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useWidgets } from "../recoil/WidgetList";
 import { SearchWidgetData } from "../types/Type";
+import './Widget.css'
 
 const SearchWidget = (searchWidgetData: SearchWidgetData) => {
   const { setCurrentSearch, updateSize } = useWidgets();

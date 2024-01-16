@@ -7,27 +7,28 @@
     background: #F0F0F0;
 }
 .Clock{
-    border : none;
     user-select: none;
     text-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
     font-weight: 800;
-    color : #FFF;
+    color : #141414;
+    line-height: 1;
 }
 .Bookmark{
     border-radius: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 2px 5px rgba(0,0,0,0.24);
 }
 .Search_input{
     border : none;
     border-radius : 20px;
     outline : none;
-    padding : 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     background: #F0F0F0;
+    box-shadow: 0 0.5px 1px rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.1);
 }
 .Search_container{
     position : relative;
     display: flex;
-    padding : 10px;
     outline : none;
     justify-content: right;
 }

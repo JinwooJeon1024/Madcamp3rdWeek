@@ -183,12 +183,13 @@ function MainPage() {
           </div>
         </div>
       ))}
+
       <div className="LogoutButtonContainer">
         <button className="Right_Top_Component" onClick={toggleDropdown}>
           {!rightImgError ? (
-            <img src={process.env.PUBLIC_URL + "/logout.png"} alt="LOGOUT" onError={handleRightImgError} />
+            <img src={process.env.PUBLIC_URL + "/setting.png"} alt="settings" onError={handleRightImgError} />
           ) : (
-            <p>LOGOUT</p>
+            <p>setting</p>
           )}
         </button>
         {showDropdown && (
@@ -201,9 +202,9 @@ function MainPage() {
       </div>
       <button className="Left_Top_Component" onClick={handleToEdit}>
         {!leftImgError ? (
-          <img src={process.env.PUBLIC_URL + "/edit.png"} alt="EDIT" onError={handleLeftImgError} />
+          <img className="Button_img" src={process.env.PUBLIC_URL + "/edit.png"} alt="dit" onError={handleLeftImgError} />
         ) : (
-          <p>EDIT</p>
+          <p>edit</p>
         )}
       </button>
     </div>

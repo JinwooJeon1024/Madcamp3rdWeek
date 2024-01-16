@@ -37,9 +37,6 @@
     transition : all 0.2s;
     border: none;
     border-radius: 10px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
     top: 10px;
     right: 50px;
     cursor : pointer;
@@ -87,9 +84,40 @@
 .Resize_box{
     width: 20px;
     height: 20px;
-    background-color: black;
+    background: transparent;
     bottom:-10px;
     right:-10px;
     position: absolute;
     cursor: se-resize;
+}
+.Resize_img{
+    width: 20px;
+    height: 20px;
+    position : absolute;
+    user-select: none;
+    -webkit-user-drag: none;
+    top:0px;
+    left:0px;
+}
+.Delete_box{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background: transparent;
+    outline: none;
+    border: none;
+    top:-10px;
+    right:-10px;
+    cursor : pointer;
+}
+.Delete_img{
+    width: 20px;
+    height: 20px;
+    position : absolute;
+    top:0px;
+    left:0px;
+}
+.Button_img{
+    width: 30px;
+    height: 30px;
 }
