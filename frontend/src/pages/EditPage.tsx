@@ -20,12 +20,13 @@ const EditPage = () => {
     try {
       const userToken = localStorage.getItem("userToken");
       console.log({widgets: widgets})
+      const widgetsData = sendRequest.map((widget) => widget.props);
+      const formattedWidgets = widgetsData.map((widgetData) => ({
+        properties: widgetData,
+      }));
       const request = {
-        properties:{
-          widgets: widgets
-        }
-      }
-      console.log(request)
+        widgets: formattedWidgets,
+      };
       const response = await axios.put(`${process.env.REACT_APP_API_URL}/widget/update`, request, {headers: {authorization: `Bearer ${userToken}`}});
       console.log(response.data)
       navigate("/main");
@@ -41,12 +42,14 @@ const EditPage = () => {
         console.error("Non-Axios error : ", error);
       }
     }
+
+
   }
 
-  function handleDone() {
+  function handleSave() {
     sendWidgets(widgets)
   }
-  function handleCancel() {
+  function handleDiscard() {
     // TODO : 디비로 처음 fetch받은 내용 보내기
     sendWidgets(prevWidgets)
   }
@@ -147,12 +150,12 @@ const EditPage = () => {
             
           </div>
       </Draggable>
-      <button className="Right_Top_Component" onClick={handleDone}>
+      <button className="Right_Top_Component" onClick={handleSave}>
         {!rightImgError? 
          (<img src="" alt="SAVE" onError={handleRightImgError}/>)
         : (<p>SAVE</p>)}
       </button>
-      <button className="Left_Top_Component" onClick={handleCancel}>
+      <button className="Left_Top_Component" onClick={handleDiscard}>
         {!leftImgError? 
          (<img src="" alt="DISCARD" onError={handleLeftImgError}/>)
         : (<p>DISCARD</p>)}
