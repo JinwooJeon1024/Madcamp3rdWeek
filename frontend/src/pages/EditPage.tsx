@@ -153,12 +153,12 @@ const EditPage = () => {
           const newClockWidget = (
             <ClockWidget
               widgetId={response.data.data._id}
-              widgetType="ClockkWidget"
+              widgetType="ClockWidget"
               widgetTopLeftX={mouseX}
               widgetTopLeftY={mouseY}
               width={30}
               height={30}
-              time={''}
+              time=""
             />
           );
           addWidget(newClockWidget);
