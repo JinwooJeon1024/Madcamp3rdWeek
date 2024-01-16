@@ -21,6 +21,7 @@ const EditPage = () => {
     updatePosition,
     updateSize,
     removeWidget,
+    setWidgets
   } = useWidgets();
 
   const [rightImgError, setRightImgError] = useState<boolean>(false);
