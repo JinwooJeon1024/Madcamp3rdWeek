@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { useWidgets } from "../../recoil/WidgetList";
-import { BookmarkWidgetData } from "../../types/Type";
-import './Widget.css'
+import { useWidgets } from "../recoil/WidgetList";
+import { BookmarkWidgetData } from "../types/Type";
 
 const BookmarkWidget = (bookmarkWidgetData: BookmarkWidgetData) => {
   const { setCurrentUrl, updateBookmark, updateSize } = useWidgets();

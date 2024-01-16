@@ -21,6 +21,11 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-, "src/widgets/customWidgets/TextWidget.tsx", "src/pages/EditPage.tsx", "src/pages/HomePage.tsx", "src/pages/LoginPage.tsx", "src/pages/PreviewPage.tsx"  ]
+    "src",
+    "src/widgets/TextWidget.tsx",
+    "src/pages/EditPage.tsx",
+    "src/pages/HomePage.tsx",
+    "src/pages/LoginPage.tsx",
+    "src/pages/PreviewPage.tsx"
+  ]
 }

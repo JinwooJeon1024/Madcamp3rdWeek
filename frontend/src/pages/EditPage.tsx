@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { WidgetType } from "../types/Type";
 import './Edit_Main.css';
@@ -6,11 +6,12 @@ import { useWidgets } from "../recoil/WidgetList";
 import WIDGET_MENU from "../widgets/WidgetMenu";
 import Draggable, { DraggableData } from "react-draggable";
 import axios, { AxiosError } from "axios";
-import TextWidget from "../widgets/customWidgets/TextWidget";
+import TextWidget from "../widgets/TextWidget";
 import registerMouseDownDrag from "../services/registerMouseDownDrag";
-import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
-import ClockWidget from "../widgets/customWidgets/ClockWidget";
-import SearchWidget from "../widgets/customWidgets/SearchWidget";
+import BookmarkWidget from "../widgets/BookmarkWidget";
+import ClockWidget from "../widgets/ClockWidget";
+import SearchWidget from "../widgets/SearchWidget";
+import ImageWidget from "../widgets/ImageWidget";
 
 
 const EditPage = () => {
@@ -21,18 +22,17 @@ const EditPage = () => {
     updatePosition,
     updateSize,
     removeWidget,
+    setWidgets
   } = useWidgets();
 
   const [rightImgError, setRightImgError] = useState<boolean>(false);
   const [leftImgError, setLeftImgError] = useState<boolean>(false);
   const [menuDrag, setMenuDrag] = useState<boolean>(false);
-  console.log(widgets.map((widget) => widget.props));
   const navigate = useNavigate();
 
   async function sendWidgets(sendRequest: ReactElement[]) {
     try {
       const userToken = localStorage.getItem("userToken");
-      console.log({ widgets: widgets });
       const widgetsData = sendRequest.map((widget) => widget.props);
       const formattedWidgets = widgetsData.map((widgetData) => ({
         properties: widgetData,
@@ -40,12 +40,11 @@ const EditPage = () => {
       const request = {
         widgets: formattedWidgets,
       };
-      const response = await axios.put(
+      await axios.put(
         `${process.env.REACT_APP_API_URL}/widget/update`,
         request,
         { headers: { authorization: `Bearer ${userToken}` } }
       );
-      console.log(response.data);
       navigate("/main");
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -65,7 +64,6 @@ const EditPage = () => {
     sendWidgets(widgets);
   }
   function handleDiscard() {
-    // TODO : 디비로 처음 fetch받은 내용 보내기
     sendWidgets(prevWidgets);
   }
   function handleOnDragStart(event: React.DragEvent, widgetType: WidgetType) {
@@ -90,21 +88,18 @@ const EditPage = () => {
   }
 
   function onDeleteButtonClick(widgetId: string) {
-    console.log("remove", widgetId);
     removeWidget(widgetId);
   }
-  function handleMenuDragStart(){
+  function handleMenuDragStart() {
     setMenuDrag(true)
-  } 
-  function handleMenuDragStop(){
+  }
+  function handleMenuDragStop() {
     setMenuDrag(false)
   }
   async function handleOnNewWidgetDrop(event: React.DragEvent) {
-    //recoil에 추가
     const widgetType = event.dataTransfer.getData("widgetType") as WidgetType;
     const mouseX = event.clientX;
     const mouseY = event.clientY;
-    console.log(`X : ${mouseX}, Y : ${mouseY}`);
     try {
       const userToken = localStorage.getItem("userToken");
 
@@ -118,7 +113,6 @@ const EditPage = () => {
       );
       switch (widgetType) {
         case "TextWidget":
-          console.log("Add new TextWidget");
           const newTextWidget = (
             <TextWidget
               widgetType="TextWidget"
@@ -133,10 +127,9 @@ const EditPage = () => {
           addWidget(newTextWidget);
           break;
         case "BookmarkWidget":
-          console.log("Add new BookmarkWidget");
           const newBookmarkWidget = (
             <BookmarkWidget
-            widgetType="BookmarkWidget"
+              widgetType="BookmarkWidget"
               widgetId={response.data.data._id}
               widgetTopLeftX={mouseX}
               widgetTopLeftY={mouseY}
@@ -149,7 +142,6 @@ const EditPage = () => {
           addWidget(newBookmarkWidget);
           break;
         case "ClockWidget":
-          console.log("Add new ClockWidget");
           const newClockWidget = (
             <ClockWidget
               widgetId={response.data.data._id}
@@ -164,19 +156,32 @@ const EditPage = () => {
           addWidget(newClockWidget);
           break;
         case "SearchWidget":
-          console.log("Add new SEarchWidget");
           const newSearchWidget = (
             <SearchWidget
-            widgetType="SearchWidget"
+              widgetType="SearchWidget"
               widgetId={response.data.data._id}
               widgetTopLeftX={mouseX}
               widgetTopLeftY={mouseY}
               width={400}
               height={50}
-              search = ""
+              search=""
             />
           );
           addWidget(newSearchWidget);
+          break;
+        case "ImageWidget":
+          const newImageWidget = (
+            <ImageWidget
+              widgetType="ImageWidget"
+              widgetId={response.data.data._id}
+              widgetTopLeftX={mouseX}
+              widgetTopLeftY={mouseY}
+              width={300}
+              height={300}
+              url=""
+            />
+          );
+          addWidget(newImageWidget);
           break;
         default:
           break;
@@ -194,6 +199,118 @@ const EditPage = () => {
       }
     }
   }
+
+  const userToken = localStorage.getItem("userToken");
+  let fetchedElement;
+
+  async function clearWidgets() {
+    setWidgets([]);
+  }
+
+  async function fetchWidgets() {
+    let fetchedWidgets = [];
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/widget`,
+        { headers: { authorization: `Bearer ${userToken}` } }
+      );
+      for (const temp of response.data) {
+        switch (temp.properties.widgetType) {
+          case "TextWidget":
+            fetchedElement = (
+              <TextWidget
+                widgetId={temp._id}
+                widgetType="TextWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                text={temp.properties.text}
+              />
+            );
+            fetchedWidgets.push(fetchedElement);
+            break;
+          case "BookmarkWidget":
+            fetchedElement = (
+              <BookmarkWidget
+                widgetId={temp._id}
+                widgetType="BookmarkWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                url={temp.properties.url}
+                icon={temp.properties.icon}
+              />
+            );
+            fetchedWidgets.push(fetchedElement);
+            break;
+          case "SearchWidget":
+            fetchedElement = (
+              <SearchWidget
+                widgetId={temp._id}
+                widgetType="SearchWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                search={temp.properties.search}
+              />
+            );
+            fetchedWidgets.push(fetchedElement);
+            break;
+          case "ClockWidget":
+            fetchedElement = (
+              <ClockWidget
+                widgetId={temp._id}
+                widgetType="ClockWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                time={temp.properties.time}
+              />
+            );
+            fetchedWidgets.push(fetchedElement);
+            break;
+          case "ImageWidget":
+            fetchedElement = (
+              <ImageWidget
+                widgetId={temp._id}
+                widgetType="ImageWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                url={temp.properties.url}
+              />
+            );
+            fetchedWidgets.push(fetchedElement);
+            break;
+          default:
+            break;
+        }
+      }
+      setWidgets(fetchedWidgets);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response) {
+          console.error("Error submitting form : ", error.response?.data);
+        } else {
+          console.error("Unexpected error : ", error);
+        }
+      } else {
+        console.error("Non-Axios error : ", error);
+      }
+    }
+  }
+
+  useEffect(() => {
+    clearWidgets().then(() => {
+      fetchWidgets()
+    });
+  }, []);
 
   return (
     <div className="Container">
@@ -225,9 +342,6 @@ const EditPage = () => {
                     deltaX + widget.props.width,
                     deltaY + widget.props.height
                   );
-                  console.log("deltaX", deltaX);
-                  console.log("deltaY", deltaY);
-                  console.log("widgetId", widget.props.widgetId);
                 })}
               ></div>
               <button
@@ -239,20 +353,20 @@ const EditPage = () => {
           </Draggable>
         ))}
       </div>
-      <Draggable 
-        cancel=".Widget_pick" 
-        bounds="parent" 
-        onStart={handleMenuDragStart} 
+      <Draggable
+        cancel=".Widget_pick"
+        bounds="parent"
+        onStart={handleMenuDragStart}
         onStop={handleMenuDragStop}>
-        <div className="Menu" style={{boxShadow: menuDrag ? '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)' : 'none'}}>
+        <div className="Menu" style={{ boxShadow: menuDrag ? '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)' : 'none' }}>
           {WIDGET_MENU.map(({ type, image }) => (
-              <img
-                className="Widget_pick"
-                src={image}
-                alt={type}
-                draggable
-                onDragStart={(event) => handleOnDragStart(event, type)}
-              />
+            <img
+              className="Widget_pick"
+              src={image}
+              alt={type}
+              draggable
+              onDragStart={(event) => handleOnDragStart(event, type)}
+            />
           ))}
         </div>
       </Draggable>

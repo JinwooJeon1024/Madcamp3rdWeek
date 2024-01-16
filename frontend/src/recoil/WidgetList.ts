@@ -44,7 +44,7 @@ export const useWidgets = () => {
             )
         );
     }
-    
+
     const setCurrentSearch = (widgetId: string, newSearch: string) => {
         setWidgets((prevWidgets) =>
             prevWidgets.map((widget) =>
@@ -63,6 +63,12 @@ export const useWidgets = () => {
                     })
                     : widget))
     }
+    const updateImage = (widgetId: string, newImageUrl: string) => {
+        setWidgets((prevWidgets) =>
+            prevWidgets.map((widget) =>
+                widget.props.widgetId === widgetId ? React.cloneElement(widget, { url: newImageUrl })
+                    : widget))
+    };
 
     const removeWidget = (widgetId: string) => {
         console.log(`remove widgetid : ${widgetId}`)
@@ -92,7 +98,7 @@ export const useWidgets = () => {
         console.log(positionData.y)
     }
 
-    return { widgets, prevWidgets, setPrevWidgets, setWidgets, addWidget, removeWidget, updateBookmark, setCurrentUrl, setCurrentSearch, updatePosition, updateSize, updateText }
+    return { widgets, prevWidgets, setPrevWidgets, setWidgets, addWidget, removeWidget, updateBookmark, setCurrentUrl, setCurrentSearch, updateImage, updatePosition, updateSize, updateText }
 }
 
 
