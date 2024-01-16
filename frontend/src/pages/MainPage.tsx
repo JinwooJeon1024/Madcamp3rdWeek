@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextWidget from "../widgets/customWidgets/TextWidget";
 import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
+import SearchWidget from "../widgets/customWidgets/SearchWidget";
 
 function MainPage() {
   const {prevWidgets, setPrevWidgets, widgets, addWidget} = useWidgets()
@@ -19,7 +20,7 @@ function MainPage() {
       const userToken = localStorage.getItem("userToken");
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/widget`, {headers: {authorization: `Bearer ${userToken}`}});
       console.log(response.data)
-      response.data.map((temp: { properties: { widgetType: string; widgetTopLeftX: number; widgetTopLeftY: number; width: number; height: number; text: string; url: string; icon: string; }; _id: string; }) => 
+      response.data.map((temp: { properties: { widgetType: any; widgetTopLeftX: number; widgetTopLeftY: number; width: number; height: number; text: string; url: string; icon: string; }, _id: string; }) => 
       {switch(temp.properties.widgetType){
           case "TextWidget":
             fetchedElement = (<TextWidget
@@ -44,6 +45,19 @@ function MainPage() {
                               height={temp.properties.height} 
                               url={temp.properties.url}
                               icon={temp.properties.icon}/>)
+            addWidget(fetchedElement)
+            console.log(fetchedElement)
+            console.log(widgets)
+            break;
+          case "SearchWidget":
+            fetchedElement = (<SearchWidget
+                              widgetId={temp._id}
+                              widgetType="SearchWidget"
+                              widgetTopLeftX={temp.properties.widgetTopLeftX} 
+                              widgetTopLeftY={temp.properties.widgetTopLeftY} 
+                              width={temp.properties.width} 
+                              height={temp.properties.height} 
+                              search={temp.properties.icon}/>)
             addWidget(fetchedElement)
             console.log(fetchedElement)
             console.log(widgets)

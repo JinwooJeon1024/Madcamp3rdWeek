@@ -9,12 +9,12 @@ import axios, { AxiosError } from "axios";
 import TextWidget from "../widgets/customWidgets/TextWidget";
 import registerMouseDownDrag from "../services/registerMouseDownDrag";
 import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
+import SearchWidget from "../widgets/customWidgets/SearchWidget"
 
 const EditPage = () => {
   const {
     widgets,
     prevWidgets,
-    setWidgets,
     addWidget,
     updatePosition,
     updateSize,
@@ -140,6 +140,21 @@ const EditPage = () => {
             />
           );
           addWidget(newBookmarkWidget);
+          break;
+        case "SearchWidget":
+          console.log("Add new SEarchWidget");
+          const newSearchWidget = (
+            <SearchWidget
+            widgetType="SearchWidget"
+              widgetId={response.data.data._id}
+              widgetTopLeftX={mouseX}
+              widgetTopLeftY={mouseY}
+              width={400}
+              height={50}
+              search = ""
+            />
+          );
+          addWidget(newSearchWidget);
           break;
         default:
           break;
