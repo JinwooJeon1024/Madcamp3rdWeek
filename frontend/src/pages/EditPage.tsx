@@ -8,6 +8,7 @@ import Draggable, { DraggableData } from "react-draggable";
 import axios, { AxiosError } from "axios";
 import TextWidget from "../widgets/customWidgets/TextWidget";
 import registerMouseDownDrag from "../services/registerMouseDownDrag";
+import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
 
 const EditPage = () => {
   const { widgets, addWidget, updatePosition, updateSize } = useWidgets();
@@ -117,6 +118,24 @@ const EditPage = () => {
             />
           );
           addWidget(newTextWidget);
+          break;
+        case "BookmarkWidget":
+          console.log("Add new TextWidget");
+          //TODO : 위젯 아이디 부여하는 거 바꿔야함
+          //지우지 말 것, width와 height는 css 파일과 일치시켜야하고 px단위를 쓰도록 해야함
+          const newBookmarkWidget = (
+            <BookmarkWidget
+              widgetId={response.data.data._id}
+              widgetType="BookmarkWidget"
+              widgetTopLeftX={mouseX}
+              widgetTopLeftY={mouseY}
+              width={100}
+              height={100}
+              url=''
+              icon=''
+            />
+          );
+          addWidget(newBookmarkWidget);
           break;
         default:
           break;

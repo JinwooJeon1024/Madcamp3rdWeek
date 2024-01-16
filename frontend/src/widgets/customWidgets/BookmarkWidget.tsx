@@ -3,7 +3,7 @@ import { useWidgets } from "../../recoil/WidgetList";
 import { BookmarkWidgetData } from "../../types/Type";
 
 const BookmarkWidget = (bookmarkWidgetData : BookmarkWidgetData) => {
-  const { updateBookmark, removeWidget, updateSize } = useWidgets();
+  const { updateBookmark, removeWidget } = useWidgets();
 
   function onDeleteButtonClick() {
     console.log(`Bookmark delete clicked, delete ${bookmarkWidgetData.widgetId}`);
@@ -15,14 +15,18 @@ const BookmarkWidget = (bookmarkWidgetData : BookmarkWidgetData) => {
     console.log(newUrl);
     console.log(`${bookmarkWidgetData.widgetId}`);
 
-    // 업데이트할 때 아이콘도 새 URL에 맞춰 업데이트
-    const newIcon = newUrl ? `${new URL(newUrl).origin}/favicon.ico` : '';
-    updateBookmark(bookmarkWidgetData.widgetId, newUrl, newIcon);
+    updateBookmark(bookmarkWidgetData.widgetId, newUrl);
   }
 
   function handleIconClick() {
     if (bookmarkWidgetData.url) {
-      window.location.href = bookmarkWidgetData.url; // URL로 이동
+      window.location.href = bookmarkWidgetData.url;
+    }
+  }
+
+  function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter' && bookmarkWidgetData.url) {
+      window.location.href = bookmarkWidgetData.url;
     }
   }
 
@@ -32,6 +36,7 @@ const BookmarkWidget = (bookmarkWidgetData : BookmarkWidgetData) => {
         type="text"
         value={bookmarkWidgetData.url}
         onChange={handleUrlChange}
+        onKeyPress={handleKeyPress}
       />
       {bookmarkWidgetData.url && (
         <img 

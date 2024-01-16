@@ -27,10 +27,10 @@ export const useWidgets = () => {
                     : widget))
     };
 
-    const updateBookmark = (widgetId: string, newUrl: string, newIcon: string) => {
+    const updateBookmark = (widgetId: string, newUrl: string) => {
         setWidgets((prevWidgets) => 
             prevWidgets.map((widget) =>
-                widget.props.widgetId === widgetId ? React.cloneElement(widget, { url: newUrl, icon: newIcon})
+                widget.props.widgetId === widgetId ? React.cloneElement(widget, { url: newUrl })
                     :widget)
             );
     }
