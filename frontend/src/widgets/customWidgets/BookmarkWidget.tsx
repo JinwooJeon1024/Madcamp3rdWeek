@@ -1,16 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useWidgets } from "../../recoil/WidgetList";
 import { BookmarkWidgetData } from "../../types/Type";
 
 const BookmarkWidget = (bookmarkWidgetData: BookmarkWidgetData) => {
-  const { setCurrentUrl, updateBookmark, removeWidget } = useWidgets();
-
-  function onDeleteButtonClick() {
-    console.log(
-      `Bookmark delete clicked, delete ${bookmarkWidgetData.widgetId}`
-    );
-    removeWidget(bookmarkWidgetData.widgetId);
-  }
+  const { setCurrentUrl, updateBookmark, updateSize } = useWidgets();
+  const bookmarkRef = useRef<HTMLDivElement>(null);
 
   function handleUrlChange(event: React.ChangeEvent<HTMLInputElement>) {
     setCurrentUrl(bookmarkWidgetData.widgetId, event.target.value);
@@ -33,13 +27,27 @@ const BookmarkWidget = (bookmarkWidgetData: BookmarkWidgetData) => {
     }
   }
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (bookmarkRef) {
+        const rect = bookmarkRef.current?.getBoundingClientRect();
+        updateSize(bookmarkWidgetData.widgetId, rect!!.width, rect!!.height);
+      }
+    };
+    handleResize();
+  }, []);
+
   return (
-    <div className="bookmark-widget">
+    <div className="bookmark-widget" ref={bookmarkRef}>
       {!bookmarkWidgetData.icon && (
         <input
           type="text"
           value={bookmarkWidgetData.url}
           onChange={handleUrlChange}
+          style={{
+            width: bookmarkWidgetData.width,
+            height: bookmarkWidgetData.height,
+          }}
           onKeyPress={handleKeyPress}
         />
       )}
@@ -52,10 +60,13 @@ const BookmarkWidget = (bookmarkWidgetData: BookmarkWidgetData) => {
           }
           alt="Bookmark Icon"
           onClick={handleIconClick}
-          style={{ cursor: "pointer" }}
+          style={{
+            cursor: "pointer",
+            width: bookmarkWidgetData.width,
+            height: bookmarkWidgetData.height,
+          }}
         />
       )}
-      <button onClick={onDeleteButtonClick}>삭제</button>
     </div>
   );
 };
