@@ -11,7 +11,7 @@ import SignUpPage from "./pages/SignUpPage";
 const App = () => {
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="App">
+      <div>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/main" element={<MainPage />} />

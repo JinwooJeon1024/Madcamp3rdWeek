@@ -11,11 +11,11 @@ import registerMouseDownDrag from "../services/registerMouseDownDrag";
 import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
 
 const EditPage = () => {
-  const { widgets, prevWidgets, addWidget, updatePosition, updateSize } =
-    useWidgets();
-  const [rightImgError, setRightImgError] = useState<boolean>(false);
-  const [leftImgError, setLeftImgError] = useState<boolean>(false);
-  console.log(widgets.map((widget) => widget.props));
+
+  const {widgets, prevWidgets, addWidget, updatePosition, updateSize, removeWidget} = useWidgets()
+  const [rightImgError, setRightImgError] = useState<boolean>(false)
+  const [leftImgError, setLeftImgError] = useState<boolean>(false)
+  console.log(widgets.map((widget)=>widget.props));
   const navigate = useNavigate();
 
   async function sendWidgets(sendRequest: ReactElement[]) {
@@ -77,7 +77,12 @@ const EditPage = () => {
   ) {
     setRightImgError(true);
   }
-  async function handleOnNewWidgetDrop(event: React.DragEvent) {
+
+  function onDeleteButtonClick(widgetId : string){
+    console.log("remove", widgetId)
+    removeWidget(widgetId)
+  }
+  async function handleOnNewWidgetDrop(event: React.DragEvent){
     //recoil에 추가
     const widgetType = event.dataTransfer.getData("widgetType") as WidgetType;
     const mouseX = event.clientX;
@@ -164,20 +169,22 @@ const EditPage = () => {
             <div style={{ position: "absolute" }}>
               {widget}
               <div
-                className="Resize_box"
-                {...registerMouseDownDrag((deltaX, deltaY) => {
-                  updateSize(
-                    widget.props.widgetId,
-                    deltaX + widget.props.width,
-                    deltaY + widget.props.height
-                  );
-                  console.log("deltaX", deltaX);
-                  console.log("deltaY", deltaY);
-                  console.log("widgetId", widget.props.widgetId);
-                })}
-              ></div>
-            </div>
-          </Draggable>
+
+                style={{position:'absolute'}}>
+                {widget}
+                <div
+                  className="Resize_box"
+                  {...registerMouseDownDrag((deltaX, deltaY)=>{
+                    updateSize(widget.props.widgetId,deltaX+widget.props.width, deltaY+widget.props.height)
+                    console.log('deltaX', deltaX)
+                    console.log('deltaY',deltaY)
+                    console.log('widgetId', widget.props.widgetId)
+                  })}>
+                </div>
+                <button type= "button" onClick={()=>onDeleteButtonClick(widget.props.widgetId)}>X</button>
+              </div>
+            </Draggable>
+
         ))}
       </div>
       <Draggable cancel=".Widget_pick" bounds="parent">
