@@ -164,16 +164,16 @@ function MainPage() {
       ))}
       <button className="Right_Top_Component" onClick={handleLogout}>
         {!rightImgError ? (
-          <img src={process.env.PUBLIC_URL + "/logout.png"} alt="LOGOUT" onError={handleRightImgError} />
+          <img className="Button_img" src={process.env.PUBLIC_URL + "/setting.png"} alt="setting" onError={handleRightImgError} />
         ) : (
-          <p>LOGOUT</p>
+          <p>setting</p>
         )}
       </button>
       <button className="Left_Top_Component" onClick={handleToEdit}>
         {!leftImgError ? (
-          <img src={process.env.PUBLIC_URL + "/edit.png"} alt="EDIT" onError={handleLeftImgError} />
+          <img className="Button_img" src={process.env.PUBLIC_URL + "/edit.png"} alt="dit" onError={handleLeftImgError} />
         ) : (
-          <p>EDIT</p>
+          <p>edit</p>
         )}
       </button>
     </div>

@@ -27,6 +27,7 @@ const EditPage = () => {
 
   const [rightImgError, setRightImgError] = useState<boolean>(false);
   const [leftImgError, setLeftImgError] = useState<boolean>(false);
+  const [deleteImgError, setDeleteImgError] = useState<boolean>(false);
   const [menuDrag, setMenuDrag] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -86,7 +87,11 @@ const EditPage = () => {
   ) {
     setRightImgError(true);
   }
-
+  function handleDeleteImgError(
+    event: React.SyntheticEvent<HTMLImageElement, Event>
+  ) {
+    setDeleteImgError(true);
+  }
   function onDeleteButtonClick(widgetId: string) {
     removeWidget(widgetId);
   }
@@ -148,8 +153,8 @@ const EditPage = () => {
               widgetType="ClockWidget"
               widgetTopLeftX={mouseX}
               widgetTopLeftY={mouseY}
-              width={30}
-              height={30}
+              width={100}
+              height={100}
               time=""
             />
           );
@@ -343,11 +348,16 @@ const EditPage = () => {
                     deltaY + widget.props.height
                   );
                 })}
-              ></div>
+              >
+                <img className="Resize_img" src={process.env.PUBLIC_URL + "/resize.png"} alt =" "/>
+              </div>
               <button
                 type="button"
+                className="Delete_box"
                 onClick={() => onDeleteButtonClick(widget.props.widgetId)}>
-                X
+                {!deleteImgError ? 
+                (<img className="Delete_img" src={process.env.PUBLIC_URL + "/delete.png"} alt="X" onError={handleDeleteImgError} />) : 
+                (<p>X</p>)}
               </button>
             </div>
           </Draggable>
@@ -372,16 +382,16 @@ const EditPage = () => {
       </Draggable>
       <button className="Right_Top_Component" onClick={handleSave}>
         {!rightImgError ? (
-          <img src={process.env.PUBLIC_URL + "/save.png"} alt="SAVE" onError={handleRightImgError} />
+          <img className="Button_img" src={process.env.PUBLIC_URL + "/save.png"} alt="save" onError={handleRightImgError} />
         ) : (
-          <p>SAVE</p>
+          <p>save</p>
         )}
       </button>
       <button className="Left_Top_Component" onClick={handleDiscard}>
         {!leftImgError ? (
-          <img src={process.env.PUBLIC_URL + "/discard.png"} alt="DISCARD" onError={handleLeftImgError} />
+          <img className="Button_img" src={process.env.PUBLIC_URL + "/discard.png"} alt="discard" onError={handleLeftImgError} />
         ) : (
-          <p>DISCARD</p>
+          <p>discard</p>
         )}
       </button>
     </div>

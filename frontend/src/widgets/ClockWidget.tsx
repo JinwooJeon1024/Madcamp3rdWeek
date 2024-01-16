@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useWidgets } from "../recoil/WidgetList";
 import { ClockWidgetData } from "../types/Type";
-import './ClockWidget.css';
+import './Widget.css'
 
 function ClockWidget(clockWidgetData: ClockWidgetData) {
   const { updateSize } = useWidgets()
@@ -31,7 +31,7 @@ function ClockWidget(clockWidgetData: ClockWidgetData) {
   }, [])
 
   const calSize = () => {
-    const whichSide = Math.min(clockWidgetData.width / 2.5, clockWidgetData.height)
+    const whichSide = Math.min(clockWidgetData.width/2.5, clockWidgetData.height)
     const fontSize = Math.min(whichSide, 200);
     return {
       width: `${clockWidgetData.width}px`,
@@ -45,7 +45,7 @@ function ClockWidget(clockWidgetData: ClockWidgetData) {
   return (
     <div
       ref={clockRef}>
-      <div className="Clock" style={calSize()}>{currentTime}</div>
+      <span className="Clock" style={calSize()}>{currentTime}</span>
     </div>
   );
 };

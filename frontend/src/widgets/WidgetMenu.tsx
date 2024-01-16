@@ -19,7 +19,7 @@ const WIDGET_MENU: { type: WidgetType; image: string }[] = [
   },
   {
     type: "ImageWidget",
-    image: process.env.PUBLIC_URL + "/bookmark.png"
+    image: process.env.PUBLIC_URL + "/image.png"
   }
 
 ];

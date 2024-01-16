@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useWidgets } from "../recoil/WidgetList";
 import { TextWidgetData } from "../types/Type";
+import './Widget.css'
 
 function TextWidget(textWidgetData: TextWidgetData) {
   const { updateText, updateSize } = useWidgets()
