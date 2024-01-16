@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useWidgets } from "../../recoil/WidgetList";
 import { BookmarkWidgetData } from "../../types/Type";
+import './Widget.css'
 
 const BookmarkWidget = (bookmarkWidgetData: BookmarkWidgetData) => {
   const { setCurrentUrl, updateBookmark, updateSize } = useWidgets();
@@ -38,7 +39,7 @@ const BookmarkWidget = (bookmarkWidgetData: BookmarkWidgetData) => {
   }, []);
 
   return (
-    <div className="bookmark-widget" ref={bookmarkRef}>
+    <div ref={bookmarkRef}>
       {!bookmarkWidgetData.icon && (
         <input
           type="text"
@@ -53,6 +54,7 @@ const BookmarkWidget = (bookmarkWidgetData: BookmarkWidgetData) => {
       )}
       {bookmarkWidgetData.icon && (
         <img
+          className="Bookmark"
           src={
             bookmarkWidgetData.url
               ? `${new URL(bookmarkWidgetData.url).origin}/favicon.ico`

@@ -25,16 +25,17 @@ const SearchWidget = (searchWidgetData: SearchWidgetData) => {
   }, [updateSize, searchWidgetData.widgetId]);
 
   return (
-    <div className="search-widget" ref={searchRef}>
+    <div ref={searchRef} className="Search_container">
       <form action="https://www.google.com/search" method="get" target="_blank">
         <input
           type="text"
           name="q"
+          className="Search_input"
+          placeholder="검색"
           value={searchTerm}
           onChange={handleSearchChange}
           style={{ width: searchWidgetData.width, height: searchWidgetData.height }}
         />
-        <button type="submit">검색</button>
       </form>
     </div>
   );

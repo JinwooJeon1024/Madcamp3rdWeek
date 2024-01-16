@@ -3,7 +3,7 @@ import { WidgetType } from "../types/Type";
 const WIDGET_MENU: { type: WidgetType; image: string }[] = [
   {
     type: "TextWidget",
-    image: process.env.PUBLIC_URL + "/textwidget.png",
+    image: process.env.PUBLIC_URL + "/text.png",
   },
   {
     type: "BookmarkWidget",
@@ -15,7 +15,7 @@ const WIDGET_MENU: { type: WidgetType; image: string }[] = [
   },
   {
     type: "SearchWidget",
-    image: process.env.PUBLIC_URL + "/textwidget.png"
+    image: process.env.PUBLIC_URL + "/search.png"
   }
 ];
 

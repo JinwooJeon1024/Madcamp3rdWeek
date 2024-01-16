@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginSignUp.css";
+import "./HomePage.css";
 import axios, { AxiosError } from "axios";
 
 const LoginPage: React.FC = () => {
@@ -67,52 +68,59 @@ const LoginPage: React.FC = () => {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      {currentStep === "email" && (
-        <div className="Input_container">
-          <h1 className="Question">Enter Your Email</h1>
-          <input
-            className="Input"
-            type="email"
-            name="email"
-            value={userData.email}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            autoFocus
-          />
-          <div className="Button_container">
-            <button className="Twoside_button" onClick={handleToHome}>
-              BACK
-            </button>
-            <button className="Twoside_button" onClick={handleToPassword}>
-              NEXT
-            </button>
-          </div>
-        </div>
-      )}
-      {currentStep === "password" && (
-        <div className="Input_container">
-          <h1 className="Question">Enter Your Password</h1>
-          <input
-            className="Input"
-            type="password"
-            name="password"
-            value={userData.password}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            autoFocus
-          />
-          <div className="Button_container">
-            <button className="Twoside_button" onClick={handleToEmail}>
-              BACK
-            </button>
-            <button className="Twoside_button" type="submit">
-              LOGIN
-            </button>
-          </div>
-        </div>
-      )}
-    </form>
+    <div className="Container">
+      <div className="Left">
+        <img className="Home_logo" src={process.env.PUBLIC_URL + "/name.png"} alt="CANVAS"/>
+      </div>
+      <div className="Right">
+        <form onSubmit={handleSubmit}>
+          {currentStep === "email" && (
+            <div>
+              <h1 className="Question">Enter Your Email</h1>
+              <input
+                className="Input"
+                type="email"
+                name="email"
+                value={userData.email}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+                autoFocus
+              />
+              <div className="Button_container">
+                <button className="Twoside_button" onClick={handleToHome}>
+                  back
+                </button>
+                <button className="Twoside_button" onClick={handleToPassword}>
+                  next
+                </button>
+              </div>
+            </div>
+          )}
+          {currentStep === "password" && (
+            <div className="Input_container">
+              <h1 className="Question">Enter Your Password</h1>
+              <input
+                className="Input"
+                type="password"
+                name="password"
+                value={userData.password}
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
+                autoFocus
+              />
+              <div className="Button_container">
+                <button className="Twoside_button" onClick={handleToEmail}>
+                  back
+                </button>
+                <button className="Twoside_button" type="submit">
+                  login
+                </button>
+              </div>
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
   );
 };
 

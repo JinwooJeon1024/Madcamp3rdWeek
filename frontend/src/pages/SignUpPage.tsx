@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginSignUp.css';
+import './HomePage.css';
 import axios, {AxiosError} from 'axios';
 
 const SignUpPage: React.FC = () => {
@@ -75,59 +76,67 @@ const SignUpPage: React.FC = () => {
         }
     };
     return (
-        <form onSubmit={handleSubmit}>
-            {currentStep === 'name' && (
-                <div className="Input_container">
-                    <h1 className="Question">What is your NAME?</h1>
-                    <input 
-                        className="Input"
-                        type="name"
-                        name="name"
-                        value={userData.name}
-                        onChange={handleInputChange}
-                        onKeyDown={handleKeyDown}
-                        autoFocus/>
-                    <div className="Button_container">
-                        <button className="Twoside_button"onClick={handleToHome}>홈으로 돌아가기</button>
-                        <button className="Twoside_button" onClick={handleToEmail}>다음으로 이동</button>   
+        <div className="Container">
+            <div className="Left">
+                <img className="Home_logo" src={process.env.PUBLIC_URL + "/name.png"} alt="CANVAS"/>
+            </div>
+            <div className="Right">
+                <form onSubmit={handleSubmit}>
+                {currentStep === 'name' && (
+                    <div className="Input_container">
+                        <h1 className="Question">What is your Name?</h1>
+                        <input 
+                            className="Input"
+                            type="name"
+                            name="name"
+                            value={userData.name}
+                            onChange={handleInputChange}
+                            onKeyDown={handleKeyDown}
+                            autoFocus/>
+                        <div className="Button_container">
+                            <button className="Twoside_button"onClick={handleToHome}>back</button>
+                            <button className="Twoside_button" onClick={handleToEmail}>next</button>   
+                        </div>
                     </div>
-                </div>
-            )}
-            {currentStep === 'email' && (
-                <div className="Input_container">
-                    <h1 className="Question">Enter Your Email</h1>
-                    <input 
-                        className="Input"
-                        type="email"
-                        name="email"
-                        value={userData.email}
-                        onChange={handleInputChange}
-                        onKeyDown={handleKeyDown}
-                        autoFocus/>
-                    <div className="Button_container">
-                        <button className="Twoside_button" onClick={handleToName}>이전으로 돌아가기</button>
-                        <button className="Twoside_button" onClick={handleToPassword}>다음으로 이동</button>
+                )}
+                {currentStep === 'email' && (
+                    <div className="Input_container">
+                        <h1 className="Question">{`What is your Email?, ${userData.name}`}</h1>
+                        <input 
+                            className="Input"
+                            type="email"
+                            name="email"
+                            value={userData.email}
+                            onChange={handleInputChange}
+                            onKeyDown={handleKeyDown}
+                            autoFocus/>
+                        <div className="Button_container">
+                            <button className="Twoside_button" onClick={handleToName}>back</button>
+                            <button className="Twoside_button" onClick={handleToPassword}>next</button>
+                        </div>
                     </div>
-                </div>
-            )}
-            {currentStep === 'password' && (
-                <div className="Input_container">
-                    <h1 className="Question">Enter Your Password</h1>
-                    <input 
-                        className="Input"
-                        type="password"
-                        name="password"
-                        value={userData.password}
-                        onChange={handleInputChange}
-                        onKeyDown={handleKeyDown}
-                        autoFocus/>
-                    <div className="Button_container">
-                        <button className="Twoside_button" onClick={handleToEmail}>이전으로 돌아가기</button>  
-                        <button className ="Twoside_button" type="submit">회원가입 완료</button>  
+                )}
+                {currentStep === 'password' && (
+                    <div className="Input_container">
+                        <h1 className="Question">Enter Your Password</h1>
+                        <input 
+                            className="Input"
+                            type="password"
+                            name="password"
+                            value={userData.password}
+                            onChange={handleInputChange}
+                            onKeyDown={handleKeyDown}
+                            autoFocus/>
+                        <div className="Button_container">
+                            <button className="Twoside_button" onClick={handleToEmail}>back</button>  
+                            <button className ="Twoside_button" type="submit">sign up</button>  
+                        </div>
                     </div>
-                </div>
-            )}
-        </form>
+                )}
+                </form>
+            </div>
+        </div>
+        
     );
 };
 

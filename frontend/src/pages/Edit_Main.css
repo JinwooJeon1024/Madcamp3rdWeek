@@ -4,32 +4,48 @@
     display: flex;
 }
 .Right_Top_Component{
-    width: 5%;
-    height: 5%;
-    color: black;
+    width: 40px;
+    height: 40px;
+    padding : 5px;
+    color: white;
     font-size: calc(15px + 0.1vmin);
-    background-color: white;
     position: absolute;
     overflow: hidden;
     transition : all 0.2s;
     border: none;
     border-radius: 10px;
-    top: 5%;
-    right: 5%;
+    top: 10px;
+    right: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor : pointer;
+    background-color: rgba(0,0,0,0);
+}
+.Right_Top_Component:hover{
+    filter: brightness(0.5);
 }
 .Left_Top_Component{
-    width: 5%;
-    height: 5%;
-    color: black;
+    width: 40px;
+    height: 40px;
+    padding : 5px;
+    color: white;
     font-size: calc(15px + 0.015vmin);
-    background-color: white;
+    background-color: rgba(0,0,0,0);
     position: absolute;
     overflow: hidden;
     transition : all 0.2s;
     border: none;
     border-radius: 10px;
-    top: 5%;
-    left: 5%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    top: 10px;
+    right: 50px;
+    cursor : pointer;
+}
+.Left_Top_Component:hover{
+    filter: brightness(0.5);
 }
 .Whiteboard{
     width: 100%;
@@ -43,7 +59,7 @@
     flex-direction: row;
     width: 60%;
     height: 20%;
-    background-color: darkgray;
+    background-color: #C9C9C9;
     position: absolute;
     bottom: 5%;
     left: 20%;

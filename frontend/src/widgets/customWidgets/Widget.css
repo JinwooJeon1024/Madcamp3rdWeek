@@ -1,0 +1,33 @@
+.Text{
+    border : none;
+    border-radius: 20px;
+    outline: none;
+    padding : 10px;
+    resize: none;
+    background: #F0F0F0;
+}
+.Clock{
+    border : none;
+    user-select: none;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.24);
+    font-weight: 800;
+    color : #FFF;
+}
+.Bookmark{
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.24);
+}
+.Search_input{
+    border : none;
+    border-radius : 20px;
+    outline : none;
+    padding : 20px;
+    background: #F0F0F0;
+}
+.Search_container{
+    position : relative;
+    display: flex;
+    padding : 10px;
+    outline : none;
+    justify-content: right;
+}
