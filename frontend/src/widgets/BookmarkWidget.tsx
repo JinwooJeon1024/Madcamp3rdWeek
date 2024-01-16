@@ -1,14 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useWidgets } from "../recoil/WidgetList";
 import { BookmarkWidgetData } from "../types/Type";
 import './Widget.css';
 
 const BookmarkWidget = (bookmarkWidgetData: BookmarkWidgetData) => {
   const { setCurrentUrl, updateBookmark, updateSize } = useWidgets();
+  const [ touch, setTouch ] = useState(true);
   const bookmarkRef = useRef<HTMLDivElement>(null);
 
   function handleUrlChange(event: React.ChangeEvent<HTMLInputElement>) {
     setCurrentUrl(bookmarkWidgetData.widgetId, event.target.value);
+    setTouch(false)
   }
 
   function handleIconClick() {
@@ -56,6 +58,7 @@ const BookmarkWidget = (bookmarkWidgetData: BookmarkWidgetData) => {
       )}
       {bookmarkWidgetData.icon && (
         <img
+          draggable="false"
           className="Bookmark"
           src={
             bookmarkWidgetData.url
@@ -68,6 +71,7 @@ const BookmarkWidget = (bookmarkWidgetData: BookmarkWidgetData) => {
             cursor: "pointer",
             width: bookmarkWidgetData.width,
             height: bookmarkWidgetData.height,
+            pointerEvents: touch? 'auto' : 'none'
           }}
         />
       )}

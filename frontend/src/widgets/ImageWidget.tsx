@@ -51,7 +51,7 @@ const ImageWidget = (imageWidgetData: ImageWidgetData) => {
       )}
       {imageWidgetData.url && (
         <img
-          
+          draggable="false"
           src={imageWidgetData.url} 
           alt="Widget"
           style={{

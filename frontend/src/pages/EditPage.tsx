@@ -153,7 +153,7 @@ const EditPage = () => {
               widgetType="ClockWidget"
               widgetTopLeftX={mouseX}
               widgetTopLeftY={mouseY}
-              width={100}
+              width={300}
               height={100}
               time=""
             />
