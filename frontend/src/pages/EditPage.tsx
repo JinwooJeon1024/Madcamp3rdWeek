@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { WidgetType } from "../types/Type";
 import "./EditPage.css";
@@ -194,6 +194,108 @@ const EditPage = () => {
       }
     }
   }
+
+  const userToken = localStorage.getItem("userToken");
+  let fetchedElement;
+
+  async function clearWidgets() {
+    setWidgets([]);
+  }
+
+  async function fetchWidgets() {
+    let fetchedWidgets = [];
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/widget`,
+        { headers: { authorization: `Bearer ${userToken}` } }
+      );
+      console.log("get Response", response.data);
+      for (const temp of response.data) {
+        switch (temp.properties.widgetType) {
+          case "TextWidget":
+            fetchedElement = (
+              <TextWidget
+                widgetId={temp._id}
+                widgetType="TextWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                text={temp.properties.text}
+              />
+            );
+            console.log("get Text", fetchedWidgets);
+            fetchedWidgets.push(fetchedElement);
+            break;
+          case "BookmarkWidget":
+            fetchedElement = (
+              <BookmarkWidget
+                widgetId={temp._id}
+                widgetType="BookmarkWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                url={temp.properties.url}
+                icon={temp.properties.icon}
+              />
+            );
+            console.log("get Book", fetchedWidgets);
+            fetchedWidgets.push(fetchedElement);
+            break;
+          case "SearchWidget":
+            fetchedElement = (
+              <SearchWidget
+                widgetId={temp._id}
+                widgetType="SearchWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                search={temp.properties.search}
+              />
+            );
+            fetchedWidgets.push(fetchedElement);
+            break;
+            case "ClockWidget":
+              fetchedElement = (
+                <ClockWidget
+                  widgetId={temp._id}
+                  widgetType="ClockWidget"
+                  widgetTopLeftX={temp.properties.widgetTopLeftX}
+                  widgetTopLeftY={temp.properties.widgetTopLeftY}
+                  width={temp.properties.width}
+                  height={temp.properties.height}
+                  time={temp.properties.time}
+                />
+              );
+              fetchedWidgets.push(fetchedElement);
+              break;
+          default:
+            break;
+        }
+      }
+      console.log(fetchedWidgets);
+      setWidgets(fetchedWidgets);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response) {
+          console.error("Error submitting form : ", error.response?.data);
+        } else {
+          console.error("Unexpected error : ", error);
+        }
+      } else {
+        console.error("Non-Axios error : ", error);
+      }
+    }
+  }
+
+  useEffect(() => {
+    clearWidgets().then(() => {
+      fetchWidgets()    
+    });
+  }, []);
 
   return (
     <div className="Container">
