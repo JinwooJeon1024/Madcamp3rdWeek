@@ -7,8 +7,8 @@ import TextWidget from "../widgets/customWidgets/TextWidget";
 
 function MainPage() {
   const {prevWidgets, setPrevWidgets, widgets, addWidget} = useWidgets()
-  const [imgError, setImgError] = useState<boolean>(false)
-  const [profileToggle, setProfileToggle] = useState<boolean>(false)
+  const [rightImgError, setRightImgError] = useState<boolean>(false)
+  const [leftImgError, setLeftImgError] = useState<boolean>(false)
   const navigate = useNavigate();
   async function fetchWidgets(){
     try {
@@ -48,15 +48,18 @@ function MainPage() {
     fetchWidgets()
   }, [])
 
-  function handleProfile(){
-    
-
+  function handleLogout(){
+    localStorage.removeItem("userToken")
+    navigate('/')
   }
   function handleToEdit(){
     navigate('/edit')
   }
-  function handleImgError(event: React.SyntheticEvent<HTMLImageElement, Event>){
-    setImgError(true)
+  function handleLeftImgError(event: React.SyntheticEvent<HTMLImageElement, Event>){
+    setLeftImgError(true)
+  }
+  function handleRightImgError(event: React.SyntheticEvent<HTMLImageElement, Event>){
+    setRightImgError(true)
   }
 
   return (
@@ -70,11 +73,14 @@ function MainPage() {
             {widget}
           </div>
         </div>))}
-      <button className="Right_button" onClick={handleProfile}>
+      <button className="Right_Top_Component" onClick={handleLogout}>
+      {!rightImgError? 
+         (<img src="" alt="LOGOUT" onError={handleRightImgError}/>)
+        : (<p>LOGOUT</p>)}
       </button>
       <button className="Left_Top_Component" onClick={handleToEdit}>
-        {!imgError? 
-         (<img src="" alt="EDIT" onError={handleImgError}/>)
+        {!leftImgError? 
+         (<img src="" alt="EDIT" onError={handleLeftImgError}/>)
         : (<p>EDIT</p>)}
       </button>
     </div>

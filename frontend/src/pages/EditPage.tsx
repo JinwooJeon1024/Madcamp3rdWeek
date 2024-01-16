@@ -10,7 +10,7 @@ import TextWidget from "../widgets/customWidgets/TextWidget";
 import registerMouseDownDrag from "../services/registerMouseDownDrag";
 
 const EditPage = () => {
-  const {widgets, prevWidgets, addWidget, updatePosition, updateSize} = useWidgets()
+  const {widgets, prevWidgets, addWidget, updatePosition, updateSize, removeWidget} = useWidgets()
   const [rightImgError, setRightImgError] = useState<boolean>(false)
   const [leftImgError, setLeftImgError] = useState<boolean>(false)
   console.log(widgets.map((widget)=>widget.props));
@@ -69,6 +69,10 @@ const EditPage = () => {
   function handleRightImgError(event: React.SyntheticEvent<HTMLImageElement, Event>){
     setRightImgError(true)
   }
+  function onDeleteButtonClick(widgetId : string){
+    console.log("remove", widgetId)
+    removeWidget(widgetId)
+  }
   async function handleOnNewWidgetDrop(event: React.DragEvent){
     //recoil에 추가
     const widgetType = event.dataTransfer.getData("widgetType") as WidgetType;
@@ -122,8 +126,7 @@ const EditPage = () => {
               bounds="parent"
               cancel=".Resize_box">
               <div
-                style={{position:'absolute'}}
-                >
+                style={{position:'absolute'}}>
                 {widget}
                 <div
                   className="Resize_box"
@@ -134,6 +137,7 @@ const EditPage = () => {
                     console.log('widgetId', widget.props.widgetId)
                   })}>
                 </div>
+                <button type= "button" onClick={()=>onDeleteButtonClick(widget.props.widgetId)}>X</button>
               </div>
             </Draggable>
         ))}
