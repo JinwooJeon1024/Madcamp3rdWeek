@@ -7,12 +7,20 @@ import TextWidget from "../widgets/customWidgets/TextWidget";
 import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
 import SearchWidget from "../widgets/customWidgets/SearchWidget";
 
+
 function MainPage() {
   const {prevWidgets, setPrevWidgets, widgets, addWidget} = useWidgets()
   const [rightImgError, setRightImgError] = useState<boolean>(false)
   const [leftImgError, setLeftImgError] = useState<boolean>(false)
   const navigate = useNavigate();
-  let fetchedElement;
+  
+  useEffect(()=>{
+    async function fetchWidgets(){
+      try {
+        const userToken = localStorage.getItem("userToken");
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/widget`, {headers: {authorization: `Bearer ${userToken}`}});
+        console.log("response data", response.data)
+
 
   async function fetchWidgets(){
     try {
@@ -25,7 +33,7 @@ function MainPage() {
           case "TextWidget":
             fetchedElement = (<TextWidget
                                 widgetId={temp._id}
-                                widgetType="TextWidget"
+                                widgetType="BookmarkWidget"
                                 widgetTopLeftX={temp.properties.widgetTopLeftX} 
                                 widgetTopLeftY={temp.properties.widgetTopLeftY} 
                                 width={temp.properties.width} 
@@ -75,16 +83,14 @@ function MainPage() {
         if (axiosError.response) {
           console.error("Error submitting form : ", error.response?.data);
         } else {
-          console.error("Unexpected error : ", error);
+          console.error("Non-Axios error : ", error);
         }
-      } else {
-        console.error("Non-Axios error : ", error);
       }
     }
-  }
-  useEffect(()=>{
+    
     fetchWidgets()
-  }, [])
+  },[])
+
 
   function handleLogout(){
     localStorage.removeItem("userToken")
