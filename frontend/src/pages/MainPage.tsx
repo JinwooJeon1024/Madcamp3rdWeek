@@ -34,7 +34,7 @@ function MainPage() {
               //   text:temp.properties.text,})
               fetchedElement = temp
               console.log(fetchedElement)
-              addWidget(fetchedElement)
+              // addWidget(fetchedElement)
               console.log("fetched widgets", widgets)
               break;
             case "BookmarkWidget":

@@ -6,18 +6,24 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    background : linear-gradient(-40deg,#9708cc, #43cbff);
 }
 .Question{
     font-size: calc(25px + 2vmin);
+    color: #FCFCFC;
+    position : absolute;
+    top : 30%;
 }
 .Input{
     width : 70%;
     text-align: center;
     background-color: transparent;
+    position: absolute;
+    top: 50%;
     outline: none;
     border: none;
-    border-bottom: 1px solid black;
-    color: black;
+    border-bottom: 1px solid #FCFCFC;
+    color: #FCFCFC;
     font-size: calc(25px + 2vmin);
     padding-bottom: 1%;
     &:focus{
@@ -36,11 +42,12 @@
     padding: 5%;
     font-size: calc(15px + 0.1vmin);
     background-color: white;
-    position: relative;
+    position: absolute;
     overflow: hidden;
     transition : all 0.2s;
     border: none;
-    border-radius: 10px;
+    border-radius: 70px;
+
 }
 .Center_button:hover{
     background-color: black;
@@ -55,20 +62,62 @@
     width: 70%;
     height: 20%;
     box-shadow: none;
+    position : absolute;
+    bottom : 10%;
 }
 .Twoside_button{
     display: block;
     color: black;
-    padding: 5%;
     font-size: calc(15px + 0.1vmin);
     background-color: white;
     position: relative;
     overflow: hidden;
     transition : all 0.2s;
     border: none;
-    border-radius: 10px;
+    border-radius: 70px;
+    height : 50%;
+    width : 20%;
 }
 .Twoside_button:hover{
     background-color: black;
     color: white;
+}
+
+@keyframes wobble-horizontal {
+    16.65% {
+        transform: translateX(8px);
+    }
+
+    33.3% {
+        transform: translateX(-6px);
+    }
+
+    49.95% {
+        transform: translateX(4px);
+    }
+
+    66.6% {
+        transform: translateX(-2px);
+    }
+
+    83.25% {
+        transform: translateX(1px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.wobble-horizontal {
+display: inline-block;
+/* Add vendor prefixes for broader browser support if necessary */
+will-change: transform;
+
+    &:hover {
+        animation-name: wobble-horizontal;
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: 1;
+    }
 }
