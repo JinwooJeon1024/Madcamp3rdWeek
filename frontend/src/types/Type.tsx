@@ -1,6 +1,6 @@
-export type WidgetType = "TextWidget" | "BookmarkWidget" | "ClockWidget";
+export type WidgetType = "TextWidget" | "BookmarkWidget" | "ClockWidget" | "SearchWidget";
 
-export type WigetCommon = {
+export type WidgetCommon = {
   widgetId: string;
   widgetType: string;
   widgetTopLeftX: number;
@@ -9,24 +9,26 @@ export type WigetCommon = {
   height: number;
 }
 
-export type TextWidgetData = WigetCommon & {
+export type TextWidgetData = WidgetCommon & {
   text : string;
 }
 
-export type BookmarkWidgetData = WigetCommon & {
+export type BookmarkWidgetData = WidgetCommon & {
   url: string;
   icon: string
 }
 
-export type ImageWidgetData = WigetCommon & {
+export type ImageWidgetData = WidgetCommon & {
   url : string;
 }
+
 
 export type ClockWidgetData = WigetCommon & {
   time : string;
 }
 
-export type WidgetData = TextWidgetData | ImageWidgetData;
+export type SearchWidgetData = WidgetCommon & {
+  search: string;
+}
 
-
-
+export type WidgetData = TextWidgetData | ImageWidgetData | BookmarkWidgetData | SearchWidgetData;
