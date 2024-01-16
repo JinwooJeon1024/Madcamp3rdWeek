@@ -1,33 +1,63 @@
-import {atom, useRecoilState} from 'recoil';
+import { atom, useRecoilState } from 'recoil';
 import { ReactElement } from 'react';
 import React from 'react';
 import { DraggableData } from 'react-draggable';
 
 export const WidgetListAtom = atom<ReactElement[]>({
     key: 'WidgetList',
-    default : []
+    default: []
+})
+export const prevWidgetList = atom<ReactElement[]>({
+    key: 'prevWidgetList',
+    default: []
 })
 
 export const useWidgets = () => {
     const [widgets, setWidgets] = useRecoilState(WidgetListAtom)
+    const [prevWidgets, setPrevWidgets] = useRecoilState(prevWidgetList)
 
-    const addWidget = (newWidget : ReactElement) => {
-        setWidgets((prevWidgest) => [...prevWidgest, newWidget]) 
-    };
-    
-    const updateText = (widgetId : string, newText : string) =>{
-        setWidgets((prevWidgets) => 
-            prevWidgets.map((widget) => 
-            widget.props.widgetId === widgetId ? React.cloneElement(widget, {text : newText})
-                : widget))
+    const addWidget = (newWidget: ReactElement) => {
+        setWidgets((prevWidgest) => [...prevWidgest, newWidget])
     };
 
-    const updateBoomark = (widgetId : string, newUrl : string, newIcon : string) => {
-        // setWidgets((prevWidgets) => 
-        // )
+    const updateText = (widgetId: string, newText: string) => {
+        setWidgets((prevWidgets) =>
+            prevWidgets.map((widget) =>
+                widget.props.widgetId === widgetId ? React.cloneElement(widget, { text: newText })
+                    : widget))
+    };
+
+    const setCurrentUrl = (widgetId: string, newUrl: string) => {
+        setWidgets((prevWidgets) =>
+            prevWidgets.map((widget) =>
+                widget.props.widgetId === widgetId ? React.cloneElement(widget, { url: newUrl, icon: '' })
+                    : widget))
+    };
+
+    const updateBookmark = (widgetId: string, newUrl: string) => {
+        const newIcon = newUrl ? `${new URL(newUrl).origin}/favicon.ico` : '';
+
+        setWidgets((prevWidgets) =>
+            prevWidgets.map((widget) =>
+                widget.props.widgetId === widgetId ? React.cloneElement(widget, { url: newUrl, icon: newIcon })
+                    : widget
+            )
+        );
     }
 
-    const removeWidget = (widgetId : string) => {
+    const updateSize = (widgetId: string, width: number, height: number) => {
+        setWidgets((prevWidgets) =>
+            prevWidgets.map((widget) =>
+                widget.props.widgetId === widgetId ? React.cloneElement(
+                    widget,
+                    {
+                        width: width,
+                        height: height
+                    })
+                    : widget))
+    }
+
+    const removeWidget = (widgetId: string) => {
         console.log(`remove widgetid : ${widgetId}`)
         console.log(`remove 이전 : ${widgets}`)
         // const removedList : ReactElement[] = []
@@ -42,18 +72,20 @@ export const useWidgets = () => {
     };
 
     const updatePosition = (widgetId: string, positionData: DraggableData) => {
-        setWidgets((prevWidgets) => 
-            prevWidgets.map((widget) => 
-            widget.props.widgetId === widgetId ? React.cloneElement(
-                                                                widget, 
-                                                                {widgetTopLeftX: positionData.x,
-                                                                widgetTopLeftY: positionData.y})
-                : widget))
+        setWidgets((prevWidgets) =>
+            prevWidgets.map((widget) =>
+                widget.props.widgetId === widgetId ? React.cloneElement(
+                    widget,
+                    {
+                        widgetTopLeftX: positionData.x,
+                        widgetTopLeftY: positionData.y
+                    })
+                    : widget))
         console.log(positionData.x)
         console.log(positionData.y)
     }
 
-    return {widgets, setWidgets, addWidget, removeWidget, updatePosition, updateText }
+    return { widgets, prevWidgets, setPrevWidgets, setWidgets, addWidget, removeWidget, updateBookmark, setCurrentUrl, updatePosition, updateSize, updateText }
 }
 
 

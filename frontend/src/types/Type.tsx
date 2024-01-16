@@ -1,4 +1,4 @@
-export type WidgetType = "TextWidget" | "BookmarkWidget";
+export type WidgetType = "TextWidget" | "BookmarkWidget" | "ClockWidget";
 
 export type WigetCommon = {
   widgetId : string;
@@ -10,12 +10,11 @@ export type WigetCommon = {
 
 export type TextWidgetData = WigetCommon & {
   text : string;
-  //TODO : text 색상
 }
 
 export type BookmarkWidgetData = WigetCommon & {
   url: string;
-  icon: string;
+  icon: string
 }
 
 export type ImageWidgetData = WigetCommon & {
