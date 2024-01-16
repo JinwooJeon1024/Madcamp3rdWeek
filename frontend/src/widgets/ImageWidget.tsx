@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useWidgets } from '../recoil/WidgetList';
 import { ImageWidgetData } from '../types/Type';
-import './Widget.css'
+import './Widget.css';
 
 const ImageWidget = (imageWidgetData: ImageWidgetData) => {
   const { updateImage, updateSize } = useWidgets();
@@ -51,6 +51,7 @@ const ImageWidget = (imageWidgetData: ImageWidgetData) => {
       )}
       {imageWidgetData.url && (
         <img
+          
           src={imageWidgetData.url} 
           alt="Widget"
           style={{

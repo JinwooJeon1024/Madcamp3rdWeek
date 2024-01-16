@@ -124,8 +124,8 @@ const EditPage = () => {
               widgetId={response.data.data._id}
               widgetTopLeftX={mouseX}
               widgetTopLeftY={mouseY}
-              width={0}
-              height={0}
+              width={100}
+              height={100}
               text={""}
             />
           );
@@ -138,8 +138,8 @@ const EditPage = () => {
               widgetId={response.data.data._id}
               widgetTopLeftX={mouseX}
               widgetTopLeftY={mouseY}
-              width={0}
-              height={0}
+              width={50}
+              height={50}
               url=""
               icon=""
             />

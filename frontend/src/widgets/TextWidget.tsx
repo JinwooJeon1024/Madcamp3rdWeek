@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 import { useWidgets } from "../recoil/WidgetList";
 import { TextWidgetData } from "../types/Type";
-import './Widget.css'
+import './Widget.css';
 
 function TextWidget(textWidgetData: TextWidgetData) {
   const { updateText, updateSize } = useWidgets()
-  function handleTextChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     //recoil 접근해서 text 변경
     console.log(event.target.value)
     console.log(`${textWidgetData.widgetId}`)
@@ -27,8 +27,8 @@ function TextWidget(textWidgetData: TextWidgetData) {
   return (
     <div
       ref={textRef}>
-      <input
-        type="text"
+      <textarea
+        className="Text"
         value={textWidgetData.text}
         onChange={handleTextChange}
         style={{

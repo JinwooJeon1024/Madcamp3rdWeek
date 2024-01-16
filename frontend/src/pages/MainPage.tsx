@@ -210,10 +210,10 @@ function MainPage() {
         </div>
       ))}
 
-      <div className="LogoutButtonContainer">
+      <div>
         <button className="Right_Top_Component" onClick={toggleDropdown}>
           {!rightImgError ? (
-            <img src={process.env.PUBLIC_URL + "/setting.png"} alt="settings" onError={handleRightImgError} />
+            <img className="Button_img" src={process.env.PUBLIC_URL + "/setting.png"} alt="settings" onError={handleRightImgError} />
           ) : (
             <p>setting</p>
           )}

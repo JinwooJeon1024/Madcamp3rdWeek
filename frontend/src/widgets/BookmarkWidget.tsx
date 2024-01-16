@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useWidgets } from "../recoil/WidgetList";
 import { BookmarkWidgetData } from "../types/Type";
-import './Widget.css'
+import './Widget.css';
 
 const BookmarkWidget = (bookmarkWidgetData: BookmarkWidgetData) => {
   const { setCurrentUrl, updateBookmark, updateSize } = useWidgets();
@@ -43,6 +43,8 @@ const BookmarkWidget = (bookmarkWidgetData: BookmarkWidgetData) => {
       {!bookmarkWidgetData.icon && (
         <input
           type="text"
+          className="Text"
+          placeholder="URL"
           value={bookmarkWidgetData.url}
           onChange={handleUrlChange}
           style={{
