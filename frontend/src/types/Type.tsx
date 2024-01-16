@@ -31,4 +31,4 @@ export type SearchWidgetData = WidgetCommon & {
   search: string;
 }
 
-export type WidgetData = TextWidgetData | ImageWidgetData | BookmarkWidgetData | SearchWidgetData;
+export type WidgetData = TextWidgetData | ImageWidgetData | BookmarkWidgetData | SearchWidgetData | ClockWidgetData;

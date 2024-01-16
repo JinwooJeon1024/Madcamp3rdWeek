@@ -152,8 +152,8 @@ const EditPage = () => {
           console.log("Add new ClockWidget");
           const newClockWidget = (
             <ClockWidget
-              widgetType="ClockkWidget"
               widgetId={response.data.data._id}
+              widgetType="ClockkWidget"
               widgetTopLeftX={mouseX}
               widgetTopLeftY={mouseY}
               width={30}

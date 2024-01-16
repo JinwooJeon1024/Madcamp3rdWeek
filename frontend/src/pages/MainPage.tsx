@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import TextWidget from "../widgets/customWidgets/TextWidget";
 import BookmarkWidget from "../widgets/customWidgets/BookmarkWidget";
 import SearchWidget from "../widgets/customWidgets/SearchWidget";
+import ClockWidget from "../widgets/customWidgets/ClockWidget";
 
 function MainPage() {
   const { prevWidgets, setPrevWidgets, widgets, setWidgets } = useWidgets();
@@ -74,6 +75,20 @@ function MainPage() {
             );
             fetchedWidgets.push(fetchedElement);
             break;
+            case "ClockWidget":
+              fetchedElement = (
+                <ClockWidget
+                  widgetId={temp._id}
+                  widgetType="ClockWidget"
+                  widgetTopLeftX={temp.properties.widgetTopLeftX}
+                  widgetTopLeftY={temp.properties.widgetTopLeftY}
+                  width={temp.properties.width}
+                  height={temp.properties.height}
+                  time={temp.properties.time}
+                />
+              );
+              fetchedWidgets.push(fetchedElement);
+              break;
           default:
             break;
         }
