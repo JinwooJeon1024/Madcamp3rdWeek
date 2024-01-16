@@ -44,6 +44,13 @@ export const useWidgets = () => {
             )
         );
     }
+    
+    const setCurrentSearch = (widgetId: string, newSearch: string) => {
+        setWidgets((prevWidgets) =>
+            prevWidgets.map((widget) =>
+                widget.props.widgetId === widgetId ? React.cloneElement(widget, { search: newSearch })
+                    : widget))
+    }
 
     const updateSize = (widgetId: string, width: number, height: number) => {
         setWidgets((prevWidgets) =>
@@ -85,7 +92,7 @@ export const useWidgets = () => {
         console.log(positionData.y)
     }
 
-    return { widgets, prevWidgets, setPrevWidgets, setWidgets, addWidget, removeWidget, updateBookmark, setCurrentUrl, updatePosition, updateSize, updateText }
+    return { widgets, prevWidgets, setPrevWidgets, setWidgets, addWidget, removeWidget, updateBookmark, setCurrentUrl, setCurrentSearch, updatePosition, updateSize, updateText }
 }
 
 

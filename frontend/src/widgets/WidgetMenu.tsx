@@ -13,6 +13,10 @@ const WIDGET_MENU: { type: WidgetType; image: string }[] = [
     type: "ClockWidget",
     image: process.env.PUBLIC_URL + "/clock.png",
   },
+  {
+    type: "SearchWidget",
+    image: process.env.PUBLIC_URL + "/textwidget.png"
+  }
 ];
 
 export default WIDGET_MENU;
