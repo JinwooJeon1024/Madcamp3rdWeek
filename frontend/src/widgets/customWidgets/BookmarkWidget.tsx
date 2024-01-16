@@ -40,7 +40,7 @@ const BookmarkWidget = (bookmarkWidgetData : BookmarkWidgetData) => {
       />
       {bookmarkWidgetData.url && (
         <img 
-          src={bookmarkWidgetData.icon} 
+          src={bookmarkWidgetData.url ? `${new URL(bookmarkWidgetData.url).origin}/favicon.ico` : ''} 
           alt="Bookmark Icon" 
           onClick={handleIconClick}
           style={{ cursor: 'pointer' }} 

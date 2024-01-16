@@ -2,7 +2,9 @@ export default function registerMouseDownDrag(
     onDragChange: (deltaX: number, deltaY: number) => void,
     stopPropagation?: boolean,
 ){
-    const onMouseDown=(clickEvent: React.MouseEvent<Element, MouseEvent>) =>{
+    return {
+        onMouseDown:(clickEvent: React.MouseEvent<Element, MouseEvent>) =>{
+        console.log('MouseEvent', clickEvent)
         if(stopPropagation) clickEvent.stopPropagation()
         const mouseMoveHandler = (moveEvent: MouseEvent) => {
             const deltaX = moveEvent.screenX-clickEvent.screenX;
@@ -14,7 +16,6 @@ export default function registerMouseDownDrag(
         }
         document.addEventListener('mousemove', mouseMoveHandler)
         document.addEventListener('mouseup', mouseUpHandler, {once: true})
+        }
     }
-    
-    return onMouseDown
 }
