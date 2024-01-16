@@ -273,6 +273,20 @@ const EditPage = () => {
             );
             fetchedWidgets.push(fetchedElement);
             break;
+          case "ImageWidget":
+            fetchedElement = (
+              <ImageWidget
+                widgetId={temp._id}
+                widgetType="ImageWidget"
+                widgetTopLeftX={temp.properties.widgetTopLeftX}
+                widgetTopLeftY={temp.properties.widgetTopLeftY}
+                width={temp.properties.width}
+                height={temp.properties.height}
+                url={temp.properties.url}
+              />
+            );
+            fetchedWidgets.push(fetchedElement);
+            break;
           default:
             break;
         }
