@@ -7,6 +7,7 @@ import BookmarkWidget from "../widgets/BookmarkWidget";
 import SearchWidget from "../widgets/SearchWidget";
 import ClockWidget from "../widgets/ClockWidget";
 import ImageWidget from "../widgets/ImageWidget";
+import './MainPage.css';
 
 function MainPage() {
   const { prevWidgets, setPrevWidgets, widgets, setWidgets } = useWidgets();
@@ -146,6 +147,26 @@ function MainPage() {
   ) {
     setRightImgError(true);
   }
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  // 로그아웃 버튼 클릭 핸들러
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  // 드롭다운 메뉴 항목 클릭 핸들러
+  const handleDropdownItemClick = (action: string) => {
+    switch (action) {
+      case "profile":
+        break;
+      case "settings":
+        break;
+      case "logout":
+        handleLogout();
+        break;
+    }
+    setShowDropdown(false);
+  };
 
   return (
     <div className="Whiteboard">
@@ -162,13 +183,23 @@ function MainPage() {
           </div>
         </div>
       ))}
-      <button className="Right_Top_Component" onClick={handleLogout}>
-        {!rightImgError ? (
-          <img className="Button_img" src={process.env.PUBLIC_URL + "/setting.png"} alt="setting" onError={handleRightImgError} />
-        ) : (
-          <p>setting</p>
+
+      <div className="LogoutButtonContainer">
+        <button className="Right_Top_Component" onClick={toggleDropdown}>
+          {!rightImgError ? (
+            <img src={process.env.PUBLIC_URL + "/setting.png"} alt="settings" onError={handleRightImgError} />
+          ) : (
+            <p>setting</p>
+          )}
+        </button>
+        {showDropdown && (
+          <div className="Dropdown">
+            <div onClick={() => handleDropdownItemClick('profile')}>profile</div>
+            <div onClick={() => handleDropdownItemClick('settings')}>settings</div>
+            <div onClick={() => handleDropdownItemClick('logout')}>logout</div>
+          </div>
         )}
-      </button>
+      </div>
       <button className="Left_Top_Component" onClick={handleToEdit}>
         {!leftImgError ? (
           <img className="Button_img" src={process.env.PUBLIC_URL + "/edit.png"} alt="dit" onError={handleLeftImgError} />

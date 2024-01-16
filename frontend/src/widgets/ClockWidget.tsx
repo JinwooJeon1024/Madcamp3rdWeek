@@ -3,6 +3,7 @@ import { useWidgets } from "../recoil/WidgetList";
 import { ClockWidgetData } from "../types/Type";
 import './Widget.css'
 
+
 function ClockWidget(clockWidgetData: ClockWidgetData) {
   const { updateSize } = useWidgets()
   const [currentTime, setCurrentTime] = useState<string>('')
