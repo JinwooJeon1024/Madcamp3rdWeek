@@ -26,6 +26,9 @@ exports.register = async (req, res) => {
 
     await user.save();
 
+    const fixedUserId = mongoose.Types.ObjectId('특정_고정_userId');
+    const widgetData = await WidgetData.findOne({ userId: fixedUserId });
+    const imageData = await backGroundImageData.findOne({ userId: fixedUserId });
     // 새 사용자의 userId로 위젯 데이터 복사
     if (widgetData) {
       const newUserWidgetData = new defaultWidget({
@@ -59,9 +62,9 @@ exports.login = async (req, res) => {
       return res.status(401).send('Invalid credentials');
     }
 
+    console.log(user._id);
     // JWT 생성
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
-
     res.send({ token });
   } catch (error) {
     res.status(500).send('Error in login');
