@@ -7,6 +7,7 @@ import MainPage from "./pages/MainPage";
 import EditPage from "./pages/EditPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import SettingPage from "./pages/SettingPage";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/edit" element={<EditPage />} />
+          <Route path="/setting" element={<SettingPage />} />
         </Routes>
       </div>
     </DndProvider>

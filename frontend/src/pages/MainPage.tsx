@@ -8,6 +8,7 @@ import SearchWidget from "../widgets/SearchWidget";
 import ClockWidget from "../widgets/ClockWidget";
 import ImageWidget from "../widgets/ImageWidget";
 import './MainPage.css';
+import './Edit_Main.css';
 
 function MainPage() {
   const { prevWidgets, setPrevWidgets, widgets, setWidgets } = useWidgets();
@@ -131,10 +132,6 @@ function MainPage() {
     setPrevWidgets(widgets);
   }, [widgets]);
 
-  function handleLogout() {
-    localStorage.removeItem("userToken");
-    navigate("/");
-  }
   function handleToEdit() {
     navigate("/edit");
   }
@@ -149,51 +146,14 @@ function MainPage() {
     setRightImgError(true);
   }
 
-  const [showDropdown, setShowDropdown] = useState(false);
 
-  // 로그아웃 버튼 클릭 핸들러
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
+  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
 
-  // 드롭다운 메뉴 항목 클릭 핸들러
-  const handleDropdownItemClick = (action: string) => {
-    switch (action) {
-      case "profile":
-        break;
-      case "settings":
-        document.getElementById('fileInput')?.click();
-        break;
-      case "logout":
-        handleLogout();
-        break;
-    }
-    setShowDropdown(false);
-  };
+  function moveToSetting(){
+    navigate('/setting')
+  }
 
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
 
-      reader.onloadend = async () => {
-        if (typeof reader.result === 'string') {
-          setBackgroundImage(reader.result);
-          try {
-            await axios.put(
-              `${process.env.REACT_APP_API_URL}/image/update`, { url: reader.result }, {
-              headers: {
-                'authorization': `Bearer ${userToken}`,
-              }
-            });
-          } catch (error) {
-            console.error('Error uploading the image: ', error);
-          }
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   useEffect(() => {
     const fetchBackgroundImage = async () => {
@@ -232,29 +192,14 @@ function MainPage() {
         </div>
       ))}
 
-      <div>
-        <button className="Right_Top_Component" onClick={toggleDropdown}>
-          {!rightImgError ? (
-            <img className="Button_img" src={process.env.PUBLIC_URL + "/setting.png"} alt="settings" onError={handleRightImgError} />
-          ) : (
-            <p>setting</p>
-          )}
-        </button>
-        {showDropdown && (
-          <div className="Dropdown">
-            <div onClick={() => handleDropdownItemClick('profile')}>profile</div>
-            <div onClick={() => handleDropdownItemClick('settings')}>settings</div>
-            <div onClick={() => handleDropdownItemClick('logout')}>logout</div>
-          </div>
+      
+      <button className="Right_Top_Component" onClick={moveToSetting}>
+        {!rightImgError ? (
+          <img className="Button_img" src={process.env.PUBLIC_URL + "/setting.png"} alt="settings" onError={handleRightImgError} />
+        ) : (
+          <p>setting</p>
         )}
-      </div>
-      <input
-        type="file"
-        id="fileInput"
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-        accept="image/*"
-      />
+      </button>
       <button className="Left_Top_Component" onClick={handleToEdit}>
         {!leftImgError ? (
           <img className="Button_img" src={process.env.PUBLIC_URL + "/edit.png"} alt="dit" onError={handleLeftImgError} />
