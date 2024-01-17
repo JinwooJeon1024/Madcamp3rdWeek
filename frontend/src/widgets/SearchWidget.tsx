@@ -35,7 +35,7 @@ const SearchWidget = (searchWidgetData: SearchWidgetData) => {
           placeholder="검색"
           value={searchTerm}
           onChange={handleSearchChange}
-          style={{ width: searchWidgetData.width, height: searchWidgetData.height }}
+          style={{ width: searchWidgetData.width, height: searchWidgetData.height, fontSize : '16px'}}
         />
       </form>
     </div>

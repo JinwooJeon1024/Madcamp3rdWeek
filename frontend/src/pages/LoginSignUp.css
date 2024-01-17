@@ -8,21 +8,21 @@
 .Question{
     font-size: calc(25px + 2vmin);
     position : absolute;
-    top : 20%;
+    top : 25%;
     width : 100%;
     right : 0;
     text-align: center;
     font-weight: 300;
 }
 .Input{
-    width : 60%;
+    width : 50%;
     text-align: center;
     background-color: transparent;
     position: absolute;
-    top: 45.2%;
+    top: 48.1%;
     outline: none;
     border: none;
-    right : 20%;
+    right : 25%;
     border-bottom: 1px solid #141414;
     font-size: calc(25px + 2vmin);
     font-weight : 300;
@@ -71,7 +71,7 @@
     color: #141414;
     font-size: calc(15px + 0.1vmin);
     font-weight: 230;
-    background-color: #FCFCFC;
+    background-color: #F0F0F0;
     position: relative;
     overflow: hidden;
     transition : all 0.2s;
@@ -122,4 +122,13 @@ will-change: transform;
         animation-timing-function: ease-in-out;
         animation-iteration-count: 1;
     }
+}
+
+.Line{
+    border-top : 1px solid #141414;
+    border-radius : 20px;
+    position : absolute;
+    width : 50%;
+    top : 58%;
+    right : 25%;
 }

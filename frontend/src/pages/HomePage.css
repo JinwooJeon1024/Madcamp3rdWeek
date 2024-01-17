@@ -31,7 +31,6 @@
     border-top : 1px solid #141414;
     border-radius : 20px;
     position : absolute;
-    width : 50%;
     top : 58%;
     right : 25%;
 }
@@ -54,6 +53,7 @@
     font-family: "Open Sans", sans-serif;
     transition: all 0.2s;
     font-weight:200;
+    background-color: #F0F0F0;
 }
 .Signup_container{
     position : absolute;
@@ -68,6 +68,7 @@
     font-family: "Open Sans", sans-serif;
     transition: all 0.2s;
     font-weight:200;
+    background-color: #F0F0F0;
 }
 .Login_container:hover,
 .Signup_container:hover{
