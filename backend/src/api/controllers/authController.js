@@ -26,26 +26,26 @@ exports.register = async (req, res) => {
 
     await user.save();
 
-    // const fixedUserId = mongoose.Types.ObjectId('65a7af63d6ac280005c6cb27');
-    // const widgetData = await defaultWidget.findOne({ userId: fixedUserId });
-    // const imageData = await defaultImage.findOne({ userId: fixedUserId });
-    // // 새 사용자의 userId로 위젯 데이터 복사
-    // if (widgetData) {
-    //   const newUserWidgetData = new defaultWidget({
-    //     userId: user._id,
-    //     properties: widgetData.properties
-    //   });
-    //   await newUserWidgetData.save();
-    // }
+    const fixedUserId = new mongoose.Types.ObjectId('65a7af63d6ac280005c6cb27');
+    const widgetData = await defaultWidget.findOne({ userId: fixedUserId });
+    const imageData = await defaultImage.findOne({ userId: fixedUserId });
+    // 새 사용자의 userId로 위젯 데이터 복사
+    if (widgetData) {
+      const newUserWidgetData = new defaultWidget({
+        userId: user._id,
+        properties: widgetData.properties
+      });
+      await newUserWidgetData.save();
+    }
 
-    // // 새 사용자의 userId로 이미지 데이터 복사
-    // if (imageData) {
-    //   const newUserImageData = new defaultImage({
-    //     userId: user._id,
-    //     url: imageData.url
-    //   });
-    //   await newUserImageData.save();
-    // }
+    // 새 사용자의 userId로 이미지 데이터 복사
+    if (imageData) {
+      const newUserImageData = new defaultImage({
+        userId: user._id,
+        url: imageData.url
+      });
+      await newUserImageData.save();
+    }
     res.status(201).send({ message: 'User created successfully' });
   } catch (error) {
     res.status(500).send('Error in saving user');
