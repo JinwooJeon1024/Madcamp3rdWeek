@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { useWidgets } from "../recoil/WidgetList";
+import { BackgroundImage, useBackgroundImage, useWidgets } from "../recoil/WidgetList";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextWidget from "../widgets/TextWidget";
@@ -11,6 +11,7 @@ import './MainPage.css';
 
 function MainPage() {
   const { prevWidgets, setPrevWidgets, widgets, setWidgets } = useWidgets();
+  const { backgroundImage, setBackgroundImage} = useBackgroundImage();
   const [rightImgError, setRightImgError] = useState<boolean>(false);
   const [leftImgError, setLeftImgError] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function MainPage() {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/widget`,
-        { headers: { authorization: `Bearer ${userToken}` } }
+        { headers: { 'authorization': `Bearer ${userToken}` } }
       );
       for (const temp of response.data) {
         switch (temp.properties.widgetType) {
@@ -149,7 +150,6 @@ function MainPage() {
   }
 
   const [showDropdown, setShowDropdown] = useState(false);
-  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
 
   // 로그아웃 버튼 클릭 핸들러
   const toggleDropdown = () => {
@@ -171,16 +171,24 @@ function MainPage() {
     setShowDropdown(false);
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     if (file) {
       const reader = new FileReader();
 
-      reader.onloadend = () => {
-        // reader.result가 string인 경우에만 setBackgroundImage에 할당
+      reader.onloadend = async () => {
         if (typeof reader.result === 'string') {
           setBackgroundImage(reader.result);
-          localStorage.setItem('backgroundImage', reader.result);
+          try {
+            await axios.put(
+              `${process.env.REACT_APP_API_URL}/image/update`, { url: reader.result }, {
+              headers: {
+                'authorization': `Bearer ${userToken}`,
+              }
+            });
+          } catch (error) {
+            console.error('Error uploading the image: ', error);
+          }
         }
       };
       reader.readAsDataURL(file);
@@ -188,11 +196,25 @@ function MainPage() {
   };
 
   useEffect(() => {
-    const savedBackgroundImage = localStorage.getItem('backgroundImage');
-    if (savedBackgroundImage) {
-      setBackgroundImage(savedBackgroundImage);
-    }
+    const fetchBackgroundImage = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/image`, {
+          headers: {
+            'authorization': `Bearer ${userToken}`,
+          }
+        });
+        console.log(response.data);
+        if (response.data && response.data.imageUrl) {
+          setBackgroundImage(response.data.imageUrl);
+        }
+      } catch (error) {
+        console.error('Error fetching the background image: ', error);
+      }
+    };
+
+    fetchBackgroundImage();
   }, []);
+
 
   return (
     <div className="Whiteboard" style={{ backgroundImage: `url(${backgroundImage})` }} >

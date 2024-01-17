@@ -12,7 +12,7 @@ import BookmarkWidget from "../widgets/BookmarkWidget";
 import ClockWidget from "../widgets/ClockWidget";
 import SearchWidget from "../widgets/SearchWidget";
 import ImageWidget from "../widgets/ImageWidget";
-
+import { BackgroundImage, useBackgroundImage } from "../recoil/WidgetList";
 
 const EditPage = () => {
   const {
@@ -24,6 +24,8 @@ const EditPage = () => {
     removeWidget,
     setWidgets
   } = useWidgets();
+
+  const { backgroundImage, setBackgroundImage} = useBackgroundImage();
 
   const [rightImgError, setRightImgError] = useState<boolean>(false);
   const [leftImgError, setLeftImgError] = useState<boolean>(false);
@@ -312,13 +314,31 @@ const EditPage = () => {
   }
 
   useEffect(() => {
+
+    const fetchBackgroundImage = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/image`, {
+          headers: {
+            'authorization': `Bearer ${userToken}`,
+          }
+        });
+        console.log(response.data);
+        if (response.data && response.data.imageUrl) {
+          setBackgroundImage(response.data.imageUrl);
+        }
+      } catch (error) {
+        console.error('Error fetching the background image: ', error);
+      }
+    };
+
+    fetchBackgroundImage();
     clearWidgets().then(() => {
       fetchWidgets()
     });
   }, []);
 
   return (
-    <div className="Container">
+    <div className="Container" style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div
         className="Whiteboard"
         onDrop={handleOnNewWidgetDrop}

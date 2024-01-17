@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const authRoutes = require('./src/api/routes/authRoutes'); // 사용자 정의 라우트
 const widgetRoutes = require('./src/api/routes/widgetDataRoutes');
+const imageRoutes = require('./src/api/routes/backGroundImageRoutes');
 const db = require('./src/config/db')
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(bodyParser.json({
 // 라우트 설정
 app.use('/api/users', authRoutes);
 app.use('/api/widget', widgetRoutes);
+app.use('/api/image', imageRoutes);
 
 // 데이터베이스 연결 (예: MongoDB, MySQL 등)
 db.connectDatabase();
