@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { useWidgets } from "../recoil/WidgetList";
+import { BackgroundImage, useBackgroundImage, useWidgets } from "../recoil/WidgetList";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextWidget from "../widgets/TextWidget";
@@ -11,6 +11,7 @@ import './MainPage.css';
 
 function MainPage() {
   const { prevWidgets, setPrevWidgets, widgets, setWidgets } = useWidgets();
+  const { backgroundImage, setBackgroundImage} = useBackgroundImage();
   const [rightImgError, setRightImgError] = useState<boolean>(false);
   const [leftImgError, setLeftImgError] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -149,7 +150,6 @@ function MainPage() {
   }
 
   const [showDropdown, setShowDropdown] = useState(false);
-  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
 
   // 로그아웃 버튼 클릭 핸들러
   const toggleDropdown = () => {
