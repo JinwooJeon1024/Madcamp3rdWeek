@@ -75,13 +75,16 @@
     overflow: hidden;
     transition : all 0.2s;
     border: none;
-    border-radius: 30px;
+    border-radius: 20px;
     height : 50%;
     width : 20%;
+    font-size:calc(0.5vmin + 15px);
+    font-weight:230;
 }
 .Twoside_button:hover{
     background-color: #141414;
    color: #FCFCFC;
+   font-weight:260;
 }
 
 @keyframes wobble-horizontal {
