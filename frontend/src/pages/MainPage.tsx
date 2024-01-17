@@ -26,7 +26,7 @@ function MainPage() {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/widget`,
-        { headers: { authorization: `Bearer ${userToken}` } }
+        { headers: { 'authorization': `Bearer ${userToken}` } }
       );
       for (const temp of response.data) {
         switch (temp.properties.widgetType) {
@@ -198,7 +198,7 @@ function MainPage() {
   useEffect(() => {
     const fetchBackgroundImage = async () => {
       try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/image`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/image`, {
           headers: {
             'authorization': `Bearer ${userToken}`,
           }

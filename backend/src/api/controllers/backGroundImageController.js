@@ -1,6 +1,5 @@
 const backGroundImageData = require('../../models/Image'); // 모델 경로 확인 필요
 
-// 위젯 데이터 생성하기 (Create)
 const fetchImage = async (req, res) => {
     const userId = req.userId; // 사용자 ID 추출
 

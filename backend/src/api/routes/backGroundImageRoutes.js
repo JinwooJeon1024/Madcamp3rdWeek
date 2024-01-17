@@ -4,6 +4,6 @@ const backGroundImageController = require('../controllers/backGroundImageControl
 const verifyToken = require('../middlewares/verifyToken');
 
 router.put('/update', verifyToken, backGroundImageController.updateImage);
-router.post('/', verifyToken, backGroundImageController.fetchImage)
+router.get('/', verifyToken, backGroundImageController.fetchImage)
 
 module.exports = router;
