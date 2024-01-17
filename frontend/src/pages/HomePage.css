@@ -53,6 +53,7 @@
     font-size: calc(10px + 2vmin);
     font-family: "Open Sans", sans-serif;
     transition: all 0.2s;
+    font-weight:200;
 }
 .Signup_container{
     position : absolute;
@@ -66,6 +67,7 @@
     font-size: calc(9px + 2vmin);
     font-family: "Open Sans", sans-serif;
     transition: all 0.2s;
+    font-weight:200;
 }
 .Login_container:hover,
 .Signup_container:hover{

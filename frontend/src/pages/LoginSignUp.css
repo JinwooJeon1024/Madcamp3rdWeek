@@ -70,18 +70,19 @@
     display: block;
     color: #141414;
     font-size: calc(15px + 0.1vmin);
+    font-weight: 230;
     background-color: #FCFCFC;
     position: relative;
     overflow: hidden;
     transition : all 0.2s;
     border: none;
-    border-radius: 30px;
+    border-radius: 15px;
     height : 50%;
     width : 20%;
 }
 .Twoside_button:hover{
     background-color: #141414;
-   color: #FCFCFC;
+    color: #FCFCFC;
 }
 
 @keyframes wobble-horizontal {
