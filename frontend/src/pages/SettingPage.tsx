@@ -2,9 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import './SettingPage.css'
 import { useEffect, useState } from 'react';
 import axios, { AxiosError } from 'axios';
+import { useBackgroundImage } from '../recoil/WidgetList';
 
 function SettingPage(){
     const navigate = useNavigate();
+    const { backgroundImage, setBackgroundImage} = useBackgroundImage();
     const [userInfo, setUserInfo] = useState<{name : string, email: string}>({name: "", email: ""});
     function returnToMain(){
         navigate('/main')
@@ -57,7 +59,6 @@ function SettingPage(){
         document.getElementById('fileInput')?.click();
     }
 
-    const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files && event.target.files[0];

@@ -147,8 +147,6 @@ function MainPage() {
   }
 
 
-  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
-
   function moveToSetting(){
     navigate('/setting')
   }
