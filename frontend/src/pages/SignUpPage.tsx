@@ -62,31 +62,6 @@ const SignUpPage: React.FC = () => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, userData);
             console.log("signup", response.data);
-            try {
-                const templete = await axios.get(`${process.env.REACT_APP_API_URL}/widget`, {
-                    headers: { authorization: `Bearer ${process.env.ADMIN_TOKEN}` }
-                });
-
-                const templete_image = await axios.get(`${process.env.REACT_APP_API_URL}/image`, {
-                    headers: {
-                        'authorization': `Bearer ${process.env.ADMIN_TOKEN}`,
-                    }
-                }
-                )
-
-                if (templete_image.data && templete_image.data.imageUrl) {
-                    setBackgroundImage(response.data.imageUrl);
-                }
-
-                await axios.put(
-                    `${process.env.REACT_APP_API_URL}/widget/update`,
-                    templete.data,
-                    { headers: { authorization: `Bearer ${userToken}` } }
-                );
-
-            } catch (error) {
-                console.error('위젯 처리 중 오류 발생:', error);
-            }
             navigate('/');
         } catch (error) {
             if (axios.isAxiosError(error)) {

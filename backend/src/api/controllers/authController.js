@@ -1,4 +1,6 @@
 const User = require('../../models/User');
+const defaultWidget = require('../../models/Widget');
+const defaultImage = require('../../models/Image');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -24,6 +26,23 @@ exports.register = async (req, res) => {
 
     await user.save();
 
+    // 새 사용자의 userId로 위젯 데이터 복사
+    if (widgetData) {
+      const newUserWidgetData = new defaultWidget({
+        userId: user._id,
+        properties: widgetData.properties
+      });
+      await newUserWidgetData.save();
+    }
+
+    // 새 사용자의 userId로 이미지 데이터 복사
+    if (imageData) {
+      const newUserImageData = new defaultImage({
+        userId: user._id,
+        url: imageData.url
+      });
+      await newUserImageData.save();
+    }
     res.status(201).send({ message: 'User created successfully' });
   } catch (error) {
     res.status(500).send('Error in saving user');
