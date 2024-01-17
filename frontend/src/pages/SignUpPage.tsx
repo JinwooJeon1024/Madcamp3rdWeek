@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import './LoginSignUp.css';
 import './HomePage.css';
 import axios, { AxiosError } from 'axios';
+import { useBackgroundImage } from '../recoil/WidgetList';
 
 const SignUpPage: React.FC = () => {
     const navigate = useNavigate();
     console.log("signup page");
     const userToken = localStorage.getItem('userToken');
+    const {backgroundImage, setBackgroundImage} = useBackgroundImage();
 
 
     const [userData, setUserData] = useState({
@@ -60,20 +62,31 @@ const SignUpPage: React.FC = () => {
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, userData);
             console.log("signup", response.data);
-            // try {
-            //     const templete = await axios.get(`${process.env.REACT_APP_API_URL}/widget`, {
-            //         headers: { authorization: `Bearer ${process.env.ADMIN_TOKEN}` }
-            //     });
+            try {
+                const templete = await axios.get(`${process.env.REACT_APP_API_URL}/widget`, {
+                    headers: { authorization: `Bearer ${process.env.ADMIN_TOKEN}` }
+                });
 
-            //     await axios.put(
-            //         `${process.env.REACT_APP_API_URL}/widget/update`,
-            //         templete.data, 
-            //         { headers: { authorization: `Bearer ${userToken}` } }
-            //     );
+                const templete_image = await axios.get(`${process.env.REACT_APP_API_URL}/image`, {
+                    headers: {
+                        'authorization': `Bearer ${process.env.ADMIN_TOKEN}`,
+                    }
+                }
+                )
 
-            // } catch (error) {
-            //     console.error('위젯 처리 중 오류 발생:', error);
-            // }
+                if (templete_image.data && templete_image.data.imageUrl) {
+                    setBackgroundImage(response.data.imageUrl);
+                }
+
+                await axios.put(
+                    `${process.env.REACT_APP_API_URL}/widget/update`,
+                    templete.data,
+                    { headers: { authorization: `Bearer ${userToken}` } }
+                );
+
+            } catch (error) {
+                console.error('위젯 처리 중 오류 발생:', error);
+            }
             navigate('/');
         } catch (error) {
             if (axios.isAxiosError(error)) {
