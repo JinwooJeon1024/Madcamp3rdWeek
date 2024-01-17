@@ -68,20 +68,20 @@
 }
 .Twoside_button{
     display: block;
-    color: black;
+    color: #141414;
     font-size: calc(15px + 0.1vmin);
-    background-color: white;
+    background-color: #FCFCFC;
     position: relative;
     overflow: hidden;
     transition : all 0.2s;
     border: none;
-    border-radius: 70px;
+    border-radius: 30px;
     height : 50%;
     width : 20%;
 }
 .Twoside_button:hover{
-    background-color: black;
-    color: white;
+    background-color: #141414;
+   color: #FCFCFC;
 }
 
 @keyframes wobble-horizontal {
