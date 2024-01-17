@@ -39,14 +39,12 @@ function SettingPage(){
     async function deleteAccount(){
         try{
             const userToken = localStorage.getItem("userToken");
-            const request = {
-                
-            };
-            const response = await axios.post(
-            `${process.env.REACT_APP_API_URL}/widget/create`,
-                request,
+            const response = await axios.delete(
+            `${process.env.REACT_APP_API_URL}/users/delete`,
                 { headers: { authorization: `Bearer ${userToken}` } }
             );
+            console.log(response.data)
+            userLogout()
         } catch{
             
         }
@@ -60,21 +58,31 @@ function SettingPage(){
     }
 
 
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files && event.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-    
-          reader.onloadend = () => {
-            // reader.result가 string인 경우에만 setBackgroundImage에 할당
-            if (typeof reader.result === 'string') {
-              setBackgroundImage(reader.result);
-              localStorage.setItem('backgroundImage', reader.result);
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files && event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        const userToken = localStorage.getItem("userToken");
+        reader.onloadend = async () => {
+          if (typeof reader.result === 'string') {
+            setBackgroundImage(reader.result);
+            console.log(reader.result)
+            try {
+              await axios.put(
+                `${process.env.REACT_APP_API_URL}/image/update`, { url: reader.result }, {
+                headers: {
+                  'authorization': `Bearer ${userToken}`,
+                }              
+              });
+              console.log("request", reader.result)
+            } catch (error) {
+              console.error('Error uploading the image: ', error);
             }
-          };
-          reader.readAsDataURL(file);
-        }
-      };
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };
     
     return (
         <div className="Container">

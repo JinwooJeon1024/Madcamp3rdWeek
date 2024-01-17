@@ -169,7 +169,6 @@ function MainPage() {
         console.error('Error fetching the background image: ', error);
       }
     };
-
     fetchBackgroundImage();
   }, []);
 
@@ -189,8 +188,6 @@ function MainPage() {
           </div>
         </div>
       ))}
-
-      
       <button className="Right_Top_Component" onClick={moveToSetting}>
         {!rightImgError ? (
           <img className="Button_img" src={process.env.PUBLIC_URL + "/setting.png"} alt="settings" onError={handleRightImgError} />

@@ -59,23 +59,22 @@ const SignUpPage: React.FC = () => {
         e.preventDefault();
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/users/register`, userData);
-            console.log(response.data);
-            try {
-                const templete = await axios.get(`${process.env.REACT_APP_API_URL}/widget`, {
-                    headers: { authorization: `Bearer ${process.env.ADMIN_TOKEN}` }
-                });
+            console.log("signup", response.data);
+            // try {
+            //     const templete = await axios.get(`${process.env.REACT_APP_API_URL}/widget`, {
+            //         headers: { authorization: `Bearer ${process.env.ADMIN_TOKEN}` }
+            //     });
 
-                await axios.put(
-                    `${process.env.REACT_APP_API_URL}/widget/update`,
-                    templete.data, 
-                    { headers: { authorization: `Bearer ${userToken}` } }
-                );
+            //     await axios.put(
+            //         `${process.env.REACT_APP_API_URL}/widget/update`,
+            //         templete.data, 
+            //         { headers: { authorization: `Bearer ${userToken}` } }
+            //     );
 
-            } catch (error) {
-                console.error('위젯 처리 중 오류 발생:', error);
-            }
-
-            navigate('/main');
+            // } catch (error) {
+            //     console.error('위젯 처리 중 오류 발생:', error);
+            // }
+            navigate('/');
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 const axiosError = error as AxiosError;
@@ -117,7 +116,7 @@ const SignUpPage: React.FC = () => {
                     )}
                     {currentStep === 'email' && (
                         <div className="Input_container">
-                            <h1 className="Question">{`What is your Email?, ${userData.name}`}</h1>
+                            <h1 className="Question">{`What is your Email, ${userData.name}?`}</h1>
                             <input
                                 className="Input"
                                 type="email"
