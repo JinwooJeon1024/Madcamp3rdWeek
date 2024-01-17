@@ -49,53 +49,6 @@ const getAllWidgetData = async (req, res) => {
     }
 };
 
-// 위젯 데이터 가져오기 (Read)
-// const getWidgetData = async (req, res) => {
-//     try {
-//         const userId = req.userId;
-
-//         const data = await WidgetData.find({ userId }).sort({ _id: -1 })
-//         if (data.length > 0) {
-//             res.json(data);
-//         } else {
-//             res.status(404).json({ message: '데이터가 없습니다.' });
-//         }
-//     } catch (error) {
-//         res.status(500).json({ message: '데이터를 불러오는데 실패했습니다.', error });
-//     }
-// };
-
-// 위젯 데이터 업데이트하기 (Update)
-// const updateWidgetData = async (req, res) => {
-//     const { id } = req.params;
-//     const updateData = req.body;
-
-//     try {
-//         const updatedWidget = await WidgetData.findByIdAndUpdate(id, updateData, { new: true });
-//         if (!updatedWidget) {
-//             return res.status(404).json({ message: '위젯을 찾을 수 없습니다.' });
-//         }
-//         res.json({ message: '위젯이 업데이트 되었습니다.', data: updatedWidget });
-//     } catch (error) {
-//         res.status(500).json({ message: '위젯 업데이트 실패', error });
-//     }
-// };
-
-// // 위젯 데이터 삭제하기 (Delete)
-// const deleteWidgetData = async (req, res) => {
-//     const { id } = req.params;
-
-//     try {
-//         const deletedWidget = await WidgetData.findByIdAndDelete(id);
-//         if (!deletedWidget) {
-//             return res.status(404).json({ message: '위젯을 찾을 수 없습니다.' });
-//         }
-//         res.json({ message: '위젯이 삭제되었습니다.' });
-//     } catch (error) {
-//         res.status(500).json({ message: '위젯 삭제 실패', error });
-//     }
-// };
-
 module.exports = {
     createWidgetData,
     replaceAllWidgetData,

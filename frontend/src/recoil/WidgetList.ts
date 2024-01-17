@@ -11,7 +11,16 @@ export const prevWidgetList = atom<ReactElement[]>({
     key: 'prevWidgetList',
     default: []
 })
+export const BackgroundImage = atom<String>({
+    key: 'BackgroundImage',
+    default: ''
+})
 
+export const useBackgroundImage = () => {
+  const [backgroundImage, setBackgroundImage] = useRecoilState(BackgroundImage);
+
+  return {backgroundImage, setBackgroundImage};
+}
 export const useWidgets = () => {
     const [widgets, setWidgets] = useRecoilState(WidgetListAtom)
     const [prevWidgets, setPrevWidgets] = useRecoilState(prevWidgetList)

@@ -41,10 +41,52 @@ exports.login = async (req, res) => {
     }
 
     // JWT 생성
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '24h' });
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
 
     res.send({ token });
   } catch (error) {
     res.status(500).send('Error in login');
+  }
+};
+
+exports.getUserInfo = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // 토큰에서 사용자 ID 추출
+    const userId = decoded.userId;
+
+    // 사용자 ID로 사용자 정보 조회
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    // 사용자의 이름과 이메일 정보 반환
+    res.status(200).send({ name: user.name, email: user.email });
+  } catch (error) {
+    res.status(500).send('Error in fetching user info');
+  }
+}
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const token = req.headers['authorization'].split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // 토큰에서 사용자 ID 추출
+    const userId = decoded.userId;
+
+    // 사용자 삭제
+    const deletedUser = await User.findByIdAndDelete(userId);
+    if (!deletedUser) {
+      return res.status(404).send('User not found');
+    }
+
+    // 성공적으로 삭제되었음을 응답
+    res.status(200).send({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).send('Error in deleting user');
   }
 };
