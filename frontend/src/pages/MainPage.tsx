@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { useWidgets } from "../recoil/WidgetList";
+import { BackgroundImage, useBackgroundImage, useWidgets } from "../recoil/WidgetList";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextWidget from "../widgets/TextWidget";
@@ -12,6 +12,7 @@ import './Edit_Main.css';
 
 function MainPage() {
   const { prevWidgets, setPrevWidgets, widgets, setWidgets } = useWidgets();
+  const { backgroundImage, setBackgroundImage} = useBackgroundImage();
   const [rightImgError, setRightImgError] = useState<boolean>(false);
   const [leftImgError, setLeftImgError] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function MainPage() {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/widget`,
-        { headers: { authorization: `Bearer ${userToken}` } }
+        { headers: { 'authorization': `Bearer ${userToken}` } }
       );
       for (const temp of response.data) {
         switch (temp.properties.widgetType) {
@@ -145,18 +146,35 @@ function MainPage() {
     setRightImgError(true);
   }
 
+
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
 
   function moveToSetting(){
     navigate('/setting')
   }
 
+
+
   useEffect(() => {
-    const savedBackgroundImage = localStorage.getItem('backgroundImage');
-    if (savedBackgroundImage) {
-      setBackgroundImage(savedBackgroundImage);
-    }
+    const fetchBackgroundImage = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/image`, {
+          headers: {
+            'authorization': `Bearer ${userToken}`,
+          }
+        });
+        console.log(response.data);
+        if (response.data && response.data.imageUrl) {
+          setBackgroundImage(response.data.imageUrl);
+        }
+      } catch (error) {
+        console.error('Error fetching the background image: ', error);
+      }
+    };
+
+    fetchBackgroundImage();
   }, []);
+
 
   return (
     <div className="Whiteboard" style={{ backgroundImage: `url(${backgroundImage})` }} >
