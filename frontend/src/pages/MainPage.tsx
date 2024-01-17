@@ -171,51 +171,49 @@ function MainPage() {
     setShowDropdown(false);
   };
 
-const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-  const file = event.target.files && event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
 
-    reader.onloadend = async () => {
-      if (typeof reader.result === 'string') {
-        setBackgroundImage(reader.result);
-
-        try {
-          await axios.post('YOUR_SERVER_ENDPOINT', {
-            image: reader.result
-          }, {
-            headers: {
-              'authorization': `Bearer ${userToken}`,
-            }
-          });
-        } catch (error) {
-          console.error('Error uploading the image: ', error);
+      reader.onloadend = async () => {
+        if (typeof reader.result === 'string') {
+          setBackgroundImage(reader.result);
+          try {
+            await axios.put(
+              `${process.env.REACT_APP_API_URL}/image/update`, { url: reader.result }, {
+              headers: {
+                'authorization': `Bearer ${userToken}`,
+              }
+            });
+          } catch (error) {
+            console.error('Error uploading the image: ', error);
+          }
         }
-      }
-    };
-    reader.readAsDataURL(file);
-  }
-};
-
-useEffect(() => {
-  const fetchBackgroundImage = async () => {
-    try {
-      const response = await axios.get('YOUR_SERVER_ENDPOINT_FOR_GETTING_IMAGE', {
-        headers: {
-          'authorization': `Bearer ${userToken}`,
-        }
-      });
-
-      if (response.data && response.data.image) {
-        setBackgroundImage(response.data.image);
-      }
-    } catch (error) {
-      console.error('Error fetching the background image: ', error);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
-  fetchBackgroundImage();
-}, []);
+  useEffect(() => {
+    const fetchBackgroundImage = async () => {
+      try {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/image`, {
+          headers: {
+            'authorization': `Bearer ${userToken}`,
+          }
+        });
+        console.log(response.data);
+        if (response.data && response.data.imageUrl) {
+          setBackgroundImage(response.data.imageUrl);
+        }
+      } catch (error) {
+        console.error('Error fetching the background image: ', error);
+      }
+    };
+
+    fetchBackgroundImage();
+  }, []);
 
 
   return (
