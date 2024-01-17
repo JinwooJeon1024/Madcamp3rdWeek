@@ -33,7 +33,8 @@ function TextWidget(textWidgetData: TextWidgetData) {
         onChange={handleTextChange}
         style={{
           width: textWidgetData.width,
-          height: textWidgetData.height
+          height: textWidgetData.height,
+          fontSize : '16px'
         }} />
     </div>
   );

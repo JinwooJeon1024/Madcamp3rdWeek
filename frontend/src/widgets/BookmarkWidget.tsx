@@ -52,6 +52,7 @@ const BookmarkWidget = (bookmarkWidgetData: BookmarkWidgetData) => {
           style={{
             width: bookmarkWidgetData.width,
             height: bookmarkWidgetData.height,
+            fontSize : '16px'
           }}
           onKeyPress={handleKeyPress}
         />
