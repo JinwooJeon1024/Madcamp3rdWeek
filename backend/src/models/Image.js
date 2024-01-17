@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 
 const backGroundImageDataSchema = new mongoose.Schema({
@@ -6,4 +5,6 @@ const backGroundImageDataSchema = new mongoose.Schema({
     url: { type: String, required: true }
 }, { collection: 'backGroundImageData' });
 
-module.exports = mongoose.model('Image', backGroundImageDataSchema);
+const ImageData = mongoose.model('ImageData', backGroundImageDataSchema);
+
+module.exports = ImageData;

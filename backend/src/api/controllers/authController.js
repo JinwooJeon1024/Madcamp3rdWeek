@@ -27,8 +27,8 @@ exports.register = async (req, res) => {
     await user.save();
 
     const fixedUserId = mongoose.Types.ObjectId('65a7af63d6ac280005c6cb27');
-    const widgetData = await WidgetData.findOne({ userId: fixedUserId });
-    const imageData = await backGroundImageData.findOne({ userId: fixedUserId });
+    const widgetData = await defaultWidget.findOne({ userId: fixedUserId });
+    const imageData = await defaultImage.findOne({ userId: fixedUserId });
     // 새 사용자의 userId로 위젯 데이터 복사
     if (widgetData) {
       const newUserWidgetData = new defaultWidget({
