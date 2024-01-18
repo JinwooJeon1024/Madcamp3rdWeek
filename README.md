@@ -24,8 +24,7 @@
 ## 주요 기능
 #### 웹 커스터마이징
 <p align="center">
-  <img src="https://github.com/JinwooJeon1024/Madcamp1stWeek/assets/104386015/f5f76342-d827-486d-a466-cc2686951d06" width="30%"/>
-  <img src="https://github.com/JinwooJeon1024/Madcamp1stWeek/assets/104386015/c03442ae-3f3e-4529-a1b7-857545eb3b88" width="30%"/>
+ 
 
 </p>
 
@@ -34,9 +33,11 @@
 
 #### 커스터마이징 정보 저장
 <p align="center">
+  <img width="1470" alt="배경 이미지 설정" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/c3e90623-d07c-4914-b415-dd4b0429782a">
   <img src="https://github.com/JinwooJeon1024/Madcamp1stWeek/assets/104386015/ffcb4201-c628-4d14-be13-a9c38c0be94f" width="30%" style="margin-right:10px;"/>
   <img src="https://github.com/JinwooJeon1024/Madcamp1stWeek/assets/104386015/1982b3c6-ce3b-4f0a-9954-1654fb62140c" width="30%"/>
 </p>
+
 
 - **Major Features** : DB에 사용자가 구성한 웹페이지가 저장되어 언제 어디서든 자신이 커스터마이징한 페이지로 웹을 시작할 수 있습니다. 
 - **기술 설명** : recoil 라이브러리를 통해 위젯 정보를 관리합니다. 사용자가 내용을 편집하고 저장하면 DB에 저장됩니다. useEffect를 이용해 페이지가 마운트 될 때 DB에서 데이터를 받아오도록 하였습니다. 변경사항이 마음에 들지 않는다면 편집을 시작할 때 관리한 상태로 되돌아갑니다. 
@@ -44,10 +45,13 @@
 
 #### 계정 관리
 <p align="center">
-  <img src="https://github.com/JinwooJeon1024/Madcamp1stWeek/assets/104386015/82d0b487-db41-40b5-915e-30e63b9f13be" width="30%" style="margin-right:10px;"/>
-  <img src="https://github.com/JinwooJeon1024/Madcamp1stWeek/assets/104386015/6f7817fa-7061-437b-9dd2-eca49c358bcd" width="30%"/>
-  <img src="https://github.com/JinwooJeon1024/Madcamp1stWeek/assets/104386015/26a81d06-0d65-4186-82b3-78558ea6d450" width="30%"/>
 
+  <img width="30%" alt="home" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/05c2d3c8-fd89-4ee1-a17b-f23a0722977b">
+  <img width="30%" alt="login_email" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/16b0aae9-5eca-4a95-a098-c4292a3829be">
+</p>
+<p align="center">
+  <img width="30%" alt="password" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/c116a973-6153-4bb2-96fd-069a854e2788">
+  <img width="30%" alt="setting" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/31a2077e-1e0e-4664-8d6b-da5651491982">
 </p>
 
 - **Major Features** : 원활한 사용을 위해 로그인 유지, 로그아웃, 계정 삭제의 기능을 지원합니다.
