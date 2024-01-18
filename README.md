@@ -24,12 +24,12 @@
 ## 주요 기능
 #### 웹 커스터마이징
 <p align="center">
- <img width="1470" alt="edit에서 위젯 추가" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/64806633-7a09-45dd-a1a7-2d59b0e66a04">
- <img width="1470" alt="편집 저장" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/0f00810e-dd14-4885-9692-302c6d76347d">
+ <img width="40%" alt="edit에서 위젯 추가" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/64806633-7a09-45dd-a1a7-2d59b0e66a04" style="margin-right:30px">
+ <img width="40%" alt="편집 저장" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/0f00810e-dd14-4885-9692-302c6d76347d">
 </p>
 <p align="center">
- <img width="1470" alt="위젯 이동" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/26b5514b-478b-44a2-8e58-192c64adf79d">
- <img width="1470" alt="edit 메뉴바 이동 " src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/fdf5204c-d35f-4b22-b70d-62b9cfe5855d">
+ <img width="40%" alt="위젯 이동" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/26b5514b-478b-44a2-8e58-192c64adf79d" style="margin-right:30px">
+ <img width="40%" alt="edit 메뉴바 이동 " src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/fdf5204c-d35f-4b22-b70d-62b9cfe5855d">
 </p>
 
 - **Major Features** : 사용자는 원하는 위치에 원하는 크기로 위젯을 배치하고, 북마크나 이미지도 지원합니다. 자신의 취향에 맞게 시작 페이지를 꾸밀 수 있습니다. 
@@ -37,7 +37,7 @@
 
 #### 커스터마이징 정보 저장
 <p align="center">
-  <img width="40%" alt="배경 이미지 설정" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/c3e90623-d07c-4914-b415-dd4b0429782a">
+  <img width="40%" alt="배경 이미지 설정" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/c3e90623-d07c-4914-b415-dd4b0429782a" style="margin-right:30px">
   <img width="40%" alt="배경 이미지 적용" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/36123645-9e22-42f7-b506-38c52b7d64b7">
 </p>
 
@@ -48,11 +48,11 @@
 
 #### 계정 관리
 <p align="center">
-  <img width="40%" alt="home" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/05c2d3c8-fd89-4ee1-a17b-f23a0722977b" style="margin-right:10px";>
+  <img width="40%" alt="home" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/05c2d3c8-fd89-4ee1-a17b-f23a0722977b" style="margin-right:30px";>
   <img width="40%" alt="login_email" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/16b0aae9-5eca-4a95-a098-c4292a3829be">
 </p>
 <p align="center">
-  <img width="40%" alt="password" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/c116a973-6153-4bb2-96fd-069a854e2788" style="margin-right:10px";>
+  <img width="40%" alt="password" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/c116a973-6153-4bb2-96fd-069a854e2788" style="margin-right:30px";>
   <img width="40%" alt="setting" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/31a2077e-1e0e-4664-8d6b-da5651491982">
 </p>
 
