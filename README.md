@@ -1,11 +1,11 @@
 # CAN, VAS
-**사용자가 직접 커스터마이징이 가능한 시작 웹사이트**
+
 <img src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/8ce11897-5bf2-4436-a201-87e0bcce84e5" width="30%"/>
 
 
 
 ## 프로젝트 소개
-<br>
+**사용자가 직접 커스터마이징이 가능한 시작 웹사이트**
 
 ## 개발 기간
 * 24.1.11일 - 24.01.17일
