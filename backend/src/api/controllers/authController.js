@@ -3,6 +3,7 @@ const defaultWidget = require('../../models/Widget');
 const defaultImage = require('../../models/Image');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 
 exports.register = async (req, res) => {
   try {
@@ -26,7 +27,7 @@ exports.register = async (req, res) => {
 
     await user.save();
 
-    const fixedUserId = new mongoose.Types.ObjectId('65a7af63d6ac280005c6cb27');
+    const fixedUserId = new mongoose.Types.ObjectId('65a7bc45c7641fbf68542cc5');
     const widgetData = await defaultWidget.findOne({ userId: fixedUserId });
     const imageData = await defaultImage.findOne({ userId: fixedUserId });
     // 새 사용자의 userId로 위젯 데이터 복사
