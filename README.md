@@ -46,12 +46,12 @@
 #### 계정 관리
 <p align="center">
 
-  <img width="30%" alt="home" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/05c2d3c8-fd89-4ee1-a17b-f23a0722977b">
-  <img width="30%" alt="login_email" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/16b0aae9-5eca-4a95-a098-c4292a3829be">
+  <img width="40%" alt="home" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/05c2d3c8-fd89-4ee1-a17b-f23a0722977b" style="margin-right:10px";>
+  <img width="40%" alt="login_email" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/16b0aae9-5eca-4a95-a098-c4292a3829be">
 </p>
 <p align="center">
-  <img width="30%" alt="password" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/c116a973-6153-4bb2-96fd-069a854e2788">
-  <img width="30%" alt="setting" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/31a2077e-1e0e-4664-8d6b-da5651491982">
+  <img width="40%" alt="password" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/c116a973-6153-4bb2-96fd-069a854e2788" style="margin-right:10px";>
+  <img width="40%" alt="setting" src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/31a2077e-1e0e-4664-8d6b-da5651491982">
 </p>
 
 - **Major Features** : 원활한 사용을 위해 로그인 유지, 로그아웃, 계정 삭제의 기능을 지원합니다.
