@@ -1,6 +1,6 @@
 # CAN, VAS
 **사용자가 직접 커스터마이징이 가능한 시작 웹사이트**
-<img src="https://github.com/JinwooJeon1024/Madcamp1stWeek/assets/104386015/36bf22fe-fdba-4ac4-aaa7-74b1af482f92" width="30%"/>
+<img src="https://github.com/JinwooJeon1024/Madcamp3rdWeek/assets/76899099/8ce11897-5bf2-4436-a201-87e0bcce84e5" width="30%"/>
 
 
 
